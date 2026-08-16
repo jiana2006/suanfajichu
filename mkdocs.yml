@@ -1,4 +1,4 @@
-site_name: 我的学习Wiki
+site_name: 菜鸟分享基础算法
 site_description: 个人学习知识库
 
 theme:
@@ -15,10 +15,22 @@ theme:
 
 nav:
   - 首页: index.md
-  - 课程笔记:
-      - C语言: c.md
+  - 基础算法:
+    - 编程语言:
+      - C语言: cpp.md
       - Python: python.md
-  - 学习路线: route.md
+    - 算法:
+      - 时间复杂度: Time Complexity.md
+      - 高精度算法: high-precision.md
+      - 动态规划: Dynamic Programming.md
+      - 广度优先搜索: Breadth-First Search.md
+      - 深度优先搜索: Depth-First Search.md
+  - 数据结构:
+    - 线性表: linear-list.md  # 注释
+    - 二叉树: binary-tree.md          # 注释
+    - 集合: set.md          # 注释  
+    - 图的基本应用: graph.md          # 注释  
+  - 个人学习分享: route.md
   - FAQ: faq.md
 
 plugins:
