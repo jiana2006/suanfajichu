@@ -20,6 +20,10 @@ nav:
       - C语言: cpp.md
       - Python: python.md
     - 算法:
+      - 字符串: string.md
+      - 排序: sort.md
+      - 枚举: enum.md
+      - 二分查找: binary-search.md
       - 时间复杂度: Time Complexity.md
       - 高精度算法: high-precision.md
       - 动态规划: Dynamic Programming.md
