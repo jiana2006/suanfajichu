@@ -73,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#include" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -736,8 +731,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -832,6 +825,62 @@
     
   
     深度优先搜索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Greedy%20Algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贪心算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../standard%20template%20library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    stl容器
   
 
     
@@ -1104,8 +1153,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -1122,6 +1169,8 @@
 
 
 
+  <h1>高精度算法</h1>
+
 <p>高精度算法是用于解决c/c++语言中的一些问题的算法，例如大整数乘法、大整数除法等。
 因为c/c++语言中没有大整数类型，所以需要自己实现大整数的乘法、除法等操作。
 高精度算法的实现通常需要使用字符串来表示大整数，然后对字符串进行操作。
@@ -1135,7 +1184,73 @@ c/c++对于数的类型有严格限制。long long 最大也只支持19位数字
 我个人认为这是最基础的一题了。
 题意：给两个大整数，要求它们的和。（a,b）但是a,b比较大。
 代码实现：</p>
-<h1 id="include">include</h1>
+<p>include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    int n=a.size(),m=b.size();
+    int carry=0;
+   vector<int> res;
+    while(n||m||carry){
+        int sum=carry;
+        if(n&gt;=0)sum+=a[n--]-'0';
+        if(m&gt;=0)sum+=b[m--]-'0';
+        carry=sum/10;
+        res.push_back(sum%10);
+    }
+    reverse(res.begin(),res.end());
+    for(int i:res){
+        cout&lt;&lt;i;
+    }
+    return 0;
+}
+//这里说明一下reverse函数：
+//reverse函数用于反转字符串或容器中的元素。
+//reverse函数的语法：
+//reverse(begin,end);
+//其中，begin是字符串或容器的起始迭代器，end是字符串或容器的结束迭代器。
+//reverse函数的返回值是void，即没有返回值。
+//reverse函数的复杂度是O(n)，其中n是字符串或容器的元素数量。
+//reverse函数的使用方法：
+//reverse(begin,end);
+//其中，begin是字符串或容器的起始迭代器，end是字符串或容器的结束迭代器。
+//reverse函数的示例：
+//string s="hello";
+//reverse(s.begin(),s.end());
+//cout&lt;&lt;s&lt;&lt;endl;
+//输出："olleh"
+接下来是高精度减法（大数相减）
+代码实现：</p>
+<p>include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    int n=a.size(),m=b.size();
+    int borrow=0;
+    vector<int> res;
+    while(n&gt;0||m&gt;0){
+        int x = a[--n]-'0' - borrow;
+        if(m&gt;0) x -= b[--m]-'0';
+        if(x&lt;0){
+            x += 10;
+            borrow =1;
+        }else{
+            borrow=0;
+        }
+        res.push_back(x);
+    }</p>
+<div class="highlight"><pre><span></span><code>while(res.size()&gt;1 &amp;&amp; res.back()==0) res.pop_back();
+reverse(res.begin(),res.end());
+for(auto v:res) cout&lt;&lt;v;
+return 0;
+</code></pre></div>
+<p>}</p>
+<p>接下来是高精度乘法（大数相乘）
+代码实现：
+include<bits/stdc++.h>
+using namespace std;</p>
 
 
 
