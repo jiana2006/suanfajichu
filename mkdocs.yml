@@ -29,6 +29,8 @@ nav:
       - 动态规划: Dynamic Programming.md
       - 广度优先搜索: Breadth-First Search.md
       - 深度优先搜索: Depth-First Search.md
+      - 贪心算法: Greedy Algorithm.md
+      - stl容器: standard template library.md
   - 数据结构:
     - 线性表: linear-list.md  # 注释
     - 二叉树: binary-tree.md          # 注释

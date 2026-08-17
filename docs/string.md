@@ -13,3 +13,6 @@ cin>>s; getline(cin,s); cin.get();这三者的区别：
 cin>>s; 会自动跳过空格，直到遇到非空格字符。
 getline(cin,s); 会读取整行，包括空格。
 cin.get(); 会读取单个字符，包括空格。
+这里我们介绍一下cin.ignore();
+cin.ignore() 会忽略掉cin.get()读取的空格。
+
