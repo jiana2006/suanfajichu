@@ -585,6 +585,118 @@
   
   
     <li class="md-nav__item">
+      <a href="../string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排序
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    枚举
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    二分查找
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../Time%20Complexity/" class="md-nav__link">
         
   
@@ -1039,7 +1151,42 @@ f(2)=max(f(1),0)=f(1)
 同理f(1)也是这么来的
 偷法1：0
 偷法2：0
-f(0)=max(0,0)=0</p>
+f(0)=max(0,0)=0
+这样你发现了这样的问题转化成多个子问题，每个子问题的解可以独立计算，最后将所有子问题的解合并起来，得到问题的解。</p>
+<p>f(k)=max(f(k-1),f(k-2)+k-1)</p>
+<p>也就是每次都在两种选法中选最大的那个；</p>
+<p>代码实现：</p>
+<p>这里我们假设一共n间房屋。
+样例：</p>
+<p>输入：</p>
+<p>4</p>
+<p>1 2 3 1</p>
+<p>输出：</p>
+<p>4</p>
+<p>include<bits/stdc++.h ></p>
+<p>using namespace std;</p>
+<p>int main(){</p>
+<p>int n;</p>
+<p>cin&gt;&gt;n;</p>
+<p>vector<int> a(n+1,0);</p>
+<p>for(int i=1;i&lt;=n;i++){</p>
+<div class="highlight"><pre><span></span><code>cin&gt;&gt;a[i];
+</code></pre></div>
+<p>}</p>
+<p>vector<int>dp(n+1,0);</p>
+<p>dp[0]=0;//因为没有房屋，所以金额为0；</p>
+<p>dp[1]=a[1];//如果只有一个房屋，那么金额就是房屋的金额；</p>
+<p>for(int i=2;i&lt;=n;i++){</p>
+<div class="highlight"><pre><span></span><code>dp[i]=max(dp[i-1],dp[i-2]+a[i]);
+</code></pre></div>
+<p>}</p>
+<p>cout&lt;&lt;dp[n]&lt;&lt;endl;</p>
+<p>return 0;</p>
+<p>}</p>
+<p>如果你觉得你理解了，那么我们来看他的进阶版（滚动版打家劫舍问题）</p>
+<p>给你一个数组，数组中每个元素表示一个房屋的金额。但是如果你选择了偷其中的一间房屋（价值为a[i]），那么你需要放弃（删除）金额数为a[i]-1和a[i]+1的房屋。问在这样的情况下，你可以偷到的最大金额是多少？</p>
+<p>这道题我个人在看的时候也联想不到打家劫舍，因为我找不到一个子问题，所以无法将问题分解成多个子问题。后来我通过“打家劫舍是不允许元素相邻”而这道题是不允许元素大小相邻”来写的。</p>
+<p>比如说</p>
 
 
 
