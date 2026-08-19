@@ -1,7 +1,7 @@
 <div class="hero-animate" style="text-align:center; padding:40px 0;">
 <h1 style="font-weight:bold; color:#222;">o.0欢迎来到菜鸟分享基础算法0.o</h1>
 
-<img src="/assets/gif/ciallo~.jpg" style="width:280px; max-width:100%;" alt="ciallo表情包">
+<img src="/assets/gif/ciallo.jpg" style="width:280px; max-width:100%;" alt="ciallo表情包">
 
 <p style="font-weight:bold; color:#444; font-size:20px;">个人学习知识库<br>算法 · 数据结构 · 编程语言</p>
 
