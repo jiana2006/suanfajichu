@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -65,7 +67,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="white">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -258,25 +260,6 @@
     
   
   个人学习分享
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../faq/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  FAQ
 
       </a>
     </li>
@@ -1109,33 +1092,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FAQ
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -1184,28 +1140,44 @@ c/c++对于数的类型有严格限制。long long 最大也只支持19位数字
 我个人认为这是最基础的一题了。
 题意：给两个大整数，要求它们的和。（a,b）但是a,b比较大。
 代码实现：</p>
-<p>include<bits/stdc++.h>
-using namespace std;
-int main(){
-    string a,b;
-    cin&gt;&gt;a&gt;&gt;b;
-    int n=a.size(),m=b.size();
-    int carry=0;
-   vector<int> res;
-    while(n||m||carry){
-        int sum=carry;
-        if(n&gt;=0)sum+=a[n--]-'0';
-        if(m&gt;=0)sum+=b[m--]-'0';
-        carry=sum/10;
-        res.push_back(sum%10);
-    }
-    reverse(res.begin(),res.end());
-    for(int i:res){
-        cout&lt;&lt;i;
-    }
-    return 0;
+<p>include<bits/stdc++.h></p>
+<p>using namespace std;</p>
+<p>int main(){</p>
+<div class="language-text highlight"><pre><span></span><code>string a,b;
+
+cin&gt;&gt;a&gt;&gt;b;
+
+int n=a.size(),m=b.size();
+
+int carry=0;
+</code></pre></div>
+<p>vector<int> res;</p>
+<div class="language-text highlight"><pre><span></span><code>while(n||m||carry){
+
+    int sum=carry;
+
+    if(n&gt;=0)sum+=a[n--]-&#39;0&#39;;
+
+    if(m&gt;=0)sum+=b[m--]-&#39;0&#39;;
+
+    carry=sum/10;
+
+    res.push_back(sum%10);
+
 }
-//这里说明一下reverse函数：
+
+reverse(res.begin(),res.end());
+
+for(int i:res){
+
+    cout&lt;&lt;i;
+
+}
+
+return 0;
+</code></pre></div>
+<p>}</p>
+<p>//这里说明一下reverse函数：
 //reverse函数用于反转字符串或容器中的元素。
 //reverse函数的语法：
 //reverse(begin,end);
@@ -1222,35 +1194,55 @@ int main(){
 //输出："olleh"
 接下来是高精度减法（大数相减）
 代码实现：</p>
-<p>include<bits/stdc++.h>
-using namespace std;
-int main(){
-    string a,b;
-    cin&gt;&gt;a&gt;&gt;b;
-    int n=a.size(),m=b.size();
-    int borrow=0;
-    vector<int> res;
-    while(n&gt;0||m&gt;0){
-        int x = a[--n]-'0' - borrow;
-        if(m&gt;0) x -= b[--m]-'0';
-        if(x&lt;0){
-            x += 10;
-            borrow =1;
-        }else{
-            borrow=0;
-        }
-        res.push_back(x);
-    }</p>
-<div class="highlight"><pre><span></span><code>while(res.size()&gt;1 &amp;&amp; res.back()==0) res.pop_back();
+<p>include<bits/stdc++.h></p>
+<p>using namespace std;</p>
+<p>int main(){</p>
+<div class="language-text highlight"><pre><span></span><code>string a,b;
+
+cin&gt;&gt;a&gt;&gt;b;
+
+int n=a.size(),m=b.size();
+
+int borrow=0;
+
+vector&lt;int&gt; res;
+
+while(n&gt;0||m&gt;0){
+
+    int x = a[--n]-&#39;0&#39; - borrow;
+
+    if(m&gt;0) x -= b[--m]-&#39;0&#39;;
+
+    if(x&lt;0){
+
+        x += 10;
+
+        borrow =1;
+
+    }else{
+
+        borrow=0;
+
+    }
+
+    res.push_back(x);
+
+}
+
+
+while(res.size()&gt;1 &amp;&amp; res.back()==0) res.pop_back();
+
 reverse(res.begin(),res.end());
+
 for(auto v:res) cout&lt;&lt;v;
+
 return 0;
 </code></pre></div>
 <p>}</p>
 <p>接下来是高精度乘法（大数相乘）
 代码实现：
-include<bits/stdc++.h>
-using namespace std;</p>
+include<bits/stdc++.h></p>
+<p>using namespace std;</p>
 
 
 
@@ -1300,7 +1292,7 @@ using namespace std;</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "navigation.instant"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
