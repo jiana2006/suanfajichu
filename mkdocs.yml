@@ -4,14 +4,15 @@ site_description: 个人学习知识库
 theme:
   name: material
   palette:
-    primary: blue
-    accent: blue
+    primary: indigo
+    accent: white
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.expand
     - search.suggest
     - search.highlight
+    - navigation.instant       # ✅新增这一行，页面切换淡入动画
 
 nav:
   - 首页: index.md
@@ -37,12 +38,17 @@ nav:
     - 集合: set.md          # 注释  
     - 图的基本应用: graph.md          # 注释  
   - 个人学习分享: route.md
-  - FAQ: faq.md
+ 
 
 plugins:
   - search
 
 markdown_extensions:
-  - tables
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
   - pymdownx.superfences
+extra_css:
+  - stylesheets/extra.css  

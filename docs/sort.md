@@ -17,43 +17,38 @@ cin.tie(0);这个是关闭cin的同步流，使输入更快更快。
 
 cout.tie(0);这个是关闭cout的同步流，使输出更快更快。
 
-其实cin.tie(0)和cout.tie(0)作用一样，写一个即可。
+其实`cin.tie(0)`和`cout.tie(0)`作用一样，写一个即可。
 
-include<bits/stdc++.h>
+```cpp linenums="1" title="IO加速示例.cpp"
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int main(){
-
+int main()
+{
     ios::sync_with_stdio(0);
-
     cin.tie(0);
 
-    cout.tie(0);
-
     int n;
-
-    cin>>n;
-
+    cin >> n;
     vector<int> a(n);
 
-    for(int i=0;i<n;i++){
-
-        cin>>a[i];
-
-    }
-    sort(a.begin(),a.end());
-
-    for(int i=0;i<n;i++){
-
-        cout<<a[i]<<endl;
-
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
     }
 
+    sort(a.begin(), a.end());
+
+    for(int i = 0; i < n; i++)
+    {
+        cout << a[i] << '\n';
+    }
     return 0;
-
 }
-
+```
 这里sort默认是升序排序的。即从小到大排序。
 如果要降序排序，需要在sort函数里面添加一个参数，即greater<int>()。  
 也就是sort(a.begin(),a.end(),greater<int>());

@@ -13,26 +13,47 @@ c/c++对于数的类型有严格限制。long long 最大也只支持19位数字
 代码实现：
 
 include<bits/stdc++.h>
+
 using namespace std;
+
 int main(){
+
     string a,b;
+
     cin>>a>>b;
+
     int n=a.size(),m=b.size();
+
     int carry=0;
+
    vector<int> res;
+
     while(n||m||carry){
+
         int sum=carry;
+
         if(n>=0)sum+=a[n--]-'0';
+
         if(m>=0)sum+=b[m--]-'0';
+
         carry=sum/10;
+
         res.push_back(sum%10);
+
     }
+
     reverse(res.begin(),res.end());
+
     for(int i:res){
+
         cout<<i;
+
     }
+
     return 0;
+
 }
+
 //这里说明一下reverse函数：
 //reverse函数用于反转字符串或容器中的元素。
 //reverse函数的语法：
@@ -53,32 +74,57 @@ int main(){
 
 
 include<bits/stdc++.h>
+
 using namespace std;
+
 int main(){
+
     string a,b;
+
     cin>>a>>b;
+
     int n=a.size(),m=b.size();
+
     int borrow=0;
+
     vector<int> res;
+
     while(n>0||m>0){
+
         int x = a[--n]-'0' - borrow;
+
         if(m>0) x -= b[--m]-'0';
+
         if(x<0){
+
             x += 10;
+
             borrow =1;
+
         }else{
+
             borrow=0;
+
         }
+
         res.push_back(x);
+
     }
 
+
     while(res.size()>1 && res.back()==0) res.pop_back();
+
     reverse(res.begin(),res.end());
+
     for(auto v:res) cout<<v;
+
     return 0;
+
 }
 
 接下来是高精度乘法（大数相乘）
 代码实现：
 include<bits/stdc++.h>
+
 using namespace std;
+
