@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../math-formula/">
+        <link rel="prev" href="../python/">
       
       
-        <link rel="next" href="../sort/">
+        <link rel="next" href="../simplify-computation/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>字符串 - 菜鸟分享基础算法</title>
+        <title>经典数学题 - 菜鸟分享基础算法</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              字符串
+              经典数学题
             
           </span>
         </div>
@@ -508,8 +508,10 @@
                 
   
   
+    
   
   
+  
     
     
     
@@ -523,13 +525,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
@@ -550,7 +550,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -565,10 +565,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../math-problem/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -584,6 +591,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -657,8 +665,6 @@
                 
   
   
-    
-  
   
   
     
@@ -674,11 +680,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
@@ -699,7 +707,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -714,17 +722,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../string/" class="md-nav__link">
         
   
   
@@ -740,7 +741,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1274,23 +1274,68 @@
 
 
 
-  <h1>字符串</h1>
+<div style="text-align:center;">
 
-<p>字符串算法
-我本来都不知道字符串属于算法，但是还是有许多字符串的题我遇到了还是不怎么能完全写对，因此我觉得还是很有必要的。</p>
-<p>首先我们先了解一下什么是字符串：像"hello"、"world"、"niukexinsheng"等，这些字符串都是由多个字符组成的序列。这些字符可以是字母、数字、标点符号等。
-字符串的长度可以是0，也可以是任意大的整数。像“12345789”也是一个字符串。
-字符串的每个字符都可以被访问到，也可以被修改。
-因此字符串用单独的string类来表示。</p>
-<p>我们再来了解一下基础的字符串操作：
-首先就是输入：
-string s;
-cin&gt;&gt;s; getline(cin,s); cin.get();这三者的区别：
-cin&gt;&gt;s; 会自动跳过空格，直到遇到非空格字符。
-getline(cin,s); 会读取整行，包括空格。
-cin.get(); 会读取单个字符，包括空格。
-这里我们介绍一下cin.ignore();
-cin.ignore() 会忽略掉cin.get()读取的空格。</p>
+<h1>巴什博弈</h1>
+小喵和大狗在玩游戏，他们面前一共有n个石子。
+
+-小喵先手；
+
+-每次小喵和大狗都可以从石子中取走1个、2个或3个石子。
+
+-谁取走最后一个石子的人就是赢家。
+
+假设小喵和大狗都十分聪明，问谁会赢？
+
+由于小喵比大狗要大所以小喵赢了输出“老鼠洗完头”；
+
+如果大狗赢了小喵十分伤心输出“泥肘”；
+
+
+<div style="text-align:center;">
+<img src="../assets/gif/巴巴博一.jpg" style="width:280px; max-width:100%;" alt="巴巴博一表情包"></div>
+</div>
+
+<p>假设可以拿1~m个石子。</p>
+<p>这是一道很经典的巴士博弈问题。解法是：n%(m+1)==0后手赢，否则先手赢。</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">IO加速示例.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">        </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;泥肘&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="k">else</span><span class="p">{</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">        </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;老鼠洗完头&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div style="text-align:center;">
+<img src="../assets/gif/老鼠洗完头.jpg" style="width:280px; max-width:100%;" alt="老鼠洗完头表情包"></div>
+
+<div style="text-align:center;">
+<h2>作者提醒：题需慢慢写，心急则泥肘。</h2>
+
+
+
+<div style="text-align:center;">
+<img src="../assets/gif/泥肘.jpg" style="width:280px; max-width:100%;" alt="泥肘表情包"></div>
 
 
 
