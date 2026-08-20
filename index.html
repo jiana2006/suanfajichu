@@ -1261,8 +1261,25 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "navigation.instant"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
+
       <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
+
+<!-- 摇摇不倒翁组件 -->
+<div id="sakana-widget" style="position:fixed;bottom:24px;right:24px;width:180px;height:240px;z-index:999;"></div>
+
+<script>
+function initSakanaWidget() {
+    new SakanaWidget({
+        character:"chisato",
+        auto:false,
+        controlBar:true
+    }).mount('#sakana-widget');
+}
+</script>
+<script async onload="initSakanaWidget()" src="https://cdn.jsdelivr.net/npm/sakana-widget@2.3.1/lib/sakana.min.js"></script>
+
+
   </body>
 </html>
