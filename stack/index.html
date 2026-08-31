@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../set/">
+        <link rel="prev" href="../binary-tree/">
       
       
-        <link rel="next" href="../route/">
+        <link rel="next" href="../queue/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>图的基本应用 - 喵喵基础算法</title>
+        <title>栈 - 喵喵基础算法</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              图的基本应用
+              栈
             
           </span>
         </div>
@@ -1136,10 +1136,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../stack/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1155,6 +1162,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1248,17 +1256,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../graph/" class="md-nav__link">
         
   
   
@@ -1274,7 +1275,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1347,9 +1347,141 @@
 
 
 
-  <h1>图的基本应用</h1>
+  <h1>栈</h1>
 
+<p>其实我本来是想在stl容器里写栈，队列和堆的，但是数据结构里面更详细一点</p>
+<p>stack（栈）是一个先进后出的容器，他仅仅维护栈顶，支持入栈（push），查询栈顶元素（top）和出栈（pop）以及查询大小（size）和是否为空（empty）等操作。
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">res</span><span class="p">;</span><span class="c1">//创建一个空栈，栈不允许列表初始化或填充相同的元素。但是可以从已有的栈进行拷贝。</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">如</span><span class="err">：</span><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">res2</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+入栈：
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="mf">1.</span><span class="n">res</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="c1">//res=[10(top)]输入</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="mf">2.</span><span class="n">res</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="c1">//res=[20(top),10]输入</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="mf">3.</span><span class="n">res</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="c1">//res=[0(top),20,10]输入</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="mf">4.</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">res</span><span class="p">.</span><span class="n">top</span><span class="p">();</span><span class="c1">//输出0</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="mf">5.</span><span class="n">res</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span><span class="c1">//res=[20(top),10]</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="mf">6.</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">res</span><span class="p">.</span><span class="n">top</span><span class="p">();</span><span class="c1">//输出20</span>
+</span></code></pre></div></td></tr></table></div>
+接下来我们取出栈顶元素。</p>
+<p>在c++中，top()函数仅仅是取出栈顶元素，不会将栈顶元素pop()掉。</p>
+<p><div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="mf">7.</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">res</span><span class="p">.</span><span class="n">top</span><span class="p">();</span><span class="c1">//输出20</span>
+</span></code></pre></div></td></tr></table></div>
+接下来我们出栈。</p>
+<p>在弹出栈顶元素时，注意栈为空的情况。
+如果栈为空，不能弹出栈顶元素。</p>
+<p>现在栈里面只有20和10。20是栈顶元素。</p>
+<p><div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="mf">8.</span><span class="k">if</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="n">res</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="mf">9.</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">res</span><span class="p">.</span><span class="n">top</span><span class="p">();</span><span class="c1">//输出10  </span>
+</span></code></pre></div></td></tr></table></div>
+接下来我们获取栈的大小。</p>
+<p>现在栈里面只有10。</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="mf">10.</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">res</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="c1">//输出1</span>
+</span></code></pre></div></td></tr></table></div>
+<p><div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="mf">11.</span><span class="k">if</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;栈为空&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="c1">//栈为空</span>
+</span></code></pre></div></td></tr></table></div>
+清空栈：
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="mf">12.</span><span class="k">while</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="n">res</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></code></pre></div></td></tr></table></div>
+在stack中不允许遍历，但是如果手写栈（或者用vector实现栈），那么就可以遍历栈。</p>
+<p>手写栈，用一个top变量表示栈顶下标，以下标1为栈底。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[][] [] [] [] [] 
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>   1  2  3  4  5
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>               |
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>              top
+</span></code></pre></div>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stack.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">stk</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">top</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">stk</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span><span class="o">=</span><span class="n">x</span><span class="p">;</span><span class="c1">//入栈x</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="n">top</span><span class="o">--</span><span class="p">;</span><span class="c1">//出栈x</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">stk</span><span class="p">[</span><span class="n">top</span><span class="p">];</span><span class="c1">//输出栈顶元素x</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">top</span><span class="p">;</span><span class="c1">//获取栈的大小</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="k">if</span><span class="p">(</span><span class="n">top</span><span class="p">)</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;栈不为空&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="c1">//栈不为空</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">top</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">stk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="p">}</span><span class="c1">//遍历栈</span>
+</span></code></pre></div></td></tr></table></div>
+好的我们先来写一道简单的题</p>
+<p>火车轨道问题：</p>
+<div style="text-align:center;">
+<img src="../assets/gif/火车轨道.jpg" style="width:280px; max-width:100%;" alt="火车轨道问题"></div>
 
+<p>注：图片是本喵自己画的有点丑将就看吧。</p>
+<p>现在有n个火车，每一个火车都有一个1-n的编号且编号是唯一的。</p>
+<p>现在要将这些火车按照编号的顺序放到一条轨道上。只能按照箭头所指方向移动，且每个火车只能进站一次。</p>
+<p>问他们能否通过一个车站使得出站口的编号变为升序。</p>
+<p>如果不能，输出No。如果能，输出Yes。</p>
+<p>输入：</p>
+<p>第一行输入一个整数n，表示火车的数量。（1&lt;=n&lt;=100000）</p>
+<p>第二行输入n个整数a，表示火车的编号。</p>
+<p>代码实现：
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">火车轨道.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">need</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">    </span><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">stk</span><span class="p">;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">        </span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">        </span><span class="n">stk</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">stk</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">stk</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="o">==</span><span class="n">need</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">need</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">){</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">        </span><span class="n">stk</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">        </span><span class="n">need</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">need</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">)</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;No&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Yes&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div></p>
 
 
 
