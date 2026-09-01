@@ -51,7 +51,7 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/custom.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -67,7 +67,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="white">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -1474,6 +1474,24 @@ C 语言里，sqlist只是结构体标签名，不是完整类型名。完整类
 </span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 用typedef相当于给sqlist取了一个别名sqlist，而struct sqlist是sqlist的完整类型名。</p>
+<p>接下来我们学线性表元素的查找</p>
+<p>查找分为按位查找和按值查找。</p>
+<p>按位查找：</p>
+<p>按位查找就是按照元素的下标来查找元素。</p>
+<p>如：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>l.data[7][2][8][11][9]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>       0  1  2   3  4
+</span></code></pre></div>
+现在我想查找第四个元素，就是l.data[3]。
+如果想查找第i个元素，就是l.data[i-1]。</p>
+<p>按值查找：</p>
+<p>按值查找就是按照元素的值来查找元素。</p>
+<p>如：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>l.data[7][2][8][11][9]
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>       0  1  2   3  4
+</span></code></pre></div>
+现在我想查找值为11的元素，从头开始查找，直到找到或查找完所有元素。
+如果找到，返回元素的下标；如果没有找到，返回-1。</p>
 
 
 
