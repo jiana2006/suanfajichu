@@ -212,7 +212,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../cpp/" class="md-tabs__link">
+        <a href="../python/" class="md-tabs__link">
           
   
   
@@ -447,14 +447,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp/" class="md-nav__link">
+      <a href="../python/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    C语言
+    Python
   
 
     
@@ -475,14 +475,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
+      <a href="../cpp/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Python
+    C语言
   
 
     
@@ -1358,23 +1358,33 @@
 
 
 
-  <h1>字符串</h1>
+<h1>字符串</h1>
 
-<p>字符串算法
-我本来都不知道字符串属于算法，但是还是有许多字符串的题我遇到了还是不怎么能完全写对，因此我觉得还是很有必要的。</p>
-<p>首先我们先了解一下什么是字符串：像"hello"、"world"、"niukexinsheng"等，这些字符串都是由多个字符组成的序列。这些字符可以是字母、数字、标点符号等。
-字符串的长度可以是0，也可以是任意大的整数。像“12345789”也是一个字符串。
-字符串的每个字符都可以被访问到，也可以被修改。
-因此字符串用单独的string类来表示。</p>
-<p>我们再来了解一下基础的字符串操作：
-首先就是输入：
-string s;
-cin&gt;&gt;s; getline(cin,s); cin.get();这三者的区别：
-cin&gt;&gt;s; 会自动跳过空格，直到遇到非空格字符。
-getline(cin,s); 会读取整行，包括空格。
-cin.get(); 会读取单个字符，包括空格。
-这里我们介绍一下cin.ignore();
-cin.ignore() 会忽略掉cin.get()读取的空格。</p>
+<p>我本来都不知道字符串属于算法，但是还是有许多字符串的题我遇到了还是不怎么能完全写对，因此我觉得还是很有必要的。</p>
+<p>首先我们先了解一下什么是字符串：像"hello"、"world"、"niukexinsheng"等，这些字符串都是由多个字符组成的序列。这些字符可以是字母、数字、标点符号等。</p>
+<p>字符串的长度可以是0，也可以是任意大的整数。像“12345789”也是一个字符串。</p>
+<p>字符串的每个字符都可以被访问到，也可以被修改。</p>
+<p>因此字符串用单独的string类来表示。</p>
+<p>我们再来了解一下基础的字符串操作：</p>
+<p>首先就是输入：</p>
+<p>string s;</p>
+<p>cin&gt;&gt;s; getline(cin,s); cin.get();这三者的区别：</p>
+<p>cin&gt;&gt;s; 会自动跳过空格，直到遇到非空格字符。</p>
+<p>getline(cin,s); 会读取整行，包括空格。</p>
+<p>cin.get(); 会读取单个字符，包括空格。</p>
+<p>这里我们介绍一下cin.ignore();</p>
+<p>cin.ignore() 会忽略掉cin.get()读取的空格。</p>
+<p>我们先来几道简单题：</p>
+<p>6翻了：</p>
+<p>“666”是一种网络用语，大概是表示某人很厉害、我们很佩服的意思。最近又衍生出另一个数字“9”，意思是“6翻了”，实在太厉害的意思。如果你以为这就是厉害的最高境界，那就错啦 —— 目前的最高境界是数字“27”，因为这是 3 个 “9”！</p>
+<p>本题就请你编写程序，将那些过时的、只会用一连串“6666……6”表达仰慕的句子，翻译成最新的高级表达。</p>
+<p>输入格式：</p>
+<p>输入在一行中给出一句话，即一个非空字符串，由不超过 1000 个英文字母、数字和空格组成，以回车结束。</p>
+<p>输出格式：</p>
+<p>从左到右扫描输入的句子：如果句子中有超过 3 个连续的 6，则将这串连续的 6 替换成 9；但如果有超过 9 个连续的 6，则将这串连续的 6 替换成 27。其他内容不受影响，原样输出。</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+</span></code></pre></div>
 
 
 
