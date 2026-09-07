@@ -1018,7 +1018,7 @@
   <span class="md-ellipsis">
     
   
-    stl容器
+    STL容器
   
 
     
@@ -1046,7 +1046,7 @@
   <span class="md-ellipsis">
     
   
-    前缀和
+    前缀和与差分
   
 
     
@@ -1656,13 +1656,42 @@ sqlist线性表。</p>
 <p>尾插法需要额外维护尾指针但构建的结果和输入顺序相同</p>
 <p>单链表的查找</p>
 <p>单链表也是分为按值查找和按位查找。</p>
-<p>按值查找：从第一个节点开始，依次和要找的数进行比较。
+<p>按值查找O(n)：从第一个节点开始，依次和要找的数进行比较。
 直到走到了或者走到NULL。</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    头结点 指针
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>L-&gt;[      ][]-&gt;[   5  ][]-&gt;[   3  ][]-&gt;[  6   ][]-&gt;
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>[   2  ][]-&gt;NULL
 </span></code></pre></div>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>//在单链表L中查找值为e的节点
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>LNode *Find(LNode *L,int e){
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    LNode *p=L-&gt;next;//从第一个结点开始查找
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    //依次和e进行比较，直到走到了或者走到NULL
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    while(p!=NULL){
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        if(p-&gt;data==e){
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>            return p;//如果找到，返回该节点
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        }
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        p=p-&gt;next;//否则继续查找下一个节点
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    }
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    return NULL;//如果没有找到，返回NULL
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>}
+</span></code></pre></div>
+按位查找O(n)：</p>
+<p>如果给定的位序&lt;0,则直接认定为查找失败。
+如果给定的位序大于等于链表的长度，则直接认定为查找失败。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>LNode *Find(LNode *L,int k){
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    if(k&lt;0)return NULL;//如果k小于0，直接返回NULL
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    //从头结点开始枚举到第k个节点或者走到NULL
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    LNode *p=L;//设头结点为第0个节点
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    int i=0;
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    while(p!=NULL &amp;&amp; i&lt;k){
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        p=p-&gt;next;
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        i++;
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    }
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    return p;
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>}
+</span></code></pre></div>
+<p>单链表的插入O(n)：</p>
 
 
 
