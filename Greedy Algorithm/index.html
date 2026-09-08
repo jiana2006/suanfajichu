@@ -1414,18 +1414,17 @@
 
 
 
-  <h1>贪心算法</h1>
-
 <p>贪心算法跟他的名字一样，就是在局部内去求最优解。而不是考虑全局最优解。</p>
 <p>贪心算法的基本思想是：每次选择当前最优解，而不是全局最优解。</p>
 <p>最经典的贪心算法是：01背包问题。</p>
 <p>当然它也属于动态规划的一种特殊情况。</p>
-<p>01背包问题：
-给你n件物品，每件物品有一个重量和一个价值。
-你有一个背包，背包的容量是v。
-你问：
-你最多能装多少价值的物品？
-你只能装一次。你不能装半件物品。</p>
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">01背包问题：</h1>
+
+<p>给你n件物品，每件物品有一个重量和一个价值。</p>
+<p>你有一个背包，背包的容量是v。</p>
+<p>问：</p>
+<p>你最多能装多少价值的物品？</p>
+<p>你只能装一次。你不能装半件物品。</p>
 <p>代码实现：
 <div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">01背包问题.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1473,9 +1472,7 @@
 第二行n行，每行两个整数，分别表示金币的重量和价值。</p>
 <p>输出：</p>
 <p>一个实数答案保留两位位小数。</p>
-<p>盛最多水的容器：</p>
-<div style="text-align:center;">
-<img src="../assets/gif/盛水最多的容器.jpg" style="width:280px; max-width:100%;" alt="盛水最多的容器"></div>
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">盛最多水的容器：</h1>
 
 <p>给你n个长度不一的木棍，现在要求你选择两条使他们构成一个矩形，要求这个矩形盛的水是最多的。</p>
 <p>这道题可以用双指针法来解决，也可以用暴力法来解决。</p>
@@ -1561,7 +1558,8 @@
 </span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 双指针好就好在只用一次循环，时间复杂度是O(n)。</p>
-<p>跳跃问题：</p>
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">跳跃问题：</h1>
+
 <p>输入n个正整数，表示n个位置的跳跃距离。你从第一个位置开始，每次跳跃距离最大是当前位置的数字。</p>
 <p>问能否到达最后一个位置。</p>
 <p>贪心思想就是我只考虑当前位置的跳跃距离，而不是全局最优解。</p>
@@ -1642,6 +1640,52 @@
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;false&quot;</span><span class="p">;</span>
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">跳跃问题2：</h1>
+<p>给定一个长度为n的数组nums，nums[i]表示你从位置i开始跳跃的最大距离。输出最小的跳跃次数。</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">跳跃问题2.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">        </span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">reach</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kt">int</span><span class="w"> </span><span class="n">shu</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="kt">int</span><span class="w"> </span><span class="n">end</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">        </span><span class="n">reach</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">reach</span><span class="p">,</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">end</span><span class="p">){</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">            </span><span class="n">shu</span><span class="o">++</span><span class="p">;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">            </span><span class="n">end</span><span class="o">=</span><span class="n">reach</span><span class="p">;</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">end</span><span class="o">&gt;=</span><span class="n">n</span><span class="mi">-1</span><span class="p">)</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">        </span><span class="p">}</span><span class="w">   </span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">    </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">shu</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 <div style="text-align:center; margin:20px 0;">
 <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
