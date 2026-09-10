@@ -1,0 +1,30 @@
+/* 正文区域居中、限制宽度，模仿Pico阅读体验，不碰导航侧边栏 */
+.md-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-inline: 1rem;
+}
+
+/* 舒服行高，Pico特色 */
+.md-typeset {
+  line-height: 1.75;
+}
+
+/* 段落间距 */
+.md-typeset p {
+  margin-block: 1rem;
+}
+
+/* 标题间距 */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* 代码块圆角 */
+.md-typeset pre>code {
+  border-radius: 8px;
+}

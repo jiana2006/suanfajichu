@@ -1,0 +1,21 @@
+@keyframes fadeInUp {
+  from {
+    opacity:0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+.hero-animate{
+  animation: fadeInUp 0.7s ease‑out;
+}
+
+/* 全局调整，弱化material默认刺眼蓝色 */
+.md-header{
+  background-color:#ffffff !important;
+}
+.md-header__title{
+  color:#27272a !important;
+}
