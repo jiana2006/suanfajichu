@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../prefix-sum/">
+        <link rel="prev" href="../sliding-window/">
       
       
         <link rel="next" href="../binary-tree/">
@@ -1060,6 +1060,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fenwick-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    树状数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../segment-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线段树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sliding-window/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    滑动窗口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1405,8 +1489,7 @@
 
   <h1>线性表</h1>
 
-<p>线性表喵
-线性表是一种有序的集合，每个元素都有一个唯一的索引。
+<p>线性表是一种有序的集合，每个元素都有一个唯一的索引。
 定义：
 sqlist线性表。
 c语言写法：
@@ -1691,7 +1774,12 @@ sqlist线性表。</p>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    return p;
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>}
 </span></code></pre></div>
-<p>单链表的插入O(n)：</p>
+<p>单链表的插入O(n)：
+链表的插入操作需要找到插入位置的前一个节点，然后将新节点插入到前一个节点的后面。
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>   L-&gt; [ 5 ][]-&gt;[ 3 ][]-&gt;[ 6 ][]-&gt;[ 2 ][]-&gt;NULL
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>头指针L           data
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>                数据域
+</span></code></pre></div></p>
 
 
 
