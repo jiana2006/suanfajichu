@@ -1,0 +1,38 @@
+/* 修改主网格容器，控制文章区域最大宽度，侧边栏保留 */
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 1100px !important;
+  }
+  .md-content {
+    max-width:720px !important;
+    margin:0 auto !important;
+  }
+}
+
+/* 排版，pico清爽阅读感 */
+.md-typeset {
+  line-height:1.75 !important;
+}
+.md-typeset p {
+  margin:1.1rem 0 !important;
+}
+.md-typeset h1 {
+  margin-top:2.4rem !important;
+}
+.md-typeset h2 {
+  margin-top:2rem !important;
+}
+.md-typeset h3 {
+  margin-top:1.6rem !important;
+}
+
+.md-typeset pre>code {
+  border-radius: 10px !important;
+}
+
+.md-typeset img {
+  max-width:80%;
+  display:block;
+  margin:1.4rem auto !important;
+  border-radius:6px;
+}

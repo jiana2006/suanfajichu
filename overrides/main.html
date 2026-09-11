@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{ super() }}
+
+<!-- 摇摇不倒翁组件 -->
+<div id="sakana-widget" style="position:fixed;bottom:24px;right:24px;width:180px;height:240px;z-index:999;"></div>
+
+<script>
+function initSakanaWidget() {
+    new SakanaWidget({
+        character:"chisato",
+        auto:false,
+        controlBar:true
+    }).mount('#sakana-widget');
+}
+</script>
+<script async onload="initSakanaWidget()" src="https://cdn.jsdelivr.net/npm/sakana-widget@2.3.1/lib/sakana.min.js"></script>
+
+{% endblock %}

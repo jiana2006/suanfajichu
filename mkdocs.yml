@@ -1,26 +1,36 @@
-site_url: https://jiana2006.github.io/suanfajichu/
-site_name: 菜鸟分享基础算法
+site_name: 喵喵基础算法
 site_description: 个人学习知识库
 
 theme:
   name: material
+  custom_dir: overrides
   palette:
-    primary: indigo
-    accent: white
+    primary: teal
+    accent: green
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.expand
     - search.suggest
     - search.highlight
-    - navigation.instant       # ✅新增这一行，页面切换淡入动画
+    - navigation.instant
+
+
+extra_css:
+  - stylesheets/custom.css 
 
 nav:
   - 首页: index.md
   - 基础算法:
     - 编程语言:
-      - C语言: cpp.md
       - Python: python.md
+      - C语言: c.md
+      - C++: cpp.md
+    - 数学技巧:
+      - 经典数学题: math-problem.md
+      - 简化计算: simplify-computation.md
+      - 数学公式: math-formula.md
+
     - 算法:
       - 字符串: string.md
       - 排序: sort.md
@@ -32,10 +42,18 @@ nav:
       - 广度优先搜索: Breadth-First Search.md
       - 深度优先搜索: Depth-First Search.md
       - 贪心算法: Greedy Algorithm.md
-      - stl容器: standard template library.md
+      - STL容器: standard template library.md
+      - 前缀和与差分: prefix-sum.md
+      - 树状数组: fenwick-tree.md
+      - 线段树: segment-tree.md
+      - 滑动窗口: sliding-window.md
   - 数据结构:
+
     - 线性表: linear-list.md  # 注释
-    - 二叉树: binary-tree.md          # 注释
+    - 二叉树: binary-tree.md   
+    - 栈: stack.md   
+    - 队列: queue.md   
+    - 堆: heap.md   
     - 集合: set.md          # 注释  
     - 图的基本应用: graph.md          # 注释  
   - 个人学习分享: route.md
@@ -53,3 +71,6 @@ markdown_extensions:
   - pymdownx.superfences
 extra_css:
   - stylesheets/extra.css  
+extra_css:
+  - stylesheets/custom.css
+  

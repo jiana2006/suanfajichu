@@ -1,7 +1,7 @@
 <div class="hero-animate" style="text-align:center; padding:40px 0;">
-<h1 style="font-weight:bold; color:#222;">o.0欢迎来到菜鸟分享基础算法0.o</h1>
+<h1 style="font-weight:bold; color:#222;">o.O欢迎来到喵喵基础算法O.o</h1>
 
-<img src="/assets/gif/ciallo.jpg" style="width:280px; max-width:100%;" alt="ciallo表情包">
+<img src="assets/gif/ciallo.jpg" style="width:280px; max-width:100%;" alt="ciallo表情包">
 
 <p style="font-weight:bold; color:#444; font-size:20px;">个人学习知识库<br>算法 · 数据结构 · 编程语言</p>
 
@@ -12,24 +12,39 @@
 这个网站是我摸索了好几天，才成功搭建的一个简单的网站。在上传GitHub之前我搭建的都是国外的一些网站。但是我本来以为在GitHub上面搭建的这个需要魔法或者加速器才能打开。没想到我让朋友试了一下就直接打开了，最关键的是GitHub是免费的。
 
 <div style="text-align:center;">
-<img src="/assets/gif/doro.jpg" style="width:280px; max-width:100%;" alt="doro表情包">
+<img src="assets/gif/doro.jpg" style="width:280px; max-width:100%;" alt="doro表情包">
 </div>
 
-我也是一个小白，所以写的代码可能 not good。也会有错误。大家可以联系我。
+我也是一个蒟蒻（入门选手），所以写的代码是基础版的，因为我本人也在不断地学习中，后面可能会优化代码。欢迎联系我。
 
 QQ邮箱：3665381446@qq.com
-
+QQ邮箱：2568056341@qq.com
 
 QQ:3665381446
-
+QQ:2568056341
 特别声明：
 在这里感谢一位学长我是在看了他的网站之后然后成功搭建了这个网站，也感谢他对我一些专业问题的回答。
 
 
 <div style="text-align:center;">
-<img src="/assets/gif/doro2.jpg" style="width:280px; max-width:100%;" alt="doro2表情包">
+<img src="assets/gif/doro2.jpg" style="width:280px; max-width:100%;" alt="doro2表情包">
 </div>
 作者现实也是一个唐人，喜欢唐笑，如果有写的不好的地方请不要攻击我。这个网站我后面会继续完善，持续更新。
 <div style="text-align:center;">
-<img src="/assets/gif/tafei.jpg" style="width:280px; max-width:100%;" alt="tafei表情包">
+<img src="assets/gif/tafei.jpg" style="width:280px; max-width:100%;" alt="tafei表情包">
 </div>
+
+想学制作咕咕嘎嘎的也可以来找我。嘿嘿
+
+这个网站我之前操作失误导致这个网站的数据全部丢失了。我正在努力恢复数据。
+
+我写完之后没有及时上传git，执行力命令git reset --hard
+
+导致数据被强制覆盖了。无法恢复。
+
+<div style="text-align:center; margin:20px 0;">
+<video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
+ <source src="../assets/shipin/咕咕嘎嘎.mp4" type="video/mp4">
+</video>
+</div>
+作者快更新 ~~咕咕嘎嘎~~~
