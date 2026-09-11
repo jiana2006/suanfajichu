@@ -1,30 +1,63 @@
-/* 正文区域居中、限制宽度，模仿Pico阅读体验，不碰导航侧边栏 */
-.md-content {
-  max-width: 720px;
-  margin: 0 auto;
-  padding-inline: 1rem;
+/* 全局背景，柔和底色 */
+
+body {
+  background:#ffeeee !important;
+}
+/* ========== 核心：控制正文阅读宽度，大屏居中，保留左右侧边栏 ========== */
+@media screen and (min-width: 76.25em) {
+  /* 中间主内容区域限制宽度 */
+  .md-content {
+    max-width: 740px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
-/* 舒服行高，Pico特色 */
+/* 正文排版：行高、段落间距，阅读舒服 */
 .md-typeset {
-  line-height: 1.75;
+  line-height: 1.8 !important;
+  font-size: 1.05rem !important;
 }
 
-/* 段落间距 */
 .md-typeset p {
-  margin-block: 1rem;
+  margin: 1.2rem 0 !important;
 }
 
-/* 标题间距 */
-.md-typeset h1,
-.md-typeset h2,
+/* 标题美化 */
+.md-typeset h1 {
+  margin-top: 3rem !important;
+  margin-bottom: 1.2rem !important;
+  font-weight: 600 !important;
+}
+.md-typeset h2 {
+  margin-top: 2.2rem !important;
+  margin-bottom: 0.8rem !important;
+  border-left: 5px solid #5c6bc0;
+  padding-left: 0.8rem;
+}
 .md-typeset h3 {
-  margin-top: 2.2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  margin-top: 1.8rem !important;
+  margin-bottom: 0.6rem !important;
 }
 
-/* 代码块圆角 */
-.md-typeset pre>code {
+/* 代码块美化，算法笔记重点！ */
+.md-typeset pre > code {
+  border-radius: 10px !important;
+}
+
+/* 图片自动居中，限制大小，圆角 */
+.md-typeset img {
+  max-width: 85%;
+  display: block !important;
+  margin: 1.6rem auto !important;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* 引用块美化，适合写提示/笔记 */
+.md-typeset blockquote {
+  border-left: 4px solid #5c6bc0;
+  background-color: #f4f6fa;
+  padding:0.8rem 1rem;
+  border-radius:0 6px 6px 0;
 }
