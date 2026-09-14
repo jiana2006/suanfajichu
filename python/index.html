@@ -1117,7 +1117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../segment-tree.md" class="md-nav__link">
+      <a href="../segment-tree/" class="md-nav__link">
         
   
   
@@ -1145,7 +1145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sliding-window.md" class="md-nav__link">
+      <a href="../sliding-window/" class="md-nav__link">
         
   
   
@@ -1500,42 +1500,60 @@
 
   <h1>Python</h1>
 
-<p>python我只学了一点，所以我不太懂。</p>
+<p>python其实我比较推荐去学习。因为python的语法简单，学习成本低。同时python的库也很多，可以用来解决很多问题。
+python设计的初心是为了让代码更易读，更易维护。</p>
+<p>冷知识：python是用c语言写的。</p>
 <div style="text‑align:center; margin:20px 0;">
 <video autoplay loop muted playsinline style="width:320px; max‑width:100%; border‑radius:8px;">
   <source src="/assets/shipin/yuexinmiao.mp4" type="video/mp4">
 </video>
 </div>
 
-<p>这里只写一些简单的代码。</p>
 <p>python的编译器我推荐pycharm和vscode。基础版的python我个人用着比较别扭。</p>
 <p>python和c的区别：</p>
-<p>c:                        </p>
+<p>c: 
+<code>c title="c"</code>                       </p>
 <p>int a;  </p>
 <p>scanf("%d",&amp;a);</p>
-<p>printf("%d",a);</p>
-<p>python:</p>
-<p>a=int(input())</p>
-<p>print(a)</p>
+<p>printf("%d",a);
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>```python title=&quot;python&quot;```                       
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>a=int(input())
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>print(a)
+</span></code></pre></div></p>
 <p>比如说c的在第一行输入int a,b和在第一行输入int a 第二行输入int b代码是一样的
 而python不同
-在第一行输入a,b:</p>
-<p>a,b=map(int,input().split())</p>
-<p>而第一行输入a 第二行输入b代码是：</p>
-<p>a=int(input())</p>
-<p>b=int(input())</p>
-<p>在这里面我先声明一下如果掌握c/c++的高精度实在来不及了，那么python可以作为一个选择去使用。但是很大概率会时间超时（TE）。</p>
+在第一行输入a,b:
+<code>python title="python"</code>                     <br />
+a,b=map(int,input().split())</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>而第一行输入a 第二行输入b代码是：
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>```python title=&quot;python&quot;```                       
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>a=int(input())
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>b=int(input())
+</span></code></pre></div>
+在这里面我先声明一下如果掌握c/c++的高精度实在来不及了，那么python可以作为一个选择去使用。但是很大概率会时间超时（TE）。</p>
 <p>问题1：第一行输入两个很大的整数，求二者相加之和。</p>
-<p>代码实现：</p>
-<p>a,b=map(int(),input().split())</p>
+<p>代码实现：
+<code>python title="python"</code>                     <br />
+a,b=map(int,input().split())</p>
 <p>print(a+b)</p>
-<p>同理python的减法：</p>
-<p>问题2：第一行输入一个很大的整数a；第二行输入同样很大的数b；求a-b。</p>
-<p>代码实现：</p>
-<p>a=int(input())</p>
-<p>b=int(input())</p>
-<p>print(a-b)</p>
-<p>同理乘法和除法就把“+”变成“*”（“//”）即可。对了值得注意的是python里面的整数除以号不是“/”而是“//”，因为“/”在python里是浮点数除法，而“//”是整数除法。</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>同理python的减法：
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>问题2：第一行输入一个很大的整数a；第二行输入同样很大的数b；求a-b。
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>代码实现：
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>```python title=&quot;python&quot;```                       
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>a=int(input())
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>b=int(input())
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>print(a-b)
+</span></code></pre></div>
+同理乘法和除法就把“+”变成“*”（“//”）即可。</p>
+<p>对了值得注意的是python里面的整数除以号不是“/”而是“//”，</p>
+<p>因为“/”在python里是浮点数除法，而“//”是整数除法。</p>
 <p>好的python暂时告一段落</p>
 <div style="text-align:center;">
 <img src="/assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="水滴表情包">
