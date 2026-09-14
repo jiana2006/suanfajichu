@@ -1,4 +1,7 @@
-python我只学了一点，所以我不太懂。
+python其实我比较推荐去学习。因为python的语法简单，学习成本低。同时python的库也很多，可以用来解决很多问题。
+python设计的初心是为了让代码更易读，更易维护。
+
+冷知识：python是用c语言写的。
 
 
 <div style="text‑align:center; margin:20px 0;">
@@ -8,63 +11,74 @@ python我只学了一点，所以我不太懂。
 </div>
 
 
-这里只写一些简单的代码。
-
 python的编译器我推荐pycharm和vscode。基础版的python我个人用着比较别扭。
 
 python和c的区别：
 
-c:                        
+c: 
+```c title="c"```                       
      
 int a;  
                         
 scanf("%d",&a);
                            
 printf("%d",a);
+```   
 
 python:
-
+```python title="python"```                       
 a=int(input())
 
 print(a)
 
+```     
+
 比如说c的在第一行输入int a,b和在第一行输入int a 第二行输入int b代码是一样的
 而python不同
 在第一行输入a,b:
-
+```python title="python"```                       
 a,b=map(int,input().split())
 
+```     
 而第一行输入a 第二行输入b代码是：
-
+```python title="python"```                       
 a=int(input())
 
 b=int(input())
 
+```     
 在这里面我先声明一下如果掌握c/c++的高精度实在来不及了，那么python可以作为一个选择去使用。但是很大概率会时间超时（TE）。
 
 问题1：第一行输入两个很大的整数，求二者相加之和。
 
 代码实现：
-
-a,b=map(int(),input().split())
+```python title="python"```                       
+a,b=map(int,input().split())
 
 print(a+b)
 
+```     
 同理python的减法：
 
 问题2：第一行输入一个很大的整数a；第二行输入同样很大的数b；求a-b。
 
 代码实现：
-
+```python title="python"```                       
 a=int(input())
 
 b=int(input())
 
 print(a-b)
 
-同理乘法和除法就把“+”变成“*”（“//”）即可。对了值得注意的是python里面的整数除以号不是“/”而是“//”，因为“/”在python里是浮点数除法，而“//”是整数除法。
+```     
+同理乘法和除法就把“+”变成“*”（“//”）即可。
+
+对了值得注意的是python里面的整数除以号不是“/”而是“//”，
+
+因为“/”在python里是浮点数除法，而“//”是整数除法。
 
 好的python暂时告一段落
+
 <div style="text-align:center;">
 <img src="/assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="水滴表情包">
 </div>

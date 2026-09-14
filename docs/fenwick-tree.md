@@ -1,6 +1,11 @@
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">树状数组</h1>
+
 树状数组表面带着树但是和数据结构里面的树是不同的。
+
 树状数组在处理数组数据时，效率是很高的。O(logn)
+
 之所以叫他为树状数组，是因为他处理数据的方式类似于树状结构。
+
 这里我来演示一下：
 
 数组nums长度为16,nums={8,6,1,4,5,5,1,1,3,2,1,4,9,0,7,4};
@@ -151,7 +156,8 @@ ll count(int p){
     return res;
 }
 ```
-树状数组1：
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">树状数组1：</h1>
+
 
 已知一个数列，你需要进行下面两种操作：
 
@@ -184,4 +190,204 @@ m行，每行包含一个操作。
 
 所以这个题我们需要用树状数组。
 
-```cpp 
+```cpp linenums="1" title="树状数组1.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	int n,m;
+	cin>>n>>m;
+	vector<int>nums(n+1);
+	for(int i=1;i<=n;i++){
+		int a;
+		cin>>a;
+		for(int x=i;x<=n;x=x+(x&-x))
+		nums[x]+=a;
+	}
+	while(m--){
+		int b,x,y;
+		cin>>b>>x>>y;
+		if(b==1){
+			for(int k=x;k<=n;k=k+(k&-k)){
+				nums[k]+=y;
+			}
+		}else{
+			ll res=0;
+			for(int k=y;k;k=k-(k&-k))
+			res+=nums[k];
+			for(int k=x-1;k;k=k-(k&-k))
+			res-=nums[k];
+			cout<<res<<endl;
+			}
+		}
+
+	return 0;
+}
+    
+```
+这里面的x+=x&-x，是树状数组的更新操作。它相当于lowbit(x)。
+这里面的tree数组是求区间和的。
+
+好的本喵来讲解一下：
+```
+  for(int i=1;i<=n;i++){
+		int a;
+		cin>>a;
+		for(int x=i;x<=n;x=x+(x&-x))
+		nums[x]+=a;
+	}
+```
+这个就是利用了lowbit，这个过程就是函数两个两个相加向上更新nums数组。
+我们比如说一组数为：
+```
+5  4  2  6  3  1
+
+```
+
+当x=1时：
+```
+lowbit(1)=1。->nums[1]+=5;
+后面x=x+lowbit(1)=2。
+x=2;
+
+lowbit(2)=2。->nums[2]+=5;
+
+后面x=x+lowbit(2)=4。
+x=4;
+
+lowbit(4)=4。->nums[4]+=5;
+后面x=x+lowbit(4)=8。
+x=8;
+
+lowbit(8)=8>n
+
+结束了5这一个数的上传。
+```
+
+x=2的时候：
+```
+lowbit(2)=2。->nums[2]+=4;
+后面x=x+lowbit(2)=4。
+x=4;
+lowbit(4)=4。->nums[4]+=4;
+后面x=x+lowbit(4)=8。
+x=8;
+lowbit(8)=8>n
+结束了4这一个数的上传。
+```
+x=3的时候：
+```
+lowbit(3)=1。->nums[3]+=2;
+后面x=x+lowbit(3)=4。
+x=4;
+lowbit(4)=4。->nums[4]+=2;
+后面x=x+lowbit(4)=8。
+x=8;
+lowbit(8)=8>n
+结束了2这一个数的上传。
+```
+后面的：
+```
+for(int k=y;k;k=k-(k&-k))
+			res+=nums[k];
+			for(int k=x-1;k;k=k-(k&-k))
+			res-=nums[k];
+			cout<<res<<endl;
+```
+这个就是利用了前缀和的知识去求区间和。
+在写x=x+(x&-x)的时候，要注意一定要带括号，因为有优先级的问题。+号的优先级比&高。
+
+
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">逆序对</h1>
+
+逆序对的定义和线性代数里面的定义一样：一个数如果比他后面的数小，就叫逆序对。
+
+比如说2 1 3
+
+2前面无为0； 
+
+1前面2比1大为1
+
+3前面无为0
+
+逆序对为0+1+0=1；
+
+现在给一个数n后面n个数，求这n个数的逆序对。
+
+在此之前我们了解一下
+lower_bound()
+
+这个是c++标准库<algorithm>里面的二分查找函数。
+找第一个大于等于目标值的元素的位置。
+
+前提：
+数组必须先sort排序，不然lower_bound()函数会报错。
+
+lower_bound(起始迭代器,结束迭代器,目标值)
+返回：第一个大于等于目标值的元素的位置。
+用-b.begin()就能算出他的下标
+
+```cpp title="逆序对.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	ll n;
+	cin>>n;
+	vector<int>a(n);
+	vector<int>b(n);
+	vector<int>nums(n+1);
+	ll sum=0;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+		b[i]=a[i];
+	}
+	sort(b.begin(),b.end());
+	auto last=unique(b.begin(),b.end());
+	b.erase(last,b.end());
+	ll ans=0;
+	for(int i=n-1;i>=0;i--){
+		int shu=lower_bound(b.begin(),b.end(),a[i])-b.begin()+1;
+		int sum=0;
+	for(int k=shu-1;k>0;k-=(k&-k))
+	sum+=nums[k];
+	ans+=sum;
+	for(int k=shu;k<=n;k+=(k&-k))
+	nums[k]+=1;
+}
+cout<<ans<<'\n';
+return 0;	
+} 
+```
+解答环节：
+
+
+
+
+
+
+
+
+
+
+<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">树状数组的操作：</h1>
+
+编写程序，实现树状数组的操作。
+
+输入格式：
+
+输入首先给出一个正整数n,随后一行给出n个绝对值不超过10^5的整数。
+
+输出格式：
+
+第一行按存储顺序输出树状数组中的元素；第二行按存储顺序输出前缀和数组中的元素。
+
+输入样例：
+15
+15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
+输出样例：
+15 29 13 54 11 21 9 92 7 13 5 22 3 5 1 
+15 29 42 54 65 75 84 92 99 105 110 114 117 119 120 
+
