@@ -1061,6 +1061,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../hash-table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    哈希表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hash-lookup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    哈希查找
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../prefix-sum/" class="md-nav__link">
         
   
@@ -1538,6 +1594,20 @@
 <p>题需慢慢写，心急则泥肘。</p>
 <div style="text-align:center;">
 <img src="../assets/gif/泥肘.jpg" style="width:280px; max-width:100%;" alt="泥肘表情包"></div>
+
+<p>我们介绍一种算法摩尔投票法。</p>
+<p>这个算法实现的前提是数据中的一个元素的数量大于全部元素的数量的一半。</p>
+<p>这个算法的思想就是：</p>
+<p>我们把一个最多的元素作为候选元素。其他的合并为一个元素。</p>
+<p>比如说：
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1 2 2 3 2 2
+</span></code></pre></div>
+这里我们先取第一个元素作为候选元素。</p>
+<p>此时候选人为：1 票数为1。</p>
+<p>后面出现2 不为1，所以票数减1。</p>
+<p>票数为0，所以选人为2。</p>
+<p>后面2出现，所以票数加1。</p>
+<p>也就是利用这种思想，我们就可以找到一个最多的元素。</p>
 
 
 
