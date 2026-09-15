@@ -43,10 +43,13 @@ nav:
       - 深度优先搜索: Depth-First Search.md
       - 贪心算法: Greedy Algorithm.md
       - STL容器: standard template library.md
+      - 哈希表: hash-table.md
+      - 哈希查找: hash-lookup.md
       - 前缀和与差分: prefix-sum.md
       - 树状数组: fenwick-tree.md
       - 线段树: segment-tree.md
       - 滑动窗口: sliding-window.md
+      
   - 数据结构:
 
     - 线性表: linear-list.md  # 注释
