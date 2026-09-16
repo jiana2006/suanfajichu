@@ -212,3 +212,66 @@ int main() {
     return 0;
 }
 ```
+下面我们介绍一下unordered_map,unordered_set。
+
+这两个容器都是基于哈希表实现的。这两个容器映射的本质就是除留余数法
+
+这两个容器处理冲突的方法就是拉链法。
+
+unordered_set是一个无序的集合容器。
+
+初始化：
+```
+unordered_set<int>s;
+```
+插入：
+```
+s.insert(100);
+s.insert(101);
+s.insert(101);//重复插入，自动忽略。
+```
+查询：
+```
+if(s.count(1)){}//存在返回1，不存在返回0。
+
+if(s.find(1)!=s.end()){}//存在返回迭代器，不存在返回end()。
+```
+删除：
+```
+s.erase(1);
+```
+遍历：
+```
+for(int x:s){
+    cout<<x<<endl;
+}
+```
+unordered_map是一个无序的映射容器。
+
+初始化：
+```
+unordered_map<int,int>mp;
+```
+
+去重+快速查找用unordered_set。
+
+哈希映射（计数、统计）用unordered_map。
+
+必须有序用set,map。
+
+插入：insert
+
+删除：erase
+
+查询：count、find
+
+大小：size()
+
+清空：clear
+
+遍历：
+```
+for(auto x:mp){
+    cout<<x.first<<" "<<x.second<<endl;
+}
+```

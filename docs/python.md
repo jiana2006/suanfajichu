@@ -4,10 +4,11 @@ python设计的初心是为了让代码更易读，更易维护。
 冷知识：python是用c语言写的。
 
 
-<div style="text‑align:center; margin:20px 0;">
-<video autoplay loop muted playsinline style="width:320px; max‑width:100%; border‑radius:8px;">
-  <source src="/assets/shipin/yuexinmiao.mp4" type="video/mp4">
-</video>
+<div style="text-align:center; margin:20px 0;">
+  <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
+    <!-- 去掉开头的斜杠，改成相对路径 -->
+    <source src="../assets/shipin/yuexinmiao.mp4" type="video/mp4">
+  </video>
 </div>
 
 
@@ -80,5 +81,4 @@ print(a-b)
 好的python暂时告一段落
 
 <div style="text-align:center;">
-<img src="/assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="水滴表情包">
-</div>
+<img src="../assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="睡觉表情包"></div>

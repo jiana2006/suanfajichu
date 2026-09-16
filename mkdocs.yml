@@ -53,7 +53,7 @@ nav:
   - 数据结构:
 
     - 线性表: linear-list.md  # 注释
-    - 二叉树: binary-tree.md   
+    - 树: binary-tree.md   
     - 栈: stack.md   
     - 队列: queue.md   
     - 堆: heap.md   
