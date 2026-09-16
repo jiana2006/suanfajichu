@@ -17,7 +17,7 @@ python的编译器我推荐pycharm和vscode。基础版的python我个人用着�
 python和c的区别：
 
 c: 
-```c title="c"```                       
+```c linenums="1" title="c.c"                
      
 int a;  
                         
@@ -27,7 +27,8 @@ printf("%d",a);
 ```   
 
 python:
-```python title="python"```                       
+```python linenums="1" title="python.py"                
+                       
 a=int(input())
 
 print(a)
@@ -37,12 +38,14 @@ print(a)
 比如说c的在第一行输入int a,b和在第一行输入int a 第二行输入int b代码是一样的
 而python不同
 在第一行输入a,b:
-```python title="python"```                       
+```python linenums="1" title="python.py"                
+                       
 a,b=map(int,input().split())
 
 ```     
 而第一行输入a 第二行输入b代码是：
-```python title="python"```                       
+```python linenums="1" title="python.py"                
+                       
 a=int(input())
 
 b=int(input())
@@ -53,7 +56,8 @@ b=int(input())
 问题1：第一行输入两个很大的整数，求二者相加之和。
 
 代码实现：
-```python title="python"```                       
+```python linenums="1" title="python.py"                
+                       
 a,b=map(int,input().split())
 
 print(a+b)
@@ -64,7 +68,8 @@ print(a+b)
 问题2：第一行输入一个很大的整数a；第二行输入同样很大的数b；求a-b。
 
 代码实现：
-```python title="python"```                       
+```python linenums="1" title="python.py"                
+                       
 a=int(input())
 
 b=int(input())
