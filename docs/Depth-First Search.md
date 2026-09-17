@@ -1,40 +1,4 @@
-DFS(深度优先搜索)
-dfs模板：
-int res=0; cnt=0;
-void dfs(){
-    //结束条件
-
-    //dfs()
-
-    //把状态恢复到原来的状态
-}
-来一道题：奶娃的笑会传染，奶娃会大笑与其处在同一行或者同一列以及同一对角线上的奶娃。
-现在有n个奶娃，要求把这n个奶娃放置在n*n的网格中，每个奶娃只能放在一个网格中，不能放在同一个网格中并且奶娃不能大笑。
-求有多少种放置方法。1<=n<=9
-<div style="text-align:center; margin:20px 0;">
-  <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
-    <!-- 去掉开头的斜杠，改成相对路径 -->
-    <source src="../assets/shipin/naiwa.mp4" type="video/mp4">
-  </video>
-</div>
-
-```
-#include<bits/stdc++.h>
-
-using namespace std;
-
-void dfs(int n,int r){//r表示当前正在放置的奶娃的序号
-
-    if(r>=n)return;
-
-    //奶娃摆好
-
-    dfs(n,r+1);//递归调用，摆放下一个奶娃
-
-    //回溯
-}
-```
-
+<h1>深度优先搜索：</h1>
 
 深度优先搜索就是：“一条路走到黑，走不通再回头”。
 
@@ -66,6 +30,224 @@ void dfs_tree(int node,int parent,vector<vector<int>>&graph){
   }
 }
 ```
+我们来几道简单题：
+
+<h2>全排列：</h2>
+
+本题给你一个数n，要求你输出1~n的全排列。
+
+1<=n<=9 如：n=3 则全排列为：
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+
+```cpp linenums="1" title="全排列.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+int a[10];
+bool used[10];
+void dfs(int step){
+  if(step>=n+1){
+    for(int i=1;i<=n;i++)cout<<a[i];
+    cout<<endl;
+    return;
+  }
+  for(int i=1;i<=n;i++){
+    if(!used[i]){
+      used[i]=true;
+      a[step]=i;
+      dfs(step+1);
+      used[i]=false;
+    }
+  }
+
+}
+int main(){
+  cin>>n;
+  dfs(1);
+  return 0;
+}
+```
+好的本喵来喵喵几句：
+
+我们写dfs的时候可以注意到大部分都是这样的模板：
+
+如果当前数字大于了n，说明当前路径已经走完了，我们可以输出当前路径。
+
+循环是枚举当前路径上的数字，如果当前数字没有被使用过，我们就把它放到当前路径上，递归调用dfs
+
+函数，访问这个相邻节点。最后我们回溯，把当前数字上的数字标记为未被使用过。
+
+我们再来一题：
+<h2>走迷宫：</h2>
+给你一个n*m的迷宫，0表示空地，1表示障碍。
+
+要求你从(1,1)出发，走到(n,m)，如果可以走到(n,m)，则输出"Yes"。
+
+如果不能走到(n,m)，则输出"No"。
+
+```cpp linenums="1" title="走迷宫.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int n,m;
+int dx[4]={0,0,-1,1};
+int dy[4]={1,-1,0,0};
+vector<vector<int>> maze;
+vector<vector<bool>> visited;
+
+void dfs(int x,int y){
+  if(x==n && y==m){
+    cout<<"Yes"<<endl;
+    exit(0);
+  }
+  visited[x][y]=true;
+  for(int i=0;i<4;i++){
+    int nx=x+dx[i];
+    int ny=y+dy[i];
+  
+     if(nx>=1 && nx<=n && ny>=1 && ny<=m && maze[nx][ny]==0 && !visited[nx][ny]){
+      dfs(nx,ny);  
+     }
+  }
+}
+int main(){
+  cin>>n>>m;
+  maze.resize(n+1,vector<int>(m+1));
+  visited.resize(n+1,vector<bool>(m+1));
+  for(int i=1;i<=n;i++){
+    for(int j=1;j<=m;j++){
+      cin>>maze[i][j];
+    }
+  }
+  visited[1][1]=true;
+  dfs(1,1);
+  cout<<"No"<<endl;
+  return 0;
+}
+
+```
+因为这道题只要求输出有无路径，所以我们在dfs函数中不需要回溯。
+
+但是如果是问我们有多少种走法，那么我们就需要回溯。
+
+我们来看一下回溯迷宫：
+
+<h2>回溯迷宫：</h2>
+给你一个n*m的迷宫，0表示空地，1表示障碍。
+
+要求你从(1,1)出发，走到(n,m)，输出有多少种走法。
+```cpp linenums="1" title="回溯迷宫.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int n,m;
+int dx[4]={0,0,-1,1};
+int dy[4]={1,-1,0,0};
+vector<vector<int>> maze;
+vector<vector<bool>> visited;
+int total=0; // 总方案数;
+void dfs(int x,int y){
+  if(x==n && y==m){
+  total++;
+  return;
+  }
+  visited[x][y]=true;
+  for(int i=0;i<4;i++){
+    int nx=x+dx[i];
+    int ny=y+dy[i];
+    if(nx>=1 && nx<=n && ny>=1 && ny<=m && maze[nx][ny]==0 && !visited[nx][ny]){
+      dfs(nx,ny);
+      visited[nx][ny]=false;
+    }
+  }
+}
+int main(){
+  cin>>n>>m;
+  maze.resize(n+1,vector<int>(m+1));
+  visited.resize(n+1,vector<bool>(m+1));
+  for(int i=1;i<=n;i++){
+    for(int j=1;j<=m;j++){
+      cin>>maze[i][j];
+    }
+  }
+  dfs(1,1);
+  cout<<total<<endl;
+  return 0;
+}
+
+
+```
+
+
+来一道题：<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">奶娃的笑：</h1>
+
+<div style="text-align:center;">
+<img src="../assets/gif/奶娃的笑.jpg" style="width:280px; max-width:100%;" alt="奶娃的笑"></div>
+
+
+奶娃的笑会传染，奶娃会大笑与其处在同一行或者同一列以及同一对角线上的奶娃。
+现在有n个奶娃，要求把这n个奶娃放置在n*n的网格中，每个奶娃只能放在一个网格中，不能放在同一个网格中并且奶娃不能大笑。
+求有多少种放置方法。1<=n<=9
+
+<div style="text-align:center; margin:20px 0;">
+  <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
+    <!-- 去掉开头的斜杠，改成相对路径 -->
+    <source src="../assets/shipin/naiwa.mp4" type="video/mp4">
+  </video>
+</div>
+
+```cpp linenums="1" title="奶娃的笑.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+int ans[15]; // ans[i]保存第i行奶娃放在第几列
+bool vis_col[15];    // 列标记
+bool vis_d1[30];     // row-col+n 对角线
+bool vis_d2[30];     // row+col 对角线
+int total = 0;       // 总方案数
+
+void dfs(int row){
+    if(row == n+1){ // 行从1开始，1~n行全部放完
+        total++;
+        if(total <=3){ // 只输出前3组
+            for(int i=1;i<=n;i++) cout<<ans[i]<<" ";
+            cout<<endl;
+        }
+        return;
+    }
+    // 枚举当前行所有列，从左往右，保证字典序
+    for(int col=1;col<=n;col++){
+        int d1 = row - col + n;
+        int d2 = row + col;
+        if(!vis_col[col] && !vis_d1[d1] && !vis_d2[d2]){
+            // 放置奶娃
+            vis_col[col]=true;
+            vis_d1[d1]=true;
+            vis_d2[d2]=true;
+            ans[row]=col;
+
+            dfs(row+1); // 搜下一行
+
+            // 回溯，撤销标记
+            vis_col[col]=false;
+            vis_d1[d1]=false;
+            vis_d2[d2]=false;
+        }
+    }
+}
+
+int main(){
+    cin>>n;
+    dfs(1); // 从第1行开始放
+    cout<<total<<endl;
+    return 0;
+}
+```
+
+
 我们来看一道题：
 
 <h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">单词搜索：</h1>
