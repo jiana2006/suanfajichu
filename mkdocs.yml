@@ -26,6 +26,7 @@ nav:
       - Python: python.md
       - C语言: c.md
       - C++: cpp.md
+      - Java: java.md
     - 数学技巧:
       - 经典数学题: math-problem.md
       - 简化计算: simplify-computation.md
@@ -43,25 +44,36 @@ nav:
       - 深度优先搜索: Depth-First Search.md
       - 贪心算法: Greedy Algorithm.md
       - STL容器: standard template library.md
-      - 哈希表: hash-table.md
-      - 哈希查找: hash-lookup.md
       - 前缀和与差分: prefix-sum.md
       - 树状数组: fenwick-tree.md
+      - 回溯: backtracking.md
+      - 字典树: trie-tree.md
       - 线段树: segment-tree.md
       - 滑动窗口: sliding-window.md
-      
+      - 哈希查找: hash table lookup.md
+      - 哈希表: hash table.md
   - 数据结构:
 
     - 线性表: linear-list.md  # 注释
-    - 树: binary-tree.md   
+    - 二叉树: binary-tree.md   
     - 栈: stack.md   
     - 队列: queue.md   
     - 堆: heap.md   
     - 集合: set.md          # 注释  
     - 图的基本应用: graph.md          # 注释  
   - 个人学习分享: route.md
- 
 
+  - 路线:
+    - 前端: frontend.md
+    - 后端: backend.md
+    - 考研: exam.md
+    - 考公: exam-public.md
+    - 测试: test.md
+    - AI: ai.md
+    - 算法: algorithm.md
+    - 嵌入式: embedded.md
+    - 网安: network.md
+    - 其他: other.md
 plugins:
   - search
 
