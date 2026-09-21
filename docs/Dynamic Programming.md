@@ -326,3 +326,40 @@ int main(){
 ```
 这个和不同路径问题1的区别在于，这个题目中网格中有一些障碍物，我们不能通过障碍物。
 当我们遇到障碍物时，我们跳过这次循环即可。
+
+
+<h2>数字金字塔问题：</h2>
+
+<p>给你一个数字金字塔，你的任务是从顶部的数字开始，每次移动到下一行的相邻数字上，
+并沿路径上的数字总和最大。</p>
+<div style="text-align:center;">
+<img src="../assets/gif/数字金字塔.jpg" style="width:280px; max-width:100%;" alt="数字金字塔问题"></div>
+
+这题可以正着写也可以反着写。
+
+```cpp linenums="1" title="数字金字塔.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<vector<int>> grid(n,vector<int>(n));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<=i;j++){
+            cin>>grid[i][j];    
+        }
+    }
+    for(int i=n-2;i>=0;i--){
+        for(int j=0;j<=i;j++){
+            grid[i][j]+=max(grid[i+1][j],grid[i+1][j+1]);
+        }
+    }
+    cout<<grid[0][0]<<endl;
+    return 0;
+}
+
+```
+
+
+
