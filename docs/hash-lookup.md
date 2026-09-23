@@ -275,3 +275,66 @@ for(auto x:mp){
     cout<<x.first<<" "<<x.second<<endl;
 }
 ```
+<h2>鸭梨一只蓝色大肥鱼</h2>
+
+<div style="text-align:center;">
+<img src="../assets/gif/蓝色大肥鱼.jpg" style="width:280px; max-width:100%;" alt="蓝色大肥鱼表情包"></div>
+
+
+<p>蓝色大肥鱼正在消耗你的token，现在给一个数n，后面n行一行给出一对数。</p>
+<p>这两个数两两对应。</p>
+<p>后面给出m行数，每行给出一对数。</p>
+<p>如果这两个数对应，那么就输出“大肥鱼有用”，否则输出“鸭梨大肥鱼”。</p>
+
+
+样例：
+```
+2
+111111111 222222222
+333333333 444444444
+4
+666666666 888888888
+222222222 111111111
+222222222 333333333
+333333333 444444444
+```
+```
+鸭梨大肥鱼
+大肥鱼有用
+鸭梨大肥鱼
+大肥鱼有用
+```
+
+```cpp linenums="1" title="鸭梨一只蓝色大肥鱼"
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+int main(){
+	int n;
+	cin>>n;
+	unordered_map<ll,ll>mp;
+	 for(int i=0;i<n;i++){
+	 	ll a,b;
+	 	cin>>a>>b;
+	 	mp[a]=b;
+	 	mp[b]=a;
+	 }
+	 int m;
+	 cin>>m;
+	 while(m--){
+	 	ll x,y;
+	 	cin>>x>>y;
+	 	if(mp.count(x) && mp[x]==y)
+	 		cout<<"大肥鱼有用"<<endl; 
+		 else 
+		 cout<<"鸭梨大肥鱼"<<endl; 
+	 }
+	 return 0; 
+}
+```
+这里面我们用哈希容器unordered_map来存储映射关系。
+
+用mp[a]=b; mp[b]=a; 来存储映射关系。mp[键]=值。
+
+mp.count(x)判断x是否存在。

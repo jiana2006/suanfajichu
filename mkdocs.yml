@@ -1,26 +1,44 @@
 site_name: 喵喵基础算法
 site_description: 个人学习知识库
+site_author: 喵喵
 
 theme:
   name: material
-  custom_dir: overrides
-  palette:
-    primary: teal
-    accent: green
+  language: zh
   features:
+    # 导航
     - navigation.tabs
     - navigation.sections
     - navigation.expand
+    - navigation.top
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    # 搜索
     - search.suggest
     - search.highlight
-    - navigation.instant
-
-
-extra_css:
-  - stylesheets/custom.css 
-
+    # 代码块
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal         # 这里修改颜色
+      accent: teal          # 这里修改颜色
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal         # 深色模式也同步修改
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
 nav:
   - 首页: index.md
+
   - 基础算法:
     - 编程语言:
       - Python: python.md
@@ -31,7 +49,6 @@ nav:
       - 经典数学题: math-problem.md
       - 简化计算: simplify-computation.md
       - 数学公式: math-formula.md
-
     - 算法:
       - 字符串: string.md
       - 排序: sort.md
@@ -50,17 +67,18 @@ nav:
       - 字典树: trie-tree.md
       - 线段树: segment-tree.md
       - 滑动窗口: sliding-window.md
-      - 哈希查找: hash table lookup.md
-      - 哈希表: hash table.md
-  - 数据结构:
+      - 哈希查找: hash-lookup.md
+      - 哈希表: hash-table.md
 
-    - 线性表: linear-list.md  # 注释
-    - 二叉树: binary-tree.md   
-    - 栈: stack.md   
-    - 队列: queue.md   
-    - 堆: heap.md   
-    - 集合: set.md          # 注释  
-    - 图的基本应用: graph.md          # 注释  
+  - 数据结构:
+    - 线性表: linear-list.md
+    - 二叉树: binary-tree.md
+    - 栈: stack.md
+    - 队列: queue.md
+    - 堆: heap.md
+    - 集合: set.md
+    - 图的基本应用: graph.md
+
   - 个人学习分享: route.md
 
   - 路线:
@@ -74,6 +92,7 @@ nav:
     - 嵌入式: embedded.md
     - 网安: network.md
     - 其他: other.md
+
 plugins:
   - search
 
@@ -84,8 +103,9 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.superfences
+
 extra_css:
-  - stylesheets/extra.css  
-extra_css:
-  - stylesheets/custom.css
-  
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
