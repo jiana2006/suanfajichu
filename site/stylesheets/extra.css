@@ -19,3 +19,51 @@
   from { opacity: 0; transform: translateY(0.5rem); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* 不倒翁的固定位置和尺寸 */
+.sakana-box {
+  position: fixed;
+  right: 10px;
+  bottom: 0;
+  width: 200px;   /* 宽度，可以根据喜好调整 */
+  height: 200px;  /* 高度，可以根据喜好调整 */
+  z-index: 80;    /* 确保它浮在网页内容之上 */
+  pointer-events: none; /* 让鼠标点击穿过透明区域，不挡住网页按钮 */
+}
+
+.sakana-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: auto; /* 恢复不倒翁本身的点击互动 */
+}
+#sakana-widget {
+  position: fixed !important;
+  right: 10px !important;
+  bottom: 0 !important;
+  width: 200px !important;
+  height: 200px !important;
+  z-index: 9999 !important;
+}
+/* 顶部 logo 变圆并限制大小 */
+.md-header__button.md-logo img, 
+.md-header__button.md-logo svg {
+  width: 2rem !important;       /* 限制宽度 */
+  height: 2rem !important;      /* 限制高度 */
+  border-radius: 50% !important; /* 变成圆形 */
+  object-fit: cover !important; /* 保证图片不变形 */
+  background-color: white;      /* 给个白底衬托 */
+  padding: 2px;                 /* 留一点点边距 */
+}
+/* 隐藏版权信息 */
+.md-footer-meta {
+  display: none !important;
+}
+
+/* 页脚背景变透明 */
+.md-footer {
+  background-color: transparent !important;
+}
+
+/* 修改上一页/下一页的文字颜色（防止变透明后看不清） */
+.md-footer__inner {
+  color: var(--md-default-fg-color) !important;
+}
