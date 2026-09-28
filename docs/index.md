@@ -1,57 +1,76 @@
-<div class="hero-animate" style="text-align:center; padding:40px 0;">
-<h1 style="font-weight:bold; color:#222;">o.O欢迎来到喵喵基础算法O.o</h1>
+---
+hide:
+  - navigation
+  - toc
+  - footer
+---
 
-<img src="assets/gif/ciallo.jpg" style="width:280px; max-width:100%;" alt="ciallo表情包">
-
-<p style="font-weight:bold; color:#444; font-size:20px;">个人学习知识库<br>算法 · 数据结构 · 编程语言</p>
-
-<p style="font-weight:bold; color:black; font-size:19px;">须知少时凌云，曾许人间第一流。</p>
-</div>
-## 💬 关于本站
-
-这个网站是我摸索了好几天，才成功搭建的一个简单的网站。在上传GitHub之前我搭建的都是国外的一些网站。但是我本来以为在GitHub上面搭建的这个需要魔法或者加速器才能打开。没想到我让朋友试了一下就直接打开了，最关键的是GitHub是免费的。
-
-<div style="text-align:center;">
-<img src="assets/gif/doro.jpg" style="width:280px; max-width:100%;" alt="doro表情包">
-</div>
-
-我也是一个蒟蒻（入门选手），所以写的代码是基础版的，因为我本人也在不断地学习中，后面可能会优化代码。欢迎联系我。
-
-QQ邮箱：3665381446@qq.com
-
-QQ邮箱：2568056341@qq.com
-
-QQ:3665381446
-
-QQ:2568056341
-
-特别声明：
-在这里感谢一位学长我是在看了他的网站之后然后成功搭建了这个网站，也感谢他对我一些专业问题的回答。
-
-
-<div style="text-align:center;">
-<img src="assets/gif/doro2.jpg" style="width:280px; max-width:100%;" alt="doro2表情包">
-</div>
-作者现实也是一个唐人，喜欢唐笑，如果有写的不好的地方请不要攻击我。这个网站我后面会继续完善，持续更新。
-<div style="text-align:center;">
-<img src="assets/gif/tafei.jpg" style="width:280px; max-width:100%;" alt="tafei表情包">
+<!-- 上半部分：柏码风门户横幅 -->
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">欢迎来到 <br/><span class="title-gradient">喵喵基础算法</span></h1>
+    <p class="hero-subtitle">专注于算法与计算机基础，记录个人的学习成长之路。所有学习资源完全免费开放，快来加入吧！</p>
+    <div class="hero-code">
+      <code>System.out.println("Hello World!");</code>
+    </div>
+    <div class="hero-buttons">
+      <!-- ⚠️ 路径已修正：因为你的文件就在 docs 根目录下，不需要任何前缀！ -->
+      <a href="home/" class="btn btn-primary">个人主页</a>
+      <a href="python/" class="btn btn-secondary">基础算法</a>
+      <a href="frontend/" class="btn btn-secondary">路线规划</a>
+      <a href="route/" class="btn btn-secondary">学习分享</a>
+    </div>
+  </div>
 </div>
 
-想学制作咕咕嘎嘎的也可以来找我。嘿嘿
+<!-- 下半部分：知识库侧边栏+卡片网格 -->
+<div class="kb-container" style="margin-top: 2rem;">
+  <!-- 左侧栏 -->
+  <aside class="kb-sidebar">
+    <div class="kb-profile">
+      <img src="assets/gif/valesa.jpg" alt="头像" class="kb-avatar">
+      <h3>喵喵知识库</h3>
+      <p>欢迎来到喵喵基础算法，所有资源完全免费开放，开启全新阅读体验！</p>
+      <a href="home/" class="kb-btn">🎯 查看指引</a>
+    </div>
+    
+    <div class="kb-category-list">
+      <h4>📚 分类列表</h4>
+      <ul>
+        <!-- ⚠️ 路径已修正：直接写文件名/即可 -->
+        <li><a href="python/">Python 系列笔记 📝</a></li>
+        <li><a href="c/">C语言系列笔记 ⚙️</a></li>
+        <li><a href="Dynamic Programming/">动态规划 ✨</a></li>
+        <li><a href="binary-search/">二分查找 🔍</a></li>
+      </ul>
+    </div>
+  </aside>
 
-这个网站我之前操作失误导致这个网站的数据全部丢失了。我正在努力恢复数据。
-
-我写完之后没有及时上传git，执行力
-了命令
-
-git reset --hard
-
-导致数据被强制覆盖了。无法恢复。
-
-<div style="text-align:center; margin:20px 0;">
-  <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
-    <!-- 去掉开头的斜杠，改成相对路径 -->
-    <source src="../assets/shipin/咕咕嘎嘎.mp4" type="video/mp4">
-  </video>
+  <!-- 右侧主内容区（卡片网格） -->
+  <main class="kb-main">
+    <h2>基础算法系列笔记</h2>
+    <p class="kb-desc">涵盖基础算法、数据结构等核心知识，打下坚实基础。</p>
+    
+    <div class="kb-cards">
+      <div class="kb-card">
+        <span class="kb-tag tag-green">2025 新</span>
+        <h3>Python 核心内容</h3>
+        <p>基于最新录制的 Python 课程。</p>
+        <ul>
+          <li><a href="python/">Python 笔记（一）基础语法</a></li>
+          <li><a href="python/">Python 笔记（二）函数与模块</a></li>
+        </ul>
+      </div>
+      
+      <div class="kb-card">
+        <span class="kb-tag tag-blue">2024</span>
+        <h3>C++ 进阶</h3>
+        <p>从 C 语言过渡到面向对象编程。</p>
+        <ul>
+          <li><a href="cpp/">C++ 笔记（一）基础入门</a></li>
+          <li><a href="cpp/">C++ 笔记（二）STL容器</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </div>
-作者快更新 ~~咕咕嘎嘎~~~
