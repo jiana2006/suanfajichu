@@ -1,20 +1,21 @@
-{% extends "base.html" %}
-
 {% block scripts %}
-{{ super() }}
+  {{ super() }}
+  <!-- 不倒翁的容器 -->
+  <div class="sakana-box"></div>
 
-<!-- 摇摇不倒翁组件 -->
-<div id="sakana-widget" style="position:fixed;bottom:24px;right:24px;width:180px;height:240px;z-index:999;"></div>
-
-<script>
-function initSakanaWidget() {
-    new SakanaWidget({
-        character:"chisato",
-        auto:false,
-        controlBar:true
-    }).mount('#sakana-widget');
-}
-</script>
-<script async onload="initSakanaWidget()" src="https://cdn.jsdelivr.net/npm/sakana-widget@2.3.1/lib/sakana.min.js"></script>
-
+  <!-- 初始化脚本 -->
+  <script>
+    window.addEventListener('load', () => {
+      // 检查 Sakana 对象是否已经加载成功
+      if (typeof Sakana !== 'undefined') {
+        Sakana.init({
+          el: '.sakana-box',      // 绑定到上面的容器
+          scale: 0.5,             // 缩放比例（0.5 代表原尺寸一半）
+          canSwitchCharacter: true, // 允许点击切换角色
+        });
+      } else {
+        console.error('Sakana 脚本加载失败，请检查 CDN 网络！');
+      }
+    });
+  </script>
 {% endblock %}

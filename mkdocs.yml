@@ -5,6 +5,11 @@ site_author: 喵喵
 theme:
   name: material
   language: zh
+  logo: assets/gif/valesa.jpg   # 这里写相对 docs 的路径
+  favicon: assets/gif/valesa.jpg # 顺便把浏览器标签页的图标也换了（可选）
+  features:
+    # ... 下面的配置保持不变
+  language: zh
   features:
     # 导航
     - navigation.tabs
@@ -108,4 +113,5 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
+  - https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js
   - javascripts/extra.js
