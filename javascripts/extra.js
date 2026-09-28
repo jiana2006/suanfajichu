@@ -53,7 +53,7 @@
 
     const script = document.createElement('script');
     script.id = 'sakana-script';
-    script.src = 'javascripts/sakana-widget.js?v=2'; 
+    script.src = '/javascripts/sakana-widget.js?v=2'; 
     script.onload = window.initSakana; // 加载完后调用初始化
     document.head.appendChild(script);
     
