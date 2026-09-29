@@ -67,3 +67,211 @@
 .md-footer__inner {
   color: var(--md-default-fg-color) !important;
 }
+/* ================= 门户首页专属样式 ================= */
+/* 移除 MkDocs 默认的内边距限制，让背景全屏 */
+.md-content__inner {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 全屏主容器，模拟柏码的粉色星云背景 */
+.hero-section {
+  position: relative;
+  min-height: calc(100vh - 6rem); /* 减去顶部导航高度 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+    linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .hero-section {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* 主标题 */
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.title-gradient {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-md-color-scheme="slate"] .hero-title {
+  color: #f5f5f5;
+}
+
+/* 副标题 */
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+[data-md-color-scheme="slate"] .hero-subtitle {
+  color: #aaa;
+}
+
+/* 代码标语 */
+.hero-code {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #e83e8c;
+  margin-bottom: 3rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px);
+}
+[data-md-color-scheme="slate"] .hero-code {
+  background: rgba(0, 0, 0, 0.4);
+  color: #ff79c6;
+}
+
+/* 按钮组 */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+/* 主要按钮（比如个人主页） */
+.btn-primary {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+}
+
+/* 次要按钮（基础算法、路线等） */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333 !important;
+  border: 1px solid #ddd;
+  backdrop-filter: blur(5px);
+}
+.btn-secondary:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+[data-md-color-scheme="slate"] .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee !important;
+  border: 1px solid #444;
+}
+[data-md-color-scheme="slate"] .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 滚动提示 */
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+  font-size: 0.8rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2rem; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .btn { width: 100%; text-align: center; }
+}
+/* 彻底干掉所有卡片效果，回归极简平铺 */
+.md-content__inner,
+.md-sidebar__scrollwrap {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.md-content__inner {
+  padding: 2rem 0 !important; /* 只保留上下留白 */
+  max-width: 100% !important;
+}
+.md-sidebar--secondary {
+  display: none !important; /* 顺便隐藏右侧空目录 */
+}
+/* ================= 门户首页专属“全屏拆墙”补丁 ================= */
+
+/* 1. 如果页面包含门户横幅（.hero-section），就去掉内容区的白底、阴影、圆角和宽度限制 */
+.md-content__inner:has(.hero-section) {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* 2. 去除顶部导航栏和门户横幅之间多余的白色间隙 */
+.md-main__inner,
+.md-content,
+.md-content__inner {
+  margin-top: 0 !important;
+}
+
+/* 3. 让门户横幅真正铺满整个屏幕宽度，去掉圆角 */
+.hero-section {
+  width: 100% !important;
+  min-height: calc(100vh - 3rem) !important; /* 减去顶部导航高度，占满整屏 */
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* 4. 确保内页的卡片样式不受影响（保留你之前的卡片风） */
+.md-content__inner:not(:has(.hero-section)) {
+  /* 这里保持你的卡片样式不变，如果之前加了 max-width: 850px 等，保留即可 */
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+}

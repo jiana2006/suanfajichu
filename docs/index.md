@@ -13,11 +13,10 @@ hide:
     <div class="hero-code">
       <code>System.out.println("Hello World!");</code>
     </div>
-    <div class="hero-buttons">
-      <!-- ⚠️ 路径已修正：因为你的文件就在 docs 根目录下，不需要任何前缀！ -->
+            <div class="hero-buttons">
       <a href="home/" class="btn btn-primary">个人主页</a>
-      <a href="python/" class="btn btn-secondary">基础算法</a>
-      <a href="frontend/" class="btn btn-secondary">路线规划</a>
+      <a href="basic-algo/" class="btn btn-secondary">基础算法</a> <!-- 改成 basic-algo -->
+            <a href="route-plan/" class="btn btn-secondary">路线规划</a>
       <a href="route/" class="btn btn-secondary">学习分享</a>
     </div>
   </div>

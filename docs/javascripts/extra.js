@@ -17,48 +17,78 @@
   }
 
   // ==================== 2. Sakana 不倒翁 ====================
-  
-  // 定义初始化函数（注意这里大括号闭合完整）
   window.initSakana = function() {
-    if (typeof SakanaWidget === 'undefined') {
-      console.error('❌ SakanaWidget 未定义，文件加载失败！');
-      return;
-    }
-    
-    // 清理旧容器
+    if (typeof SakanaWidget === 'undefined') return;
     const oldWidget = document.getElementById('sakana-widget');
     if (oldWidget) oldWidget.remove();
 
-    // 创建新容器
     const container = document.createElement('div');
     container.id = 'sakana-widget';
     document.body.appendChild(container);
 
-    // 初始化并挂载（加上了你想要的配置）
     new SakanaWidget({
-      canSwitchCharacter: true, // 允许点击切换角色（大肥鱼、瓦蕾莎等）
-      scale: 0.8,               // 缩放比例
+      canSwitchCharacter: true,
+      scale: 0.8,
     }).mount('#sakana-widget');
-    
     console.log('✅ Sakana 不倒翁加载成功！');
-  }; // ⚠️ 这里必须有分号/大括号结束
+  };
 
-  // 加载脚本的逻辑（必须放在 initSakana 函数外面！）
   if (!window.sakanaScriptLoaded) {
     window.sakanaScriptLoaded = true;
-    
-    // 清理旧的脚本标签（防止重复加载）
     const oldScript = document.getElementById('sakana-script');
     if (oldScript) oldScript.remove();
 
     const script = document.createElement('script');
     script.id = 'sakana-script';
     script.src = '/javascripts/sakana-widget.js?v=2'; 
-    script.onload = window.initSakana; // 加载完后调用初始化
+    script.onload = window.initSakana;
     document.head.appendChild(script);
-    
   } else if (window.sakanaScriptLoaded && typeof SakanaWidget !== 'undefined') {
-    // 如果已经加载过，页面切换时直接重新挂载
     window.initSakana();
+  }
+
+  // ==================== 3. 智能文章页优化（完美兼容本地与线上） ====================
+  function initArticlePage() {
+    const path = window.location.pathname;
+    
+    // 判断是否是非文章页（兼容本地 127.0.0.1 与线上 GitHub Pages）
+    const isHome = path === '/' || path.endsWith('/suanfajichu/') || path.endsWith('/index.html');
+    const isSelectionPage = 
+    path.includes('/basic-algo/') || 
+    path.includes('/basic-lang/') || 
+    path.includes('/math-skills/') || 
+    path.includes('/core-algo/') ||
+    path.includes('/route-plan/');
+    
+    const isNotArticle = isHome || isSelectionPage;
+
+    if (!isNotArticle) {
+      // 是文章页：打上标记，隐藏侧边栏
+      document.body.classList.add('article-page');
+      
+      const article = document.querySelector('.md-content__inner');
+      // 防止 SPA 切换时重复插入返回按钮
+      const existingBackBtn = document.querySelector('.back-btn');
+      if (existingBackBtn) existingBackBtn.remove();
+
+      if (article) {
+        // ⚠️ 关键修复：使用相对路径 "../" 返回上一级（即首页）
+        // 这样无论是本地 127.0.0.1:8000/python/ 还是线上 .../suanfajichu/python/，都能正确回到首页
+        const backBtnHtml = `<div style="margin-bottom: 2rem;"><a href="../" class="back-btn">← 返回首页</a></div>`;
+        article.insertAdjacentHTML('afterbegin', backBtnHtml);
+      }
+    } else {
+      // 是首页或分类页：移除标记，恢复正常侧边栏
+      document.body.classList.remove('article-page');
+      const existingBackBtn = document.querySelector('.back-btn');
+      if (existingBackBtn) existingBackBtn.remove();
+    }
+  }
+
+  // 完美兼容 MkDocs 的 SPA 机制
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(initArticlePage); 
+  } else {
+    document.addEventListener('DOMContentLoaded', initArticlePage);
   }
 })();
