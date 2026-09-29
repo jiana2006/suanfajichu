@@ -13,10 +13,6 @@
       
       
       
-        <link rel="prev" href="../embedded/">
-      
-      
-        <link rel="next" href="../other/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>网安 - 喵喵基础算法</title>
+        <title>Route plan - 喵喵基础算法</title>
       
     
     
@@ -110,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              网安
+              Route plan
             
           </span>
         </div>
@@ -207,7 +203,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1646,8 +1644,6 @@
       
   
   
-    
-  
   
   
     
@@ -1660,11 +1656,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -1685,7 +1683,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1924,17 +1922,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
         
   
   
@@ -1950,7 +1941,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1999,7 +1989,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -2021,21 +2013,83 @@
               <article class="md-content__inner md-typeset">
                 
                   
-
-
-
-  <h1>网安</h1>
-
+  
 
 
 
 
+<div class="hero-section" style="min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem;">
+  <h1 class="hero-title">路线规划</h1>
+  <p class="hero-subtitle" style="margin-bottom: 3rem;">请选择你要了解的学习路线</p>
+
+  <div class="kb-cards" style="max-width: 1200px; width: 100%; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+
+    <a href="../frontend/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎨</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">前端</h3>
+    </a>
+
+    <a href="../backend/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚙️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">后端</h3>
+    </a>
+
+    <a href="../exam/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">考研</h3>
+    </a>
+
+    <a href="../exam-public/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏛️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">考公</h3>
+    </a>
+
+    <a href="../test/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧪</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">测试</h3>
+    </a>
+
+    <a href="../ai/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤖</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">AI</h3>
+    </a>
+
+    <a href="../algorithm/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📈</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">算法</h3>
+    </a>
+
+    <a href="../embedded/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔌</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">嵌入式</h3>
+    </a>
+
+    <a href="../network/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛡️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">网安</h3>
+    </a>
+
+    <a href="../other/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📦</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">其他</h3>
+    </a>
+
+  </div>
+</div>
 
 
 
 
 
 
+
+  
+  
+
+
+
+
+  
 
 
 

@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../embedded/">
+        <link rel="prev" href="../home/">
       
       
-        <link rel="next" href="../other/">
+        <link rel="next" href="../basic-lang/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>网安 - 喵喵基础算法</title>
+        <title>开始学习 - 喵喵基础算法</title>
       
     
     
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              网安
+              开始学习
             
           </span>
         </div>
@@ -207,7 +207,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -284,8 +286,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -296,13 +300,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -323,7 +325,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -338,10 +340,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../basic-algo/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -357,6 +366,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1646,8 +1656,6 @@
       
   
   
-    
-  
   
   
     
@@ -1660,11 +1668,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -1685,7 +1695,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1924,17 +1934,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
         
   
   
@@ -1950,7 +1953,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1999,7 +2001,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -2021,21 +2025,54 @@
               <article class="md-content__inner md-typeset">
                 
                   
-
-
-
-  <h1>网安</h1>
-
+  
 
 
 
 
+<div class="hero-section" style="min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem;">
+  <h1 class="hero-title">基础算法</h1>
+  <p class="hero-subtitle" style="margin-bottom: 3rem;">请选择你要学习的具体方向</p>
+
+  <div class="kb-cards" style="max-width: 1100px; width: 100%; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+
+    <!-- 方块 1：编程语言（指向 basic-lang 选择页） -->
+    <a href="../basic-lang/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 220px;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">💻</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color);">编程语言</h3>
+      <p style="color: var(--md-default-fg-color--light); margin-top: 0.5rem;">Python、C、C++、Java 基础</p>
+    </a>
+
+    <!-- 方块 2：数学技巧（指向 math-skills 选择页） -->
+    <a href="../math-skills/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 220px;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🧮</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color);">数学技巧</h3>
+      <p style="color: var(--md-default-fg-color--light); margin-top: 0.5rem;">经典数学题、简化计算与公式</p>
+    </a>
+
+    <!-- 方块 3：核心算法（指向 core-algo 选择页） -->
+    <a href="../core-algo/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 220px;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color);">核心算法</h3>
+      <p style="color: var(--md-default-fg-color--light); margin-top: 0.5rem;">字符串、排序、动态规划等</p>
+    </a>
+
+  </div>
+</div>
 
 
 
 
 
 
+
+  
+  
+
+
+
+
+  
 
 
 
