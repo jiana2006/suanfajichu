@@ -1,0 +1,413 @@
+/* 基础淡入上移动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 页面内容容器整体渐入 */
+.md-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* 不倒翁的固定位置和尺寸 */
+.sakana-box {
+  position: fixed;
+  right: 10px;
+  bottom: 0;
+  width: 200px;   /* 宽度，可以根据喜好调整 */
+  height: 200px;  /* 高度，可以根据喜好调整 */
+  z-index: 80;    /* 确保它浮在网页内容之上 */
+  pointer-events: none; /* 让鼠标点击穿过透明区域，不挡住网页按钮 */
+}
+
+.sakana-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: auto; /* 恢复不倒翁本身的点击互动 */
+}
+#sakana-widget {
+  position: fixed !important;
+  right: 10px !important;
+  bottom: 0 !important;
+  width: 200px !important;
+  height: 200px !important;
+  z-index: 9999 !important;
+}
+/* 顶部 logo 变圆并限制大小 */
+.md-header__button.md-logo img, 
+.md-header__button.md-logo svg {
+  width: 2rem !important;       /* 限制宽度 */
+  height: 2rem !important;      /* 限制高度 */
+  border-radius: 50% !important; /* 变成圆形 */
+  object-fit: cover !important; /* 保证图片不变形 */
+  background-color: white;      /* 给个白底衬托 */
+  padding: 2px;                 /* 留一点点边距 */
+}
+/* 隐藏版权信息 */
+.md-footer-meta {
+  display: none !important;
+}
+
+/* 页脚背景变透明 */
+.md-footer {
+  background-color: transparent !important;
+}
+
+/* 修改上一页/下一页的文字颜色（防止变透明后看不清） */
+.md-footer__inner {
+  color: var(--md-default-fg-color) !important;
+}
+/* ================= 门户首页专属样式 ================= */
+/* 移除 MkDocs 默认的内边距限制，让背景全屏 */
+.md-content__inner {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 全屏主容器，模拟柏码的粉色星云背景 */
+.hero-section {
+  position: relative;
+  min-height: calc(100vh - 6rem); /* 减去顶部导航高度 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+    linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .hero-section {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* 主标题 */
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.title-gradient {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-md-color-scheme="slate"] .hero-title {
+  color: #f5f5f5;
+}
+
+/* 副标题 */
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+[data-md-color-scheme="slate"] .hero-subtitle {
+  color: #aaa;
+}
+
+/* 代码标语 */
+.hero-code {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #e83e8c;
+  margin-bottom: 3rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px);
+}
+[data-md-color-scheme="slate"] .hero-code {
+  background: rgba(0, 0, 0, 0.4);
+  color: #ff79c6;
+}
+
+/* 按钮组 */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+/* 主要按钮（比如个人主页） */
+.btn-primary {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+}
+
+/* 次要按钮（基础算法、路线等） */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333 !important;
+  border: 1px solid #ddd;
+  backdrop-filter: blur(5px);
+}
+.btn-secondary:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+[data-md-color-scheme="slate"] .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee !important;
+  border: 1px solid #444;
+}
+[data-md-color-scheme="slate"] .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 滚动提示 */
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+  font-size: 0.8rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2rem; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .btn { width: 100%; text-align: center; }
+}
+/* 彻底干掉所有卡片效果，回归极简平铺 */
+.md-content__inner,
+.md-sidebar__scrollwrap {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.md-content__inner {
+  padding: 2rem 0 !important; /* 只保留上下留白 */
+  max-width: 100% !important;
+}
+.md-sidebar--secondary {
+  display: none !important; /* 顺便隐藏右侧空目录 */
+}
+/* ================= 门户首页专属“全屏拆墙”补丁 ================= */
+
+/* 1. 如果页面包含门户横幅（.hero-section），就去掉内容区的白底、阴影、圆角和宽度限制 */
+.md-content__inner:has(.hero-section) {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* 2. 去除顶部导航栏和门户横幅之间多余的白色间隙 */
+.md-main__inner,
+.md-content,
+.md-content__inner {
+  margin-top: 0 !important;
+}
+
+/* 3. 让门户横幅真正铺满整个屏幕宽度，去掉圆角 */
+.hero-section {
+  width: 100% !important;
+  min-height: calc(100vh - 3rem) !important; /* 减去顶部导航高度，占满整屏 */
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* 4. 确保内页的卡片样式不受影响（保留你之前的卡片风） */
+.md-content__inner:not(:has(.hero-section)) {
+  /* 这里保持你的卡片样式不变，如果之前加了 max-width: 850px 等，保留即可 */
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--md-default-bg-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+}
+/* ================= Argon 风格移植 ================= */
+
+/* 1. 卡片圆角统一为 15px（Argon 标准） */
+:root {
+  --card-radius: 15px;
+}
+
+.kb-card,
+.md-content__inner,
+.md-sidebar__scrollwrap {
+  border-radius: var(--card-radius) !important;
+}
+
+/* 2. 卡片阴影：模仿 Argon 的柔和浮起效果 */
+.kb-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.kb-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 3. 正文卡片同样使用 Argon 的柔和阴影 */
+.md-content__inner {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 4. 暗色模式适配 */
+[data-md-color-scheme="slate"] .kb-card,
+[data-md-color-scheme="slate"] .md-content__inner {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+/* 5. 门户按钮：Argon 风格的圆角 + 悬浮效果 */
+.btn {
+  border-radius: 25px !important; /* 更圆润的胶囊按钮 */
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.btn-primary {
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.35) !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.5) !important;
+}
+/* 导航栏渐变和阴影 */
+.md-header {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 搜索框优化：让它在深色背景上更清晰 */
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 20px !important;
+  transition: background-color 0.3s, box-shadow 0.3s !important;
+}
+.md-search__input:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2) !important;
+}
+/* 导航栏毛玻璃效果 */
+.md-header {
+  background: rgba(13, 148, 136, 0.8) !important; /* 调整最后一个数字0.8控制透明度 */
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important; /* 兼容 Safari */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 搜索框也透明一点 */
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+}
+/* 返回按钮专属样式 */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background-color: rgba(0, 128, 128, 0.1); /* 淡淡的主题色背景 */
+  color: var(--md-primary-fg-color) !important;
+  border-radius: 20px; /* 圆润的胶囊形状 */
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 128, 128, 0.2);
+}
+
+.back-btn:hover {
+  background-color: var(--md-primary-fg-color);
+  color: white !important;
+  transform: translateX(-4px); /* 鼠标悬停时向左平移一点点，形成交互感 */
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+}
+/* ================= 文章页智能布局 ================= */
+/* 隐藏文章页的左侧导航和右侧目录 */
+body.article-page .md-sidebar--primary,
+body.article-page .md-sidebar--secondary {
+  display: none !important;
+}
+
+/* 让正文在隐藏侧边栏后居中显示 */
+body.article-page .md-main__inner {
+  display: block !important;
+}
+
+body.article-page .md-content {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+}
+
+/* 美化返回按钮（大肥鱼专属） */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background-color: rgba(0, 128, 128, 0.1);
+  color: var(--md-primary-fg-color) !important;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 128, 128, 0.2);
+}
+
+.back-btn:hover {
+  background-color: var(--md-primary-fg-color);
+  color: white !important;
+  transform: translateX(-4px);
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+}
