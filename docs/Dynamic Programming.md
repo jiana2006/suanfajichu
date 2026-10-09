@@ -362,4 +362,46 @@ int main(){
 ```
 
 
+<h2>01背包问题问题：</h2>
+<p>给你一个物品列表，每个物品有一个重量和一个价值。
+你有一个背包，背包的容量为W。
+你的任务是选择一些物品，使物品的重量总和不超过背包的容量，
+并使物品的价值总和最大。</p>
+
+代码实现：<br>
+
+```cpp linenums="1" title="01背包问题.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,W;
+    cin>>n>>W;
+    vector<int>weig(n);
+    vector<int>value(n);
+    for(int i=0;i<n;i++){
+        cin>>weig[i];
+    }
+    for(int i=0;i<n;i++){
+        cin>>value[i];
+    }
+    vector<int>dp(W+1,0);
+    for(int i=0;i<n;i++){
+        for(int j=W;j>=weig[i];j--){
+            dp[j]=max(dp[j],dp[j-weig[i]]+value[i]);
+        }
+    }
+    cout<<dp[W]<<endl;
+    return 0;
+}
+```
+这个就很符合动态规划的思想。
+
+我们是通过转移方程来实现的。<br>
+转移方程如下：<br>
+dp[j]=max(dp[j],dp[j-weig[i]]+value[i]);<br>
+这个的意思是当前这一步的价值等于当前这一步的价值加上上一步的价值。
+上一步的价值等于当前这一步的重量加上上一步的价值。<br>
+
+我们着重讲解一下优化空间复杂度。<br>
 
