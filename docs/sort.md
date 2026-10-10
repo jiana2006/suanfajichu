@@ -181,3 +181,40 @@ int main()
     return 0;
 }
 ```
+
+这里我们写一下结构体的排序。<br>
+<h2>结构体排序</h2>
+
+现在我们给定一些数据开始时间和结束时间要求按照持续时长去排序。<br>
+
+```cpp title="结构体排序.cpp"
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+
+    struct times{
+        int begin,end;
+        int cha;
+    }t[1005];
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> t[i].begin >> t[i].end;
+        t[i].cha = t[i].end - t[i].begin;
+    }
+    sort(t,t+n,[](times a,times b){
+        return a.cha > b.cha;
+    });
+    for (int i = 0; i < n; i++)
+    {
+        cout << t[i].begin << " " << t[i].end << " " << t[i].cha << '\n';
+    }
+    return 0;
+}
+
+```
+
+这个sort()后面如果是return a.ch > b.ch，那么就是按照持续时长从大到小排序。<br>
+如果如果是return a.ch < b.ch，那么就是按照持续时长从小到大排序。<br>

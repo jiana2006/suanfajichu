@@ -404,4 +404,79 @@ dp[j]=max(dp[j],dp[j-weig[i]]+value[i]);<br>
 上一步的价值等于当前这一步的重量加上上一步的价值。<br>
 
 我们着重讲解一下优化空间复杂度。<br>
+```cpp linenums="1" title="01背包问题优化空间复杂度.cpp"
+#include <bits/stdc++.h>
+using namespace std;
 
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, M;
+    cin >> n >> M;
+
+    vector<int> m(n), c(n);
+    for (int i = 0; i < n; i++) cin >> m[i];
+    for (int i = 0; i < n; i++) cin >> c[i];
+
+    int sumC = accumulate(c.begin(), c.end(), 0);
+    const int INF = 0x3f3f3f3f;
+
+    vector<int> dp(sumC + 1, INF);
+    dp[0] = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int v = sumC; v >= c[i]; v--) {
+            if (dp[v - c[i]] + m[i] <= M) {
+                dp[v] = min(dp[v], dp[v - c[i]] + m[i]);
+            }
+        }
+    }
+
+    for (int v = sumC; v >= 0; v--) {
+        if (dp[v] <= M) {
+            cout << v << '\n';
+            return 0;
+        }
+    }
+
+    return 0;
+}
+```
+
+<h2>最长上升子序列问题：</h2>   
+<p>给你一个整数序列，你的任务是找到最长的上升子序列。</p>
+
+比如说7 {3 ，1，2，1，8，5，6}<br>
+最长上升子序列是{1，2，5，6}<br>
+最长上升子序列的长度是4。<br>
+
+```cpp linenums="1" title="最长上升子序列.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n;
+	cin >> n;
+	vector<int>nums(n);
+	for(int i = 0;i < n;i ++)
+	{
+		cin >> nums[i];
+	 } 
+	 vector<int>f(n,0);
+	 for(int i = 0;i < n;i ++){
+	 	f[i] = 1;
+		 for (int j = 1; j < i; j ++ ){
+		 	if (nums[j] < nums[i])
+		 	f[i] = max(f[i],f[j]+1);
+		 } 
+	 }
+	 int res = 0;
+	 for (int i = 1; i <= n; i ++)
+	 res = max(res,f[i]);
+	 cout << res <<endl;
+	
+	return 0; 
+} 
+```

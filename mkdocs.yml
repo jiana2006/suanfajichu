@@ -89,6 +89,7 @@ nav:
       - 堆: heap.md
       - 集合: set.md
       - 图的基本应用: graph.md
+      - 日常练习: daily-exercise.md
   - 个人学习分享: route.md
   - 路线:
     - 前端: frontend.md
