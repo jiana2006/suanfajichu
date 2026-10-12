@@ -40,7 +40,6 @@
 
     const script = document.createElement('script');
     script.id = 'sakana-script';
-    // ⚠️ 这里去掉了最前面的斜杠 /，完美修复不倒翁失踪！
     script.src = 'javascripts/sakana-widget.js?v=2'; 
     script.onload = window.initSakana;
     document.head.appendChild(script);
@@ -53,18 +52,21 @@
     const path = window.location.pathname;
     
     const isHome = path === '/' || path.endsWith('/suanfajichu/') || path.endsWith('/index.html');
-    const isSelectionPage = 
+    
+    // 防止 404 页面被当成文章页隐藏侧边栏
+       const isSelectionPage = 
       path.includes('/basic-algo/') || 
       path.includes('/basic-lang/') || 
       path.includes('/math-skills/') || 
       path.includes('/core-algo/') ||
-      path.includes('/route-plan/');
-    
+      path.includes('/route-plan/') ||
+      path.includes('/learning-tools/') ||  // <--- 加在这里！
+      path.includes('/404/') || 
+      path.includes('/404.html');
     const isNotArticle = isHome || isSelectionPage;
 
     if (!isNotArticle) {
       document.body.classList.add('article-page');
-      
       const article = document.querySelector('.md-content__inner');
       const existingBackBtn = document.querySelector('.back-btn');
       if (existingBackBtn) existingBackBtn.remove();
@@ -80,9 +82,34 @@
     }
   }
 
+  // ==================== 4. 404 页面随机吐槽文案 ====================
+  function init404RandomTip() {
+    const tipElement = document.getElementById('random-tip');
+    if (tipElement) {
+      const tips = [
+        '这里空空如也，连大肥鱼都没游过来呢~',
+        '哎呀，这条路上没有小行星哦，快回家吧！',
+        '瓦蕾莎在这里找不到东西，急得团团转……',
+        '咦？代码写错了吗？还是迷路了呀？',
+        '别找了，这里只有空气，快回首页吃鱼吧！',
+        '糟糕！大肥鱼把页面吃掉了！( ﹁ ﹁ ) ~'
+      ];
+      const randomIndex = Math.floor(Math.random() * tips.length);
+      tipElement.textContent = tips[randomIndex];
+      console.log('🎯 404页面随机文案已加载！');
+    }
+  }
+
+  // ==================== 5. 完美兼容 MkDocs SPA 机制 ====================
   if (typeof document$ !== 'undefined') {
-    document$.subscribe(initArticlePage); 
+    document$.subscribe(function() {
+      initArticlePage();
+      init404RandomTip();
+    }); 
   } else {
-    document.addEventListener('DOMContentLoaded', initArticlePage);
+    document.addEventListener('DOMContentLoaded', function() {
+      initArticlePage();
+      init404RandomTip();
+    });
   }
 })();

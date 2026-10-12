@@ -13,10 +13,10 @@ hide:
     <div class="hero-code">
       <code>System.out.println("Hello World!");</code>
     </div>
-            <div class="hero-buttons">
+    <div class="hero-buttons">
       <a href="home/" class="btn btn-primary">个人主页</a>
-      <a href="basic-algo/" class="btn btn-secondary">基础算法</a> <!-- 改成 basic-algo -->
-            <a href="route-plan/" class="btn btn-secondary">路线规划</a>
+      <a href="basic-algo/" class="btn btn-secondary">基础算法</a>
+      <a href="route-plan/" class="btn btn-secondary">路线规划</a>
       <a href="route/" class="btn btn-secondary">学习分享</a>
     </div>
   </div>
@@ -36,7 +36,6 @@ hide:
     <div class="kb-category-list">
       <h4>📚 分类列表</h4>
       <ul>
-        <!-- ⚠️ 路径已修正：直接写文件名/即可 -->
         <li><a href="python/">Python 系列笔记 📝</a></li>
         <li><a href="c/">C语言系列笔记 ⚙️</a></li>
         <li><a href="Dynamic Programming/">动态规划 ✨</a></li>
@@ -45,14 +44,14 @@ hide:
     </div>
   </aside>
 
-  <!-- 右侧主内容区（卡片网格） -->
+  <!-- 右侧主内容区 -->
   <main class="kb-main">
     <h2>基础算法系列笔记</h2>
     <p class="kb-desc">涵盖基础算法、数据结构等核心知识，打下坚实基础。</p>
     
     <div class="kb-cards">
       <div class="kb-card">
-        <span class="kb-tag tag-green">2025 新</span>
+        <span class="kb-tag tag-green">喵喵1</span>
         <h3>Python 核心内容</h3>
         <p>基于最新录制的 Python 课程。</p>
         <ul>
@@ -62,12 +61,25 @@ hide:
       </div>
       
       <div class="kb-card">
-        <span class="kb-tag tag-blue">2024</span>
+        <span class="kb-tag tag-blue">喵喵2</span>
         <h3>C++ 进阶</h3>
         <p>从 C 语言过渡到面向对象编程。</p>
         <ul>
           <li><a href="cpp/">C++ 笔记（一）基础入门</a></li>
           <li><a href="cpp/">C++ 笔记（二）STL容器</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="kb-card">
+        <span class="kb-tag tag-blue">实用工具</span>
+        <h3>大学作业神器</h3>
+        <p>提供大学作业的辅助工具，帮助学生更高效学习和完成作业。</p>
+        <ul>
+          <li><a href="learning-tools/">学习通强制粘贴</a></li>
+          <li><a href="learning-tools/">词达人速刷</a></li>
+          <li><a href="learning-tools/">welearn速刷</a></li>
+          <li><a href="learning-tools/">其他工具</a></li>
         </ul>
       </div>
     </div>
