@@ -50,9 +50,9 @@ hide:
 这个网站我之前操作失误导致这个网站的数据全部丢失了。我正在努力恢复数据。我写完之后没有及时上传git，执行了命令 `git reset --hard` 导致数据被强制覆盖了。无法恢复。
 
 <div style="text-align:center; margin: 2rem 0;">
-  <video autoplay loop muted playsinline style="width:280px; max-width:100%; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.1);">
-    <source src="../assets/shipin/gugugaga.mp4" type="video/mp4">
+  <video autoplay loop muted playsinline preload="metadata" style="width:280px; max-width:100%; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.1);">
+    <source src="/assets/shipin/gugugaga.mp4" type="video/mp4">
+    您的浏览器不支持视频标签。
   </video>
 </div>
-
 <p style="text-align:center; color:#888; font-size: 0.9rem;">作者快更新 ~~咕咕嘎嘎~~~</p>
