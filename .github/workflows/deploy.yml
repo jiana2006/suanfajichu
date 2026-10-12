@@ -1,0 +1,28 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]  # 只要 main 分支有变动，就自动触发部署
+  workflow_dispatch:    # 允许你在 GitHub 网页上手动点击触发
+
+permissions:
+  contents: write       # ⚠️ 极其重要！给 Actions 写入权限，否则无法推送到 gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: |
+          pip install mkdocs mkdocs-material jieba
+          
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --force
