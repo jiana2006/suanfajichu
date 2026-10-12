@@ -411,3 +411,32 @@ body.article-page .md-content {
   transform: translateX(-4px);
   box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
 }
+
+
+/* 浅色模式：豆沙绿 */
+:root > * {
+  --md-default-bg-color: #f2fbf5 !important; /* 极浅的薄荷绿 */
+}
+/* 暗黑模式：深邃森林 */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #1a231b !important;
+}
+/* 让正文卡片保持纯色，用阴影和底色拉开层次 */
+.md-content__inner {
+  background-color: #ffffff !important; /* 浅色模式纯白卡片，不透明 */
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important; /* 阴影很淡，靠颜色对比 */
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  padding: 2.5rem !important;
+  max-width: 850px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+[data-md-color-scheme="slate"] .md-content__inner {
+  background-color: #242424 !important; /* 暗黑模式深灰卡片 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--md-primary-fg-color); border-radius: 3px; }

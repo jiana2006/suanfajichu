@@ -52,7 +52,13 @@ hide:
       <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">深度优先搜索</h3>
     </a>
 
-    <!-- ====== 数据结构部分（新加的） ====== -->
+    <!-- 🌟 新加的日常练习卡片 -->
+    <a href="../daily-exercise/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📝</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">日常练习</h3>
+    </a>
+
+    <!-- ====== 数据结构部分 ====== -->
     <a href="../linear-list/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
       <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📏</div>
       <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">线性表</h3>

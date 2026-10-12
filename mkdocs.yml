@@ -120,3 +120,11 @@ extra_javascript:
   # 先保留 CDN，等你的本地文件彻底稳定了，再决定是否换成 javascripts/sakana-widget.js
   - https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js
   - javascripts/extra.js
+  
+plugins:
+  - optimize
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
