@@ -460,23 +460,119 @@ int main(){
 	int n;
 	cin >> n;
 	vector<int>nums(n);
-	for(int i = 0;i < n;i ++)
-	{
+	for (int i = 0; i < n ; i++ ){
 		cin >> nums[i];
-	 } 
-	 vector<int>f(n,0);
-	 for(int i = 0;i < n;i ++){
-	 	f[i] = 1;
-		 for (int j = 1; j < i; j ++ ){
-		 	if (nums[j] < nums[i])
-		 	f[i] = max(f[i],f[j]+1);
-		 } 
-	 }
-	 int res = 0;
-	 for (int i = 1; i <= n; i ++)
-	 res = max(res,f[i]);
-	 cout << res <<endl;
-	
-	return 0; 
+	}
+	int ans = 0;
+	vector<int>dp(n,0);
+	for (int i = 0 ;i < n; i++ ){
+		for (int j = 0; j < i ; j++){
+			if (nums[i] > nums[j]){
+				dp[i] = max(dp [i],dp[j]+1);
+			}
+		}
+		ans = max(ans,dp[i]);
+	}
+	cout << ans <<endl;
+	return 0;
+} 
+
+```
+<p>这个就比较简单了但是时间复杂度比较高，是O(n^2)。</p><br>
+<p>这道题的最优解法是贪心+二分：</p><br>
+
+```cpp linenums="1" title="最长上升子序列贪心+二分.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n;
+	cin >> n;
+	vector<int>nums(n);
+	for(int i = 0 ; i < n; i++){
+		cin >> nums[i];
+	}
+	vector<int>tails;
+	for (int x:nums)
+	{
+		int pos = lower_bound(tails.begin(),tails.end(),x)-tails.begin();
+		if (pos == tails.end()){
+			tails.push_back(x);
+		}else{
+			tails[pos] = x;
+		}
+	}
+	cout << tails.size() << endl;
+	return 0;
 } 
 ```
+<p>这个的时间复杂度是O(nlogn)。</p><br>
+<p>这里解释一下lower_bound他是stl中的一个函数，他返回的是第一个大于等于x的元素的迭代器。返回的是地址值</p>
+<p>lower_bound(开始迭代器，结束迭代器，要查找的元素)</p>
+<p>如果要查找的元素不存在，他返回的是结束迭代器。</p>
+
+<p>为啥要写-tails.begin()？</p>
+<p>因为lower_bound返回的是一个迭代器，我们要将其转换为下标，所以要减去开始迭代器。</p>
+<p>举个例子：</p>
+<p>tails = {2,5,3,7,101,18}</p>
+如果找到了2 lower_bound返回的是2的地址也就是0X1000。我们减去开始迭代器得到下标是0。
+<p>遍历过程以 8<br>
+10 9 2 5 3 7 101 18
+<br>为例子</p>
+
+
+<h2>不同的子序列问题：</h2>
+
+<p>给你两个字符串s和t，统计并返回在s的子序列中出现t的次数。</p>
+<p>举个例子：</p>
+<p>s = "rabbbit", t = "rabbit"</p>
+<p>返回3</p>
+
+<p>代码实现：</p>
+<p>转移方程：</p>
+<p>dp[i][j] = dp[i-1][j-1] + dp[i-1][j]</p>
+<p>dp[i][j] = dp[i-1][j]</p>
+<p>dp[i][j] = 1</p>
+<p>dp[i][j] = 0</p>
+
+```cpp title="不同的子序列问题.cpp"
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	string s , t;
+	cin >> s >> t;
+	int m = s.length();
+	int n = t.length();
+	if(m < n){
+		return 0;
+	}
+	vector<vector<ll>>dp(m + 1,vector<ll>(n + 1,0)); 
+	for (int i = 0; i <= m ; i++){
+		dp[i][n] = 1;
+	}
+	for (int i = m - 1; i >= 0 ; i--){
+		char sChar = s.at(i);
+		for (int j = n - 1 ; j >= 0; j--){
+			char tChar = t.at(j);
+			if (sChar == tChar){
+				dp[i][j] = dp[i+1][j+1] + dp[i+1][j];
+			}else{
+				dp[i][j] = dp[i+1][j];
+			}
+		}
+	} 
+	
+
+cout << dp[0][0] << endl;
+	return 0;
+}
+```
+
+<p>这里解释一下s.at(i)和t.at(j)的含义：</p>
+<p>s.at(i)表示s的第i个字符</p>
+<p>用.at()函数可以避免越界。</p>
+<p>.at()在访问之前，会先检查一下i是否合法，如果i>=0 && i<s.length():安全放行，返回字符。</p>
+<p>如果i不合法，会抛出out_of_range异常。</p
+>

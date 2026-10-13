@@ -79,7 +79,7 @@ hide:
           <li><a href="learning-tools/">学习通强制粘贴</a></li>
           <li><a href="learning-tools/">词达人速刷</a></li>
           <li><a href="learning-tools/">welearn速刷</a></li>
-          <li><a href="learning-tools/">其他工具</a></li>
+          <li><a href="learning/">其他工具</a></li>
         </ul>
       </div>
     </div>
