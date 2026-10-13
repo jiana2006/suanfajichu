@@ -4,8 +4,10 @@ site_description: 个人学习知识库
 site_author: 喵喵
 
 theme:
-  name: material  # ⚠️ 就是这行漏掉了！必须放在第一行！
+  name: material
+  custom_dir: overrides   # ⚠️ 就是这一行！告诉 MkDocs 去 overrides 找模板
   language: zh
+  # ... 后面保持不变 ...
   logo: assets/gif/valesa.jpg   # 顶栏 Logo
   favicon: assets/gif/valesa.jpg # 浏览器标签页图标
   font:

@@ -250,3 +250,75 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
 [data-md-color-scheme="slate"] .not-found-subtitle {
   color: #aaa !important;
 }
+/* ================= 左下角萌宠 ================= */
+.pet-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998; /* 确保在其他元素之上，但低于不倒翁 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pet-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #f2fbf5;
+  transition: transform 0.2s ease;
+}
+
+/* 气泡对话框 */
+.pet-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 150px;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+
+.pet-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent;
+}
+
+/* 气泡显示状态 */
+.pet-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 暗黑模式适配 */
+[data-md-color-scheme="slate"] .pet-img {
+  border-color: #444;
+  background-color: #1a231b;
+}
+[data-md-color-scheme="slate"] .pet-bubble {
+  background: rgba(40, 40, 40, 0.95);
+  color: #eee;
+}
+[data-md-color-scheme="slate"] .pet-bubble::after {
+  border-color: rgba(40, 40, 40, 0.95) transparent transparent;
+}
