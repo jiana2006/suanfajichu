@@ -57,6 +57,61 @@ hide:
       <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📝</div>
       <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">日常练习</h3>
     </a>
+        <!-- 缺失的算法方块补齐 -->
+    <a href="../Time Complexity/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⏱️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">时间复杂度</h3>
+    </a>
+
+    <a href="../high-precision/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔬</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">高精度算法</h3>
+    </a>
+
+    <a href="../standard template library/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📦</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">STL容器</h3>
+    </a>
+
+    <a href="../prefix-sum/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">➕</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">前缀和与差分</h3>
+    </a>
+
+    <a href="../fenwick-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌳</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">树状数组</h3>
+    </a>
+
+    <a href="../backtracking/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⏪</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">回溯</h3>
+    </a>
+
+    <a href="../trie-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔠</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">字典树</h3>
+    </a>
+
+    <a href="../segment-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📏</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">线段树</h3>
+    </a>
+
+    <a href="../sliding-window/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🪟</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">滑动窗口</h3>
+    </a>
+
+    <a href="../hash-lookup/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔎</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希查找</h3>
+    </a>
+
+    <a href="../hash-table/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🗂️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希表</h3>
+    </a>
 
     <!-- ====== 数据结构部分 ====== -->
     <a href="../linear-list/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
