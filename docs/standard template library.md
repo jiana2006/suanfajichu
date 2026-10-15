@@ -1,13 +1,13 @@
-stl标准模板库
-stl容器应该是c++11或以上版本的。
+<h1>stl标准模板库</h1>
+<p>stl标准模板库是一个非常强大的库，它提供了很多的容器和算法，可以帮助我们快速地实现很多的功能。</p>
 
-容器一听名字就知道是做什么的。（储存数据）
+<p>stl容器应该是c++11或以上版本的。<br></p>
+<p>stl容器一听名字就知道是做什么的。<br></p>
+<p>stl容器的复杂度是O(n)，其中n是容器的元素数量。<br></p>
 
-容器的复杂度是O(n)，其中n是容器的元素数量。
+其中我个人最常用的容器是vector。<br></p>
 
-其中我个人最常用的容器是vector。
-
-vector容器是一个动态数组，可以自动调整大小。
+<p>vector容器是一个动态数组，可以自动调整大小。<br></p>
 
 相较于auto &[101]，vector容器最大的好处是很节省空间的。
 
@@ -19,13 +19,13 @@ vector<数据类型>+容器名字（大小）
 
 比如：vector<vector<int>>res(n,vector<int>(m));
 
-vector<vector<数据类型>>容器名字（行数，vector<数据类型>(列数)>）
+<p>vector<vector<数据类型>>容器名字（行数，vector<数据类型>(列数)>）</p>
 
-初始化二维数组
+<p>初始化二维数组：<br></p>
 
 vector<vector<int>>res(n,vector<int>(m,0));
 
-这里我们使用一下vector；
+<p>这里我们使用一下vector；<br></p>
 现在给你a*b的矩阵，要求你输出它的乘法结果。
 
 ```cpp linenums="1" title="vector.cpp"

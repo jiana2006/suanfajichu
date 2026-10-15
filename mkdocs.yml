@@ -65,6 +65,7 @@ nav:
     - 核心算法:
       - 选择分类: core-algo.md
       - 字符串: string.md
+      - 常用函数: common-functions.md
       - 排序: sort.md
       - 枚举: enum.md
       - 二分查找: binary-search.md

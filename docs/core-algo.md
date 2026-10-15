@@ -113,6 +113,11 @@ hide:
       <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希表</h3>
     </a>
 
+     <a href="../common-functions/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛠️</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">常用函数</h3>
+    </a>
+
     <!-- ====== 数据结构部分 ====== -->
     <a href="../linear-list/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
       <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📏</div>
