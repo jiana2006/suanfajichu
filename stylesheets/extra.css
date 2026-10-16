@@ -1,0 +1,866 @@
+/* ================= 1. 基础动画与不倒翁 ================= */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.md-content { animation: fadeIn 0.3s ease-in-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#sakana-widget {
+  position: fixed !important;
+  right: 10px !important;
+  bottom: 0 !important;
+  width: 200px !important;
+  height: 200px !important;
+  z-index: 9999 !important;
+}
+
+/* ================= 2. 全局背景与滚动条 ================= */
+/* 浅色模式：极浅薄荷绿 */
+:root > * { --md-default-bg-color: #f2fbf5 !important; }
+/* 暗黑模式：深邃森林 */
+[data-md-color-scheme="slate"] { --md-default-bg-color: #1a231b !important; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--md-primary-fg-color); border-radius: 3px; }
+
+/* ================= 3. 顶部导航栏与页脚 ================= */
+.md-header {
+  background: rgba(13, 148, 136, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+.md-header__button.md-logo img { 
+  width: 2rem !important; height: 2rem !important;
+  border-radius: 50% !important; object-fit: cover !important;
+  background-color: white; padding: 2px;
+}
+.md-search__input { background-color: rgba(255, 255, 255, 0.15) !important; border-radius: 20px !important; }
+
+/* 页脚透明化 */
+.md-footer { background-color: transparent !important; }
+.md-footer-meta { display: none !important; }
+.md-footer__inner { color: var(--md-default-fg-color) !important; }
+
+/* ================= 4. 门户首页专属 (Index) ================= */
+/* 首页全屏拆墙 */
+.md-content__inner:has(.hero-section) {
+  max-width: 100% !important; padding: 0 !important;
+  margin: 0 !important; background-color: transparent !important;
+  box-shadow: none !important; border-radius: 0 !important;
+}
+.md-main__inner, .md-content, .md-content__inner { margin-top: 0 !important; }
+
+.hero-section {
+  position: relative;
+  width: 100% !important; min-height: calc(100vh - 3rem) !important;
+  margin: 0 !important; border-radius: 0 !important;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 2rem; overflow: hidden;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+    linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+}
+[data-md-color-scheme="slate"] .hero-section {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.hero-title { 
+  font-size: 3rem; font-weight: 800; color: #222222 !important; 
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8); margin-bottom: 1rem; line-height: 1.2;
+}
+.title-gradient {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%) !important;
+  -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;
+}
+.hero-subtitle { 
+  font-size: 1.1rem; color: #444444 !important; font-weight: 500 !important;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+  max-width: 600px; margin-bottom: 2rem; line-height: 1.8; 
+}
+.hero-code {
+  background: rgba(255, 255, 255, 0.7); padding: 0.5rem 1rem; border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #e83e8c;
+  margin-bottom: 3rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); backdrop-filter: blur(8px);
+}
+
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.btn {
+  display: inline-block; padding: 0.8rem 2rem; font-size: 1rem; font-weight: bold;
+  border-radius: 25px !important; text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: #fff !important;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6); }
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8); color: #333 !important; border: 1px solid #ddd;
+  backdrop-filter: blur(5px);
+}
+.btn-secondary:hover { transform: translateY(-3px) scale(1.05); background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+/* ================= 5. 知识库布局 (下半部分) ================= */
+.kb-container { display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
+.kb-sidebar { flex: 1; min-width: 250px; max-width: 300px; }
+.kb-main { flex: 3; min-width: 300px; }
+
+/* ⚠️ 图片尺寸核心护盾 */
+.kb-avatar {
+  width: 80px !important; height: 80px !important;
+  border-radius: 50% !important; object-fit: cover !important;
+  margin-bottom: 1rem; border: 2px solid var(--md-primary-fg-color);
+}
+.kb-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.kb-card {
+  background-color: var(--md-default-bg-color);
+  border-radius: 15px !important; padding: 1.5rem; border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+.kb-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ================= 6. 文章内页布局 (智能卡片) ================= */
+.md-content__inner:not(:has(.hero-section)) {
+  max-width: 850px !important; margin: 1.5rem auto !important; padding: 2.5rem !important;
+  background-color: #ffffff !important; border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+[data-md-color-scheme="slate"] .md-content__inner:not(:has(.hero-section)) {
+  background-color: #242424 !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 文章页隐藏侧边栏 */
+body.article-page .md-sidebar--primary,
+body.article-page .md-sidebar--secondary { display: none !important; }
+body.article-page .md-main__inner { display: block !important; }
+body.article-page .md-content { max-width: 900px !important; margin: 0 auto !important; }
+
+/* 返回按钮 */
+.back-btn {
+  display: inline-flex; align-items: center; padding: 0.5rem 1.2rem;
+  background-color: rgba(0, 128, 128, 0.1); color: var(--md-primary-fg-color) !important;
+  border-radius: 20px; font-size: 0.9rem; font-weight: bold;
+  text-decoration: none !important; transition: all 0.25s ease; border: 1px solid rgba(0, 128, 128, 0.2);
+}
+.back-btn:hover {
+  background-color: var(--md-primary-fg-color); color: white !important;
+  transform: translateX(-4px); box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+}
+
+/* ================= 7. 手机端适配 ================= */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2rem; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .btn { width: 100%; text-align: center; }
+}
+/* 欢迎来到 */
+.hero-title {
+  color: #0f766e !important; /* 深青色，沉稳但不死板 */
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+}
+
+
+/* 欢迎来到 */
+.hero-title {
+  color: #0f766e !important; /* 深青色，沉稳但不死板 */
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+}
+
+/* 喵喵基础算法 —— 极光青紫渐变 */
+.title-gradient {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 50%, #a855f7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  /* 关键：给渐变字加一点点发光效果，让它在浅色背景上“浮”出来 */
+  filter: drop-shadow(0 2px 4px rgba(0, 114, 255, 0.2));
+}
+.md-typeset pre > code { border-radius: 8px; }
+/* ================= 404 页面专属样式 ================= */
+.not-found-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+    linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  margin: 2rem auto;
+  max-width: 900px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+[data-md-color-scheme="slate"] .not-found-container {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.not-found-avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+  animation: float 3s ease-in-out infinite; /* 瓦蕾莎上下浮动 */
+}
+[data-md-color-scheme="slate"] .not-found-avatar {
+  border-color: #333;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.not-found-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f766e !important;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+}
+[data-md-color-scheme="slate"] .not-found-title {
+  color: #5eead4 !important;
+  text-shadow: none;
+}
+.not-found-subtitle {
+  font-size: 1.1rem;
+  color: #444444 !important;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+[data-md-color-scheme="slate"] .not-found-subtitle {
+  color: #aaa !important;
+}
+/* ================= 左下角萌宠 ================= */
+.pet-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998; /* 确保在其他元素之上，但低于不倒翁 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pet-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #f2fbf5;
+  transition: transform 0.2s ease;
+}
+
+/* 气泡对话框 */
+.pet-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 150px;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+
+.pet-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent;
+}
+
+/* 气泡显示状态 */
+.pet-bubble.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 暗黑模式适配 */
+[data-md-color-scheme="slate"] .pet-img {
+  border-color: #444;
+  background-color: #1a231b;
+}
+[data-md-color-scheme="slate"] .pet-bubble {
+  background: rgba(40, 40, 40, 0.95);
+  color: #eee;
+}
+[data-md-color-scheme="slate"] .pet-bubble::after {
+  border-color: rgba(40, 40, 40, 0.95) transparent transparent;
+}
+/* ================= 可展开的 C++ AC 代码组件 ================= */
+.code-toggle-wrapper {
+  background: var(--md-default-bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+[data-md-color-scheme="slate"] .code-toggle-wrapper {
+  background: #242424;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+  position: relative;
+}
+.code-header:hover { background-color: var(--md-default-fg-color--lightest); }
+
+.left-bar {
+  width: 5px; height: 28px;
+  background-color: #52c41a;
+  border-radius: 3px;
+  margin-right: 12px;
+}
+
+.status-icon {
+  width: 20px; height: 20px;
+  background-color: #52c41a;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: 12px;
+}
+.status-icon svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+.code-title { font-size: 18px; font-weight: 500; display: flex; gap: 6px; align-items: center; }
+.text-green { color: #52c41a; }
+.text-blue { color: #1890ff; }
+
+.arrow-icon { margin-left: auto; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+.arrow-icon svg { width: 14px; height: 14px; fill: #52c41a; }
+
+/* 展开时箭头旋转90度 */
+.code-toggle-wrapper.expanded .arrow-icon { transform: rotate(90deg); }
+
+/* 代码内容区 */
+.code-body { display: none; background-color: #282c34; border-top: 1px solid var(--md-default-fg-color--lightest); }
+.code-toggle-wrapper.expanded .code-body { display: block; }
+
+.code-body pre { margin: 0; padding: 16px; overflow-x: auto; color: #abb2bf; font-family: Consolas, Monaco, "Andale Mono", monospace; font-size: 14px; line-height: 1.5; }
+/* ================= 中文段落首行缩进两格 ================= */
+/* 只对正文的直接子段落生效，完美避开列表、卡片、提示框里的文字 */
+.md-typeset > p {
+  text-indent: 2em;
+}
+/* ================= 文章标题美化 ================= */
+.md-typeset h1 {
+  font-weight: 800;
+  background: linear-gradient(90deg, #0d9488, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  border-bottom: 3px solid #2dd4bf;
+  padding-bottom: 4px;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  position: relative;
+  padding-left: 14px;
+  color: #0f766e;
+}
+
+.md-typeset h2::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 6px;
+  background: linear-gradient(180deg, #0d9488, #3b82f6);
+  border-radius: 3px;
+}
+/* ================= 左下角萌宠主样式 ================= */
+.pet-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pet-img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #f2fbf5;
+  transition: transform 0.2s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 气泡 */
+.pet-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 150px;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.pet-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent;
+}
+.pet-bubble.show { opacity: 1; transform: translateY(0); }
+
+/* 控制器 */
+.pet-controls {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: auto;
+}
+.pet-container:hover .pet-controls { opacity: 1; }
+
+.pet-controls button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.2s;
+}
+.pet-controls button:hover { background: #ff6b6b; color: white; transform: scale(1.1); }
+
+/* 召回按钮 */
+.pet-recall-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 9997;
+}
+
+/* ================= 萌宠设置弹窗（复刻截图 UI） ================= */
+.pet-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.pet-modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pet-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.pet-modal-overlay.show .pet-modal-content { transform: translateY(0); }
+
+.pet-modal-content h3 { margin-top: 0; font-size: 1.1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+
+/* 大小控制器 */
+.pet-size-control { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.pet-size-control label { font-size: 0.9rem; color: #555; font-weight: 500; }
+.pet-size-control input[type="range"] { width: 100%; cursor: pointer; accent-color: #0d9488; }
+
+/* 台词列表（复刻截图虚线框风格） */
+.pet-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.pet-tip-item {
+  display: flex;
+  align-items: center;
+  border: 1px dashed #d0d7de;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: #fdfdfd;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+.pet-tip-item:hover { border-color: #0d9488; }
+.pet-tip-item .drag-handle { color: #ccc; cursor: grab; font-size: 12px; }
+.pet-tip-item .tip-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  outline: none;
+  color: #333;
+  text-align: center;
+}
+.pet-tip-item .delete-tip {
+  background: transparent;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+.pet-tip-item .delete-tip:hover { color: #ff4d4f; }
+
+/* 添加按钮 */
+#add-pet-tip {
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed #d0d7de;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #555;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+#add-pet-tip:hover { border-color: #0d9488; color: #0d9488; background: #f0fdfa; }
+
+/* 底部操作按钮 */
+.pet-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.pet-modal-actions button {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+#cancel-pet-settings { background: #f5f5f5; color: #555; }
+#cancel-pet-settings:hover { background: #e8e8e8; }
+#save-pet-settings { background: #0d9488; color: #fff; }
+#save-pet-settings:hover { background: #0f766e; }
+
+/* 暗黑模式适配 */
+[data-md-color-scheme="slate"] .pet-modal-content { background: #242424; color: #eee; }
+[data-md-color-scheme="slate"] .pet-modal-content h3 { color: #eee; border-bottom-color: #444; }
+[data-md-color-scheme="slate"] .pet-size-control label { color: #aaa; }
+[data-md-color-scheme="slate"] .pet-tip-item { background: #2a2a2a; border-color: #555; }
+[data-md-color-scheme="slate"] .pet-tip-item .tip-input { color: #eee; }
+[data-md-color-scheme="slate"] #add-pet-tip { background: #2a2a2a; border-color: #555; color: #aaa; }
+[data-md-color-scheme="slate"] #add-pet-tip:hover { border-color: #2dd4bf; color: #2dd4bf; }
+[data-md-color-scheme="slate"] #cancel-pet-settings { background: #333; color: #aaa; }
+[data-md-color-scheme="slate"] #cancel-pet-settings:hover { background: #444; }
+[data-md-color-scheme="slate"] .pet-img { border-color: #444; background-color: #1a231b; }
+[data-md-color-scheme="slate"] .pet-bubble { background: rgba(40, 40, 40, 0.95); color: #eee; }
+[data-md-color-scheme="slate"] .pet-bubble::after { border-color: rgba(40, 40, 40, 0.95) transparent transparent; }
+[data-md-color-scheme="slate"] .pet-controls button { background: rgba(60, 60, 60, 0.9); color: #eee; }
+[data-md-color-scheme="slate"] .pet-recall-btn { background: rgba(60, 60, 60, 0.9); }
+
+
+/* ================= 终极版：透明转实色导航栏（自研 JS 驱动） ================= */
+
+/* 1. 初始状态：彻底透明 */
+.md-header {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out !important;
+}
+.md-tabs {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 2. 滚动时，触发我们自定义的 header-scrolled 类名 */
+.md-header.header-scrolled {
+  background-color: rgba(13, 148, 136, 0.95) !important; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 3. 暗黑模式适配 */
+[data-md-color-scheme="slate"] .md-header {
+  background: transparent !important;
+}
+[data-md-color-scheme="slate"] .md-header.header-scrolled {
+  background-color: rgba(30, 30, 40, 0.95) !important;
+}
+/* ================= 让折叠代码块变绿 ================= */
+.md-typeset details {
+  border: 1px solid #52c41a !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 标题栏样式 */
+.md-typeset details > summary {
+  background-color: rgba(82, 196, 26, 0.08) !important;
+  color: #52c41a !important;
+  font-weight: 600 !important;
+  padding: 12px 16px !important;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-left: 44px !important; /* 留出绿色对勾的位置 */
+}
+
+/* 用伪元素画一个绿色对勾圆 */
+.md-typeset details > summary::before {
+  content: '✓';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #52c41a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* 去掉默认的三角形箭头 */
+.md-typeset details > summary::marker,
+.md-typeset details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 展开后的内容区背景 */
+.md-typeset details[open] > summary {
+  border-bottom: 1px solid #52c41a;
+}
+
+
+/* ================= 代码块专属深色主题 ================= */
+
+/* 1. 代码块整体变深色 */
+.md-typeset pre > code,
+.md-typeset .highlight pre {
+  background-color: #282c34 !important; /* 经典的 VS Code 深色背景 */
+  color: #abb2bf !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 2. 行号栏也变深色（如果开了 linenums） */
+.md-typeset .linenodiv pre {
+  background-color: #21252b !important;
+  color: #636d83 !important;
+  border-right: 1px solid #3e4451 !important;
+}
+
+/* 3. 标题栏渐变（深色模式下特别显眼） */
+.md-typeset .highlight span.filename {
+  background: linear-gradient(90deg, #0d9488, #3b82f6) !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  font-size: 0.85rem !important;
+  border-radius: 8px 8px 0 0 !important;
+  display: inline-block;
+}
+
+/* 4. 深色模式下再微调（让代码块完全融入） */
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+  background-color: #1e1e1e !important;
+}
+
+/* ================= 清新代码块 · 亮色模式 ================= */
+
+/* 1. 代码块容器：淡雅米白底，柔和圆角 */
+.md-typeset pre {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.md-typeset pre > code,
+.md-typeset .highlight pre {
+  background-color: #f8fafc !important; /* 极浅的蓝灰色，比纯白更护眼 */
+  color: #475569 !important;           /* 深灰蓝文字，柔和清晰 */
+  padding: 1.2rem 1rem !important;
+}
+
+/* 2. 标题栏：淡雅青蓝渐变，高级不刺眼 */
+.md-typeset .highlight span.filename {
+  background: linear-gradient(90deg, #14b8a6, #3b82f6) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 10px 18px !important;
+  font-size: 0.85rem !important;
+  border-radius: 12px 12px 0 0 !important;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+/* 3. 行号栏：淡灰底，低调内敛 */
+.md-typeset .linenodiv pre {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+/* 4. 语法高亮 —— 清新治愈系配色 */
+.md-typeset .highlight .c,    /* 注释 */
+.md-typeset .highlight .c1,
+.md-typeset .highlight .cm { color: #94a3b8 !important; font-style: italic; } /* 雾霾灰 */
+
+.md-typeset .highlight .k,    /* 关键字 int, while, return */
+.md-typeset .highlight .kd,
+.md-typeset .highlight .kn,
+.md-typeset .highlight .kr { color: #d946ef !important; font-weight: 600; } /* 柔和紫 */
+
+.md-typeset .highlight .s,    /* 字符串 */
+.md-typeset .highlight .s1,
+.md-typeset .highlight .s2,
+.md-typeset .highlight .sb { color: #10b981 !important; } /* 清新绿 */
+
+.md-typeset .highlight .mi,   /* 数字 */
+.md-typeset .highlight .mf,
+.md-typeset .highlight .mh { color: #f59e0b !important; } /* 温暖橙 */
+
+.md-typeset .highlight .n,    /* 普通变量 */
+.md-typeset .highlight .nx { color: #334155 !important; }
+
+.md-typeset .highlight .nf,   /* 函数名 */
+.md-typeset .highlight .nb { color: #0ea5e9 !important; } /* 天空蓝 */
+
+.md-typeset .highlight .o,    /* 运算符 */
+.md-typeset .highlight .ow { color: #64748b !important; }
+
+.md-typeset .highlight .p { color: #64748b !important; } /* 标点 */
+
+/* ================= 清新代码块 · 深色模式 ================= */
+[data-md-color-scheme="slate"] .md-typeset pre > code,
+[data-md-color-scheme="slate"] .md-typeset .highlight pre {
+  background-color: #1e293b !important; /* 深夜蓝灰，比纯黑护眼 */
+  color: #cbd5e1 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .linenodiv pre {
+  background-color: #0f172a !important;
+  color: #475569 !important;
+  border-right: 1px solid #334155 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .c,
+[data-md-color-scheme="slate"] .md-typeset .highlight .c1 { color: #64748b !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .k,
+[data-md-color-scheme="slate"] .md-typeset .highlight .kd { color: #c084fc !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .s,
+[data-md-color-scheme="slate"] .md-typeset .highlight .s1 { color: #6ee7b7 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .mi,
+[data-md-color-scheme="slate"] .md-typeset .highlight .mf { color: #fbbf24 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .n,
+[data-md-color-scheme="slate"] .md-typeset .highlight .nx { color: #e2e8f0 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .nf,
+[data-md-color-scheme="slate"] .md-typeset .highlight .nb { color: #7dd3fc !important; }
+/* 折叠标题文字美化 */
+.code-toggle-wrapper .code-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #52c41a;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
