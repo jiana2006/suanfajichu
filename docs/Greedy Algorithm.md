@@ -184,7 +184,6 @@ int main(){
     else cout<<"false";
     return 0;
 }
-
 ```
 
 <h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">跳跃问题2：</h1>
@@ -214,9 +213,78 @@ int main(){
 	cout<<shu<<endl;
 }
 ```
-<div style="text-align:center; margin:20px 0;">
-<video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
- <source src="../assets/shipin/咕咕嘎嘎.mp4" type="video/mp4">
-</video>
-</div>
-作者快更新 ~~咕咕嘎嘎~~~
+
+<h2>最大数问题：</h2>
+<p>给你n个正整数，重新排列，使这个数最大。</p>
+<p>这个输出的数可能很大，所以你需要输出一个字符串。</p>
+```cpp linenums="1" title="最大数问题.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int>nums(n);
+    for(int i=0;i<n;i++){
+        cin>>nums[i];
+    }
+    sort(nums.begin(), nums.end(), [](int a, int b) {
+        string sa = to_string(a);
+        string sb = to_string(b);
+        return sa + sb > sb + sa;
+    });
+
+    if (nums[0] == 0) {
+        return "0";
+    }
+
+    string ans = "";
+    for (int num : nums) {
+        ans += to_string(num);
+    }
+    return ans;
+}
+```
+
+这里解释一下sort函数的参数。<br>
+我们用lambda表达式来定义排序的规则。<br>
+我们想让nums数组中的元素按照字符串的拼接顺序来排序。<br>
+所以我们在lambda表达式中，我们比较了两个字符串的拼接顺序。<br>
+如果sa + sb > sb + sa，那么我们返回true，否则返回false。<br>
+这样我们就可以让nums数组中的元素按照字符串的拼接顺序来排序。<br>
+如果nums数组中的元素是0，那么我们返回"0"。<br>
+否则我们返回拼接后的字符串。
+
+他其实是由三部分组成：<br>
+```
+1.sort(nums.begin(),nums.end(),……)
+```
+这个是排序函数。<br>
+```
+2.[](string a, stirng b){
+
+}
+```
+这个是lambda表达式，他就是一个没有名字的临时函数<br>
+拆开看：<br>
+<b>[]</b>：捕获列表。暂时你可以理解为“我不需要用到外面的变量，所以里面是空的”。<br>
+(string a, stirng b)：参数列表。sort 每次会拿出两个字符串，分别传给 a 和 b。<br>
+```
+3.return sa + sb > sb + sa;
+```
+这是比较规则的核心：<br>
+a + b：把 a 拼在 b 前面，比如 a = "3"，b = "30"，那么 a + b = "330"。<br>
+b + a：把 b 拼在 a 前面，那么 b + a = "303"。<br>
+如果 a + b > b + a，就返回 true，表示 a 应该排在 b 前面。
+
+如果你还是觉得这个比较规则理解起来比较困难，你可以参考一下：<br>
+
+```
+bool cmp(string a, string b) {
+    return a + b > b + a;
+}
+
+int main() {
+    // ...
+    sort(nums.begin(), nums.end(), cmp);
+}
+```

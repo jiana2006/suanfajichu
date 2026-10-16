@@ -672,3 +672,195 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
 [data-md-color-scheme="slate"] .md-header.header-scrolled {
   background-color: rgba(30, 30, 40, 0.95) !important;
 }
+/* ================= 让折叠代码块变绿 ================= */
+.md-typeset details {
+  border: 1px solid #52c41a !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 标题栏样式 */
+.md-typeset details > summary {
+  background-color: rgba(82, 196, 26, 0.08) !important;
+  color: #52c41a !important;
+  font-weight: 600 !important;
+  padding: 12px 16px !important;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-left: 44px !important; /* 留出绿色对勾的位置 */
+}
+
+/* 用伪元素画一个绿色对勾圆 */
+.md-typeset details > summary::before {
+  content: '✓';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #52c41a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* 去掉默认的三角形箭头 */
+.md-typeset details > summary::marker,
+.md-typeset details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 展开后的内容区背景 */
+.md-typeset details[open] > summary {
+  border-bottom: 1px solid #52c41a;
+}
+
+
+/* ================= 代码块专属深色主题 ================= */
+
+/* 1. 代码块整体变深色 */
+.md-typeset pre > code,
+.md-typeset .highlight pre {
+  background-color: #282c34 !important; /* 经典的 VS Code 深色背景 */
+  color: #abb2bf !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 2. 行号栏也变深色（如果开了 linenums） */
+.md-typeset .linenodiv pre {
+  background-color: #21252b !important;
+  color: #636d83 !important;
+  border-right: 1px solid #3e4451 !important;
+}
+
+/* 3. 标题栏渐变（深色模式下特别显眼） */
+.md-typeset .highlight span.filename {
+  background: linear-gradient(90deg, #0d9488, #3b82f6) !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  font-size: 0.85rem !important;
+  border-radius: 8px 8px 0 0 !important;
+  display: inline-block;
+}
+
+/* 4. 深色模式下再微调（让代码块完全融入） */
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+  background-color: #1e1e1e !important;
+}
+
+/* ================= 清新代码块 · 亮色模式 ================= */
+
+/* 1. 代码块容器：淡雅米白底，柔和圆角 */
+.md-typeset pre {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.md-typeset pre > code,
+.md-typeset .highlight pre {
+  background-color: #f8fafc !important; /* 极浅的蓝灰色，比纯白更护眼 */
+  color: #475569 !important;           /* 深灰蓝文字，柔和清晰 */
+  padding: 1.2rem 1rem !important;
+}
+
+/* 2. 标题栏：淡雅青蓝渐变，高级不刺眼 */
+.md-typeset .highlight span.filename {
+  background: linear-gradient(90deg, #14b8a6, #3b82f6) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 10px 18px !important;
+  font-size: 0.85rem !important;
+  border-radius: 12px 12px 0 0 !important;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+/* 3. 行号栏：淡灰底，低调内敛 */
+.md-typeset .linenodiv pre {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+/* 4. 语法高亮 —— 清新治愈系配色 */
+.md-typeset .highlight .c,    /* 注释 */
+.md-typeset .highlight .c1,
+.md-typeset .highlight .cm { color: #94a3b8 !important; font-style: italic; } /* 雾霾灰 */
+
+.md-typeset .highlight .k,    /* 关键字 int, while, return */
+.md-typeset .highlight .kd,
+.md-typeset .highlight .kn,
+.md-typeset .highlight .kr { color: #d946ef !important; font-weight: 600; } /* 柔和紫 */
+
+.md-typeset .highlight .s,    /* 字符串 */
+.md-typeset .highlight .s1,
+.md-typeset .highlight .s2,
+.md-typeset .highlight .sb { color: #10b981 !important; } /* 清新绿 */
+
+.md-typeset .highlight .mi,   /* 数字 */
+.md-typeset .highlight .mf,
+.md-typeset .highlight .mh { color: #f59e0b !important; } /* 温暖橙 */
+
+.md-typeset .highlight .n,    /* 普通变量 */
+.md-typeset .highlight .nx { color: #334155 !important; }
+
+.md-typeset .highlight .nf,   /* 函数名 */
+.md-typeset .highlight .nb { color: #0ea5e9 !important; } /* 天空蓝 */
+
+.md-typeset .highlight .o,    /* 运算符 */
+.md-typeset .highlight .ow { color: #64748b !important; }
+
+.md-typeset .highlight .p { color: #64748b !important; } /* 标点 */
+
+/* ================= 清新代码块 · 深色模式 ================= */
+[data-md-color-scheme="slate"] .md-typeset pre > code,
+[data-md-color-scheme="slate"] .md-typeset .highlight pre {
+  background-color: #1e293b !important; /* 深夜蓝灰，比纯黑护眼 */
+  color: #cbd5e1 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .linenodiv pre {
+  background-color: #0f172a !important;
+  color: #475569 !important;
+  border-right: 1px solid #334155 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .c,
+[data-md-color-scheme="slate"] .md-typeset .highlight .c1 { color: #64748b !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .k,
+[data-md-color-scheme="slate"] .md-typeset .highlight .kd { color: #c084fc !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .s,
+[data-md-color-scheme="slate"] .md-typeset .highlight .s1 { color: #6ee7b7 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .mi,
+[data-md-color-scheme="slate"] .md-typeset .highlight .mf { color: #fbbf24 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .n,
+[data-md-color-scheme="slate"] .md-typeset .highlight .nx { color: #e2e8f0 !important; }
+
+[data-md-color-scheme="slate"] .md-typeset .highlight .nf,
+[data-md-color-scheme="slate"] .md-typeset .highlight .nb { color: #7dd3fc !important; }
+/* 折叠标题文字美化 */
+.code-toggle-wrapper .code-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #52c41a;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}

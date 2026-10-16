@@ -40,7 +40,6 @@
 
     const script = document.createElement('script');
     script.id = 'sakana-script';
-    // 绝对路径，无论多深的404页面都能找到不倒翁
     script.src = '/suanfajichu/javascripts/sakana-widget.js?v=2'; 
     script.onload = window.initSakana;
     document.head.appendChild(script);
@@ -50,7 +49,6 @@
 
   // ==================== 3. 智能文章页优化 ====================
   function initArticlePage() {
-    // 防御：如果页面上存在自定义的 404 容器，立刻撤退！
     if (document.querySelector('.not-found-container')) return;
 
     const path = window.location.pathname;
@@ -106,42 +104,31 @@
         const randomIndex = Math.floor(Math.random() * tips.length);
         tipElement.textContent = tips[randomIndex];
         tipElement.style.transform = 'scale(1.05)';
-        setTimeout(() => {
-          tipElement.style.transform = 'scale(1)';
-        }, 150);
+        setTimeout(() => { tipElement.style.transform = 'scale(1)'; }, 150);
       }
 
-      // 初始加载时随机抽一条
       changeTip();
       console.log('🎯 404页面随机文案已加载！');
 
-      // 给瓦蕾莎绑定点击事件
       if (avatar) {
         avatar.onclick = null; 
         avatar.style.cursor = 'pointer'; 
-        
         avatar.onclick = function() {
           changeTip();
-          console.log('🎯 点击瓦蕾莎换词成功！');
-          
           avatar.style.transform = 'scale(0.9)';
-          setTimeout(() => {
-            avatar.style.transform = 'scale(1)';
-          }, 150);
+          setTimeout(() => { avatar.style.transform = 'scale(1)'; }, 150);
         };
       }
     }
   }
 
-  // ==================== 5. 左下角萌宠互动（终极可视化编辑版） ====================
+  // ==================== 5. 左下角萌宠互动 ====================
   function initPet() {
-    // 检查用户是否隐藏了萌宠
     const isHidden = localStorage.getItem('petHidden') === 'true';
 
-    // 如果已经有萌宠了，不再重复创建
     if (document.getElementById('pet-container')) return;
 
-    // 1. 创建“召回按钮”
+    // 召回按钮
     if (!document.getElementById('pet-recall-btn')) {
       const recallBtn = document.createElement('div');
       recallBtn.id = 'pet-recall-btn';
@@ -164,15 +151,13 @@
       recallBtn.style.display = 'none';
     }
 
-    // 2. 创建萌宠容器
     const petContainer = document.createElement('div');
     petContainer.id = 'pet-container';
     petContainer.className = 'pet-container';
 
-    // 从本地存储恢复位置和大小
     const savedLeft = localStorage.getItem('petLeft');
     const savedTop = localStorage.getItem('petTop');
-    const savedSize = localStorage.getItem('petSize') || '80'; // 默认80px
+    const savedSize = localStorage.getItem('petSize') || '80';
     
     if (savedLeft && savedTop) {
       petContainer.style.left = savedLeft + 'px';
@@ -192,7 +177,6 @@
     img.style.height = savedSize + 'px';
     img.src = localStorage.getItem('petImgSrc') || '/suanfajichu/assets/gif/doro.jpg';
 
-    // 控制按钮（隐藏 + 设置 + 换装）
     const controls = document.createElement('div');
     controls.className = 'pet-controls';
     controls.innerHTML = `
@@ -206,7 +190,6 @@
     petContainer.appendChild(controls);
     document.body.appendChild(petContainer);
 
-    // 3. 台词与状态管理
     const defaultTips = [
       '喵喵喵~', '今天也要加油学算法哦！', '点我干嘛？(｡･ω･｡)',
       '大肥鱼在偷懒呢~', '别卷了，休息一下吧！', '你又在写 Bug 吗？',
@@ -214,35 +197,27 @@
     ];
 
     let petTips = JSON.parse(localStorage.getItem('petTips')) || [...defaultTips];
-    let currentTipIndex = parseInt(localStorage.getItem('petTipIndex')) || 0; // 记录当前播放到第几条
+    let currentTipIndex = parseInt(localStorage.getItem('petTipIndex')) || 0;
 
-    // 顺序获取下一条台词
     function getNextTip() {
       if (petTips.length === 0) return '点我干嘛？';
       const tip = petTips[currentTipIndex];
-      currentTipIndex = (currentTipIndex + 1) % petTips.length; // 循环播放
+      currentTipIndex = (currentTipIndex + 1) % petTips.length;
       localStorage.setItem('petTipIndex', currentTipIndex);
       return tip;
     }
 
-    // 点击萌宠换词（改为顺序播放）
     img.addEventListener('click', (e) => {
       if (petContainer.dataset.dragging === 'true') return;
-      
       bubble.textContent = getNextTip();
       bubble.classList.add('show');
-      
       petContainer.style.transform = 'scale(0.8)';
       setTimeout(() => { petContainer.style.transform = 'scale(1.1)'; }, 150);
       setTimeout(() => { petContainer.style.transform = 'scale(1)'; }, 300);
-
       clearTimeout(window.petBubbleTimer);
-      window.petBubbleTimer = setTimeout(() => {
-        bubble.classList.remove('show');
-      }, 4000);
+      window.petBubbleTimer = setTimeout(() => { bubble.classList.remove('show'); }, 4000);
     });
 
-    // 隐藏
     document.getElementById('pet-close').addEventListener('click', (e) => {
       e.stopPropagation();
       petContainer.style.display = 'none';
@@ -251,20 +226,16 @@
       if (rb) rb.style.display = 'flex';
     });
 
-    // 4. 设置面板（编辑器 + 大小调节）
     document.getElementById('pet-settings').addEventListener('click', (e) => {
       e.stopPropagation();
       openSettingsModal(petTips, savedSize, (newTips, newSize) => {
         petTips = newTips;
         localStorage.setItem('petTips', JSON.stringify(petTips));
-        currentTipIndex = 0; // 重置索引
+        currentTipIndex = 0;
         localStorage.setItem('petTipIndex', 0);
-        
         img.style.width = newSize + 'px';
         img.style.height = newSize + 'px';
         localStorage.setItem('petSize', newSize);
-
-        // 立即展示第一条
         bubble.textContent = getNextTip();
         bubble.classList.add('show');
         clearTimeout(window.petBubbleTimer);
@@ -272,7 +243,6 @@
       });
     });
 
-    // 5. 换角色
     document.getElementById('pet-change').addEventListener('click', (e) => {
       e.stopPropagation();
       const presetImages = {
@@ -282,7 +252,6 @@
         '4': '/suanfajichu/assets/gif/tafei.jpg'
       };
       const choice = prompt("输入数字更换角色：\n1. Doro 🐱\n2. 瓦蕾莎 🧝‍♀️\n3. Ciallo 🌸\n4. Tafei 🐼\n\n或者直接粘贴图片 URL：", "1");
-      
       if (choice) {
         let newSrc = presetImages[choice] || choice;
         img.src = newSrc;
@@ -290,7 +259,7 @@
       }
     });
 
-    // 6. 拖拽移动
+    // 拖拽移动
     let isDragging = false;
     let startX, startY, initialLeft, initialTop;
 
@@ -331,9 +300,8 @@
     });
   }
 
-  // ==================== 6. 萌宠设置弹窗渲染逻辑 ====================
+  // ==================== 6. 萌宠设置弹窗 ====================
   function openSettingsModal(currentTips, currentSize, onSave) {
-    // 防止重复创建
     let modal = document.getElementById('pet-settings-modal');
     if (!modal) {
       modal = document.createElement('div');
@@ -342,18 +310,12 @@
       modal.innerHTML = `
         <div class="pet-modal-content">
           <h3>⚙️ 看板娘设置</h3>
-          
           <div class="pet-size-control">
             <label>大小调整 (px)：<span id="pet-size-value">${currentSize}</span></label>
             <input type="range" id="pet-size-range" min="50" max="200" step="5" value="${currentSize}">
           </div>
-
-          <div class="pet-tips-list" id="pet-tips-list">
-            <!-- 动态生成 -->
-          </div>
-          
+          <div class="pet-tips-list" id="pet-tips-list"></div>
           <button id="add-pet-tip">+ 添加泡泡(点完上一个后显示下一个)</button>
-          
           <div class="pet-modal-actions">
             <button id="cancel-pet-settings">取消</button>
             <button id="save-pet-settings">保存</button>
@@ -362,18 +324,13 @@
       `;
       document.body.appendChild(modal);
 
-      // 绑定滑块实时显示数值
       modal.querySelector('#pet-size-range').addEventListener('input', (e) => {
         modal.querySelector('#pet-size-value').textContent = e.target.value;
       });
 
-      // 取消按钮
       modal.querySelector('#cancel-pet-settings').onclick = () => modal.classList.remove('show');
-      
-      // 点击遮罩层关闭
       modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('show'); };
 
-      // 添加新泡泡
       modal.querySelector('#add-pet-tip').onclick = () => {
         const list = modal.querySelector('#pet-tips-list');
         const newItem = document.createElement('div');
@@ -384,12 +341,10 @@
           <button class="delete-tip">×</button>
         `;
         list.appendChild(newItem);
-        // 滚动到底部
         list.scrollTop = list.scrollHeight;
       };
     }
 
-    // 每次打开时，重新渲染列表
     const listContainer = modal.querySelector('#pet-tips-list');
     listContainer.innerHTML = '';
     
@@ -404,80 +359,30 @@
       listContainer.appendChild(item);
     });
 
-    // 绑定删除按钮（事件委托）
     listContainer.onclick = (e) => {
       if (e.target.classList.contains('delete-tip')) {
         e.target.closest('.pet-tip-item').remove();
       }
     };
 
-    // 保存按钮
     modal.querySelector('#save-pet-settings').onclick = () => {
       const inputs = listContainer.querySelectorAll('.tip-input');
       const newTips = Array.from(inputs).map(input => input.value.trim()).filter(v => v !== '');
-      
       const finalTips = newTips.length > 0 ? newTips : ['点我干嘛？'];
       const newSize = modal.querySelector('#pet-size-range').value;
-
       onSave(finalTips, newSize);
       modal.classList.remove('show');
     };
 
     modal.classList.add('show');
   }
-  // ==================== 6. 完美兼容 MkDocs SPA 机制 ====================
-  if (typeof document$ !== 'undefined') {
-    document$.subscribe(function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet(); // 每次页面切换都重新检查并召唤萌宠
-    }); 
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet();
-    });
-  }
-//})();
-  // ==================== 7. 可展开的代码块交互 ====================
-  function initCodeToggle() {
-    // 使用事件委托，完美兼容 MkDocs 的 SPA 无刷新机制
-    document.addEventListener('click', function(e) {
-      const header = e.target.closest('.code-header');
-      if (header) {
-        const wrapper = header.closest('.code-toggle-wrapper');
-        if (wrapper) {
-          wrapper.classList.toggle('expanded');
-        }
-      }
-    });
-  }
 
-  // ==================== 8. 完美兼容 MkDocs SPA 机制 ====================
-  if (typeof document$ !== 'undefined') {
-    document$.subscribe(function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet(); 
-      initCodeToggle(); // 每次页面切换都挂载代码块交互
-    }); 
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet();
-      initCodeToggle();
-    });
-  }
-
-  // ==================== 7. 自研滚动导航栏变色逻辑 ====================
+  // ==================== 7. 滚动导航栏变色 ====================
   function initScrollHeader() {
     const header = document.querySelector('.md-header');
     if (!header) return;
 
     const checkScroll = () => {
-      // 当页面往下滚动超过 20px 时，添加自定义类名
       if (window.scrollY > 20) {
         header.classList.add('header-scrolled');
       } else {
@@ -485,29 +390,76 @@
       }
     };
 
-    // 防止重复绑定
     window.removeEventListener('scroll', window.myScrollHandler);
     window.myScrollHandler = checkScroll;
     window.addEventListener('scroll', window.myScrollHandler);
-
-    // 切换页面或加载完成后立即检查一次
     checkScroll();
   }
 
-  // ==================== 8. 完美兼容 MkDocs SPA 机制 ====================
-  if (typeof document$ !== 'undefined') {
-    document$.subscribe(function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet(); 
-      initScrollHeader(); // <--- 加入这一行！每次页面切换都重新监听
-    }); 
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      initArticlePage();
-      init404RandomTip();
-      initPet();
-      initScrollHeader(); // <--- 加入这一行！
+  // ==================== 8. 自动折叠代码块（零缩进！） ====================
+  function initCollapsibleCodeBlocks() {
+    const codeBlocks = document.querySelectorAll('.md-typeset .highlight');
+    
+    codeBlocks.forEach((block) => {
+      if (block.closest('.code-toggle-wrapper')) return;
+      
+      const filename = block.querySelector('span.filename');
+      if (!filename) return;
+      
+      const titleText = filename.textContent.trim();
+      const pre = block.querySelector('pre');
+      if (!pre) return;
+      
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-toggle-wrapper';
+      
+      const header = document.createElement('div');
+      header.className = 'code-header';
+      header.innerHTML = `
+        <div class="left-bar"></div>
+        <div class="status-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="code-title">${titleText}</div>
+        <div class="arrow-icon">
+          <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"></polygon></svg>
+        </div>
+      `;
+      
+      const body = document.createElement('div');
+      body.className = 'code-body';
+      body.appendChild(block.cloneNode(true));
+      
+      wrapper.appendChild(header);
+      wrapper.appendChild(body);
+      
+      block.parentNode.replaceChild(wrapper, block);
     });
+  }
+
+  // ==================== 9. 折叠代码块点击交互（全局事件委托，只绑定一次） ====================
+  document.addEventListener('click', function(e) {
+    const header = e.target.closest('.code-header');
+    if (header) {
+      const wrapper = header.closest('.code-toggle-wrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('expanded');
+      }
+    }
+  });
+
+  // ==================== 10. 完美兼容 MkDocs SPA 机制（唯一入口） ====================
+  function initAll() {
+    initArticlePage();
+    init404RandomTip();
+    initPet();
+    initScrollHeader();
+    initCollapsibleCodeBlocks();
+  }
+
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(initAll); 
+  } else {
+    document.addEventListener('DOMContentLoaded', initAll);
   }
 })();

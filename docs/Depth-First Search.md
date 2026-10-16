@@ -83,8 +83,25 @@ void dfs(状态) {
 3 1 2
 3 2 1
 
-```cpp linenums="1" title="全排列.cpp"
-#include<bits/stdc++.h>
+<div class="code-toggle-wrapper">
+    <div class="code-header">
+        <div class="left-bar"></div>
+        <div class="status-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="code-title">
+            <span class="text-green">C++</span>
+            <span class="text-blue">AC</span>
+            <span class="text-green">代码</span>
+        </div>
+        <div class="arrow-icon">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"></polygon></svg>
+        </div>
+    </div>
+    <div class="code-body">
+        <pre><code>
+
+#include&ltbits/stdc++.h&gt;
 using namespace std;
 int n;
 int a[10];
@@ -110,8 +127,45 @@ int main(){
   dfs(1);
   return 0;
 }
-```
+</code></pre>
+    </div>
+</div>
+
 我们在来一题练习一下dfs的模板：<br>
+<h2>组合数的输出：</h2>
+组合就是从n个数中取出m个数，不考虑顺序。且（n>=m）<br>
+我们可以简单地将n个元素理解为自然数1~n。从中任取m个数。<br>
+现在要求你输出所有可能的组合数。
+<p>例如：n=5，r=3，则所有可能的组合数为：
+123，124，125，134，135，145，234，235，245，345。
+</p>
+
+```cpp linenums="1" title="组合数.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+int n , m ;
+int a[25];
+void dfs(int step , int start){
+	if(step == m+1){
+		for (int i= 1; i<= m ;i++){
+			cout << a[i];			
+		
+		}
+		cout << endl;
+		return;
+	}
+	for (int i = start ; i <= n ; i++){
+		a[step] = i;
+		dfs(step + 1,i + 1);
+	}
+}
+int main(){
+	cin >> n >> m;
+	dfs(1,1);
+	return 0;	
+}
+```
+
 <p>好的本喵来喵喵几句：<br>
 我们写dfs的时候可以注意到大部分都是这样的模板：<br>
 如果当前数字大于了n，说明当前路径已经走完了，我们可以输出当前路径。<br>
