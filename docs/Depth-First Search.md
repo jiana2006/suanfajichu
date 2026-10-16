@@ -30,6 +30,45 @@ void dfs_tree(int node,int parent,vector<vector<int>>&graph){
   }
 }
 ```
+<p>上面的是我在看树的dfs里学到的说实话对于新手还是比较难的。<br>
+我们还是来看一下简单一点的模板吧。</p>
+
+<div class="code-toggle-wrapper">
+    <div class="code-header">
+        <div class="left-bar"></div>
+        <div class="status-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="code-title">
+            <span class="text-green">C++</span>
+            <span class="text-blue">AC</span>
+            <span class="text-green">代码</span>
+        </div>
+        <div class="arrow-icon">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"></polygon></svg>
+        </div>
+    </div>
+    <div class="code-body">
+        <pre><code>
+
+void dfs(状态) {
+    if (到达终点) {
+        输出/记录答案;
+        return;
+    }
+    for (所有可能的选择) {
+        if (选择合法) {
+            做出选择;      // 标记
+            dfs(下一个状态); // 递归深入
+            撤销选择;      // 回溯
+        }
+    }
+}
+
+</code></pre>
+    </div>
+</div>
+
 我们来几道简单题：
 
 <h2>全排列：</h2>
@@ -72,6 +111,7 @@ int main(){
   return 0;
 }
 ```
+我们在来一题练习一下dfs的模板：<br>
 <p>好的本喵来喵喵几句：<br>
 我们写dfs的时候可以注意到大部分都是这样的模板：<br>
 如果当前数字大于了n，说明当前路径已经走完了，我们可以输出当前路径。<br>

@@ -133,70 +133,298 @@
     }
   }
 
-  // ==================== 5. 左下角萌宠互动 ====================
+  // ==================== 5. 左下角萌宠互动（终极可视化编辑版） ====================
   function initPet() {
-    // 如果已经有萌宠了，就不再重复创建
+    // 检查用户是否隐藏了萌宠
+    const isHidden = localStorage.getItem('petHidden') === 'true';
+
+    // 如果已经有萌宠了，不再重复创建
     if (document.getElementById('pet-container')) return;
 
-    // 创建萌宠容器
+    // 1. 创建“召回按钮”
+    if (!document.getElementById('pet-recall-btn')) {
+      const recallBtn = document.createElement('div');
+      recallBtn.id = 'pet-recall-btn';
+      recallBtn.className = 'pet-recall-btn';
+      recallBtn.innerHTML = '🐾';
+      recallBtn.title = '召唤看板娘';
+      recallBtn.onclick = () => {
+        localStorage.setItem('petHidden', 'false');
+        recallBtn.style.display = 'none';
+        initPet();
+      };
+      document.body.appendChild(recallBtn);
+    }
+
+    const recallBtn = document.getElementById('pet-recall-btn');
+    if (isHidden) {
+      recallBtn.style.display = 'flex';
+      return;
+    } else {
+      recallBtn.style.display = 'none';
+    }
+
+    // 2. 创建萌宠容器
     const petContainer = document.createElement('div');
     petContainer.id = 'pet-container';
     petContainer.className = 'pet-container';
 
-    // 气泡文字
+    // 从本地存储恢复位置和大小
+    const savedLeft = localStorage.getItem('petLeft');
+    const savedTop = localStorage.getItem('petTop');
+    const savedSize = localStorage.getItem('petSize') || '80'; // 默认80px
+    
+    if (savedLeft && savedTop) {
+      petContainer.style.left = savedLeft + 'px';
+      petContainer.style.top = savedTop + 'px';
+      petContainer.style.bottom = 'auto';
+    }
+
     const bubble = document.createElement('div');
     bubble.className = 'pet-bubble';
     bubble.id = 'pet-bubble';
     bubble.textContent = '点我点我~';
 
-    // 萌宠图片
     const img = document.createElement('img');
     img.className = 'pet-img';
-    img.src = '/suanfajichu/assets/gif/doro.jpg'; 
+    img.id = 'pet-img';
+    img.style.width = savedSize + 'px';
+    img.style.height = savedSize + 'px';
+    img.src = localStorage.getItem('petImgSrc') || '/suanfajichu/assets/gif/doro.jpg';
+
+    // 控制按钮（隐藏 + 设置 + 换装）
+    const controls = document.createElement('div');
+    controls.className = 'pet-controls';
+    controls.innerHTML = `
+      <button id="pet-close" title="隐藏我">×</button>
+      <button id="pet-settings" title="编辑台词与大小">✏️</button>
+      <button id="pet-change" title="换角色">🎨</button>
+    `;
 
     petContainer.appendChild(bubble);
     petContainer.appendChild(img);
+    petContainer.appendChild(controls);
     document.body.appendChild(petContainer);
 
-    // 萌宠的台词库
-    const petTips = [
-      '喵喵喵~',
-      '今天也要加油学算法哦！',
-      '点我干嘛？(｡･ω･｡)',
-      '大肥鱼在偷懒呢~',
-      '别卷了，休息一下吧！',
-      '你又在写 Bug 吗？',
-      '嘿嘿，被你发现了！',
-      '写完这段代码就去吃鱼吧！',
-      '好困啊，陪我玩一会儿嘛~'
+    // 3. 台词与状态管理
+    const defaultTips = [
+      '喵喵喵~', '今天也要加油学算法哦！', '点我干嘛？(｡･ω･｡)',
+      '大肥鱼在偷懒呢~', '别卷了，休息一下吧！', '你又在写 Bug 吗？',
+      '嘿嘿，被你发现了！', '写完这段代码就去吃鱼吧！', '好困啊，陪我玩一会儿嘛~'
     ];
 
-    // 点击互动逻辑
-    petContainer.addEventListener('click', () => {
-      const randomTip = petTips[Math.floor(Math.random() * petTips.length)];
-      bubble.textContent = randomTip;
+    let petTips = JSON.parse(localStorage.getItem('petTips')) || [...defaultTips];
+    let currentTipIndex = parseInt(localStorage.getItem('petTipIndex')) || 0; // 记录当前播放到第几条
+
+    // 顺序获取下一条台词
+    function getNextTip() {
+      if (petTips.length === 0) return '点我干嘛？';
+      const tip = petTips[currentTipIndex];
+      currentTipIndex = (currentTipIndex + 1) % petTips.length; // 循环播放
+      localStorage.setItem('petTipIndex', currentTipIndex);
+      return tip;
+    }
+
+    // 点击萌宠换词（改为顺序播放）
+    img.addEventListener('click', (e) => {
+      if (petContainer.dataset.dragging === 'true') return;
+      
+      bubble.textContent = getNextTip();
       bubble.classList.add('show');
       
-      // 弹跳动画
       petContainer.style.transform = 'scale(0.8)';
       setTimeout(() => { petContainer.style.transform = 'scale(1.1)'; }, 150);
       setTimeout(() => { petContainer.style.transform = 'scale(1)'; }, 300);
 
-      // 5秒后自动隐藏气泡
       clearTimeout(window.petBubbleTimer);
       window.petBubbleTimer = setTimeout(() => {
         bubble.classList.remove('show');
-      }, 5000);
+      }, 4000);
     });
 
-    // 鼠标移出时自动隐藏
-    petContainer.addEventListener('mouseleave', () => {
-      bubble.classList.remove('show');
+    // 隐藏
+    document.getElementById('pet-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      petContainer.style.display = 'none';
+      localStorage.setItem('petHidden', 'true');
+      const rb = document.getElementById('pet-recall-btn');
+      if (rb) rb.style.display = 'flex';
     });
 
-    console.log('🐾 左下角萌宠已上线！');
+    // 4. 设置面板（编辑器 + 大小调节）
+    document.getElementById('pet-settings').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openSettingsModal(petTips, savedSize, (newTips, newSize) => {
+        petTips = newTips;
+        localStorage.setItem('petTips', JSON.stringify(petTips));
+        currentTipIndex = 0; // 重置索引
+        localStorage.setItem('petTipIndex', 0);
+        
+        img.style.width = newSize + 'px';
+        img.style.height = newSize + 'px';
+        localStorage.setItem('petSize', newSize);
+
+        // 立即展示第一条
+        bubble.textContent = getNextTip();
+        bubble.classList.add('show');
+        clearTimeout(window.petBubbleTimer);
+        window.petBubbleTimer = setTimeout(() => { bubble.classList.remove('show'); }, 3000);
+      });
+    });
+
+    // 5. 换角色
+    document.getElementById('pet-change').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const presetImages = {
+        '1': '/suanfajichu/assets/gif/doro.jpg',
+        '2': '/suanfajichu/assets/gif/valesa.jpg',
+        '3': '/suanfajichu/assets/gif/ciallo.jpg',
+        '4': '/suanfajichu/assets/gif/tafei.jpg'
+      };
+      const choice = prompt("输入数字更换角色：\n1. Doro 🐱\n2. 瓦蕾莎 🧝‍♀️\n3. Ciallo 🌸\n4. Tafei 🐼\n\n或者直接粘贴图片 URL：", "1");
+      
+      if (choice) {
+        let newSrc = presetImages[choice] || choice;
+        img.src = newSrc;
+        localStorage.setItem('petImgSrc', newSrc);
+      }
+    });
+
+    // 6. 拖拽移动
+    let isDragging = false;
+    let startX, startY, initialLeft, initialTop;
+
+    petContainer.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.pet-controls') || e.target.closest('.pet-bubble')) return;
+      isDragging = true;
+      petContainer.dataset.dragging = 'false';
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = petContainer.getBoundingClientRect();
+      initialLeft = rect.left;
+      initialTop = rect.top;
+      petContainer.style.cursor = 'grabbing';
+      petContainer.style.transition = 'none';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) petContainer.dataset.dragging = 'true';
+      petContainer.style.left = `${initialLeft + dx}px`;
+      petContainer.style.top = `${initialTop + dy}px`;
+      petContainer.style.bottom = 'auto';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        petContainer.style.cursor = 'pointer';
+        petContainer.style.transition = 'transform 0.2s ease';
+        const rect = petContainer.getBoundingClientRect();
+        localStorage.setItem('petLeft', rect.left);
+        localStorage.setItem('petTop', rect.top);
+        setTimeout(() => { petContainer.dataset.dragging = 'false'; }, 100);
+      }
+    });
   }
 
+  // ==================== 6. 萌宠设置弹窗渲染逻辑 ====================
+  function openSettingsModal(currentTips, currentSize, onSave) {
+    // 防止重复创建
+    let modal = document.getElementById('pet-settings-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'pet-settings-modal';
+      modal.className = 'pet-modal-overlay';
+      modal.innerHTML = `
+        <div class="pet-modal-content">
+          <h3>⚙️ 看板娘设置</h3>
+          
+          <div class="pet-size-control">
+            <label>大小调整 (px)：<span id="pet-size-value">${currentSize}</span></label>
+            <input type="range" id="pet-size-range" min="50" max="200" step="5" value="${currentSize}">
+          </div>
+
+          <div class="pet-tips-list" id="pet-tips-list">
+            <!-- 动态生成 -->
+          </div>
+          
+          <button id="add-pet-tip">+ 添加泡泡(点完上一个后显示下一个)</button>
+          
+          <div class="pet-modal-actions">
+            <button id="cancel-pet-settings">取消</button>
+            <button id="save-pet-settings">保存</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      // 绑定滑块实时显示数值
+      modal.querySelector('#pet-size-range').addEventListener('input', (e) => {
+        modal.querySelector('#pet-size-value').textContent = e.target.value;
+      });
+
+      // 取消按钮
+      modal.querySelector('#cancel-pet-settings').onclick = () => modal.classList.remove('show');
+      
+      // 点击遮罩层关闭
+      modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('show'); };
+
+      // 添加新泡泡
+      modal.querySelector('#add-pet-tip').onclick = () => {
+        const list = modal.querySelector('#pet-tips-list');
+        const newItem = document.createElement('div');
+        newItem.className = 'pet-tip-item';
+        newItem.innerHTML = `
+          <span class="drag-handle">⣿</span>
+          <input type="text" class="tip-input" value="" placeholder="编辑内容...">
+          <button class="delete-tip">×</button>
+        `;
+        list.appendChild(newItem);
+        // 滚动到底部
+        list.scrollTop = list.scrollHeight;
+      };
+    }
+
+    // 每次打开时，重新渲染列表
+    const listContainer = modal.querySelector('#pet-tips-list');
+    listContainer.innerHTML = '';
+    
+    currentTips.forEach((tip) => {
+      const item = document.createElement('div');
+      item.className = 'pet-tip-item';
+      item.innerHTML = `
+        <span class="drag-handle">⣿</span>
+        <input type="text" class="tip-input" value="${tip.replace(/"/g, '&quot;')}">
+        <button class="delete-tip">×</button>
+      `;
+      listContainer.appendChild(item);
+    });
+
+    // 绑定删除按钮（事件委托）
+    listContainer.onclick = (e) => {
+      if (e.target.classList.contains('delete-tip')) {
+        e.target.closest('.pet-tip-item').remove();
+      }
+    };
+
+    // 保存按钮
+    modal.querySelector('#save-pet-settings').onclick = () => {
+      const inputs = listContainer.querySelectorAll('.tip-input');
+      const newTips = Array.from(inputs).map(input => input.value.trim()).filter(v => v !== '');
+      
+      const finalTips = newTips.length > 0 ? newTips : ['点我干嘛？'];
+      const newSize = modal.querySelector('#pet-size-range').value;
+
+      onSave(finalTips, newSize);
+      modal.classList.remove('show');
+    };
+
+    modal.classList.add('show');
+  }
   // ==================== 6. 完美兼容 MkDocs SPA 机制 ====================
   if (typeof document$ !== 'undefined') {
     document$.subscribe(function() {
@@ -209,6 +437,77 @@
       initArticlePage();
       init404RandomTip();
       initPet();
+    });
+  }
+//})();
+  // ==================== 7. 可展开的代码块交互 ====================
+  function initCodeToggle() {
+    // 使用事件委托，完美兼容 MkDocs 的 SPA 无刷新机制
+    document.addEventListener('click', function(e) {
+      const header = e.target.closest('.code-header');
+      if (header) {
+        const wrapper = header.closest('.code-toggle-wrapper');
+        if (wrapper) {
+          wrapper.classList.toggle('expanded');
+        }
+      }
+    });
+  }
+
+  // ==================== 8. 完美兼容 MkDocs SPA 机制 ====================
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(function() {
+      initArticlePage();
+      init404RandomTip();
+      initPet(); 
+      initCodeToggle(); // 每次页面切换都挂载代码块交互
+    }); 
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      initArticlePage();
+      init404RandomTip();
+      initPet();
+      initCodeToggle();
+    });
+  }
+
+  // ==================== 7. 自研滚动导航栏变色逻辑 ====================
+  function initScrollHeader() {
+    const header = document.querySelector('.md-header');
+    if (!header) return;
+
+    const checkScroll = () => {
+      // 当页面往下滚动超过 20px 时，添加自定义类名
+      if (window.scrollY > 20) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    };
+
+    // 防止重复绑定
+    window.removeEventListener('scroll', window.myScrollHandler);
+    window.myScrollHandler = checkScroll;
+    window.addEventListener('scroll', window.myScrollHandler);
+
+    // 切换页面或加载完成后立即检查一次
+    checkScroll();
+  }
+
+  // ==================== 8. 完美兼容 MkDocs SPA 机制 ====================
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(function() {
+      initArticlePage();
+      init404RandomTip();
+      initPet(); 
+      initScrollHeader(); // <--- 加入这一行！每次页面切换都重新监听
+    }); 
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      initArticlePage();
+      init404RandomTip();
+      initPet();
+      initScrollHeader(); // <--- 加入这一行！
     });
   }
 })();

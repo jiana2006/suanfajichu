@@ -322,3 +322,353 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
 [data-md-color-scheme="slate"] .pet-bubble::after {
   border-color: rgba(40, 40, 40, 0.95) transparent transparent;
 }
+/* ================= 可展开的 C++ AC 代码组件 ================= */
+.code-toggle-wrapper {
+  background: var(--md-default-bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+[data-md-color-scheme="slate"] .code-toggle-wrapper {
+  background: #242424;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+  position: relative;
+}
+.code-header:hover { background-color: var(--md-default-fg-color--lightest); }
+
+.left-bar {
+  width: 5px; height: 28px;
+  background-color: #52c41a;
+  border-radius: 3px;
+  margin-right: 12px;
+}
+
+.status-icon {
+  width: 20px; height: 20px;
+  background-color: #52c41a;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: 12px;
+}
+.status-icon svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+.code-title { font-size: 18px; font-weight: 500; display: flex; gap: 6px; align-items: center; }
+.text-green { color: #52c41a; }
+.text-blue { color: #1890ff; }
+
+.arrow-icon { margin-left: auto; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+.arrow-icon svg { width: 14px; height: 14px; fill: #52c41a; }
+
+/* 展开时箭头旋转90度 */
+.code-toggle-wrapper.expanded .arrow-icon { transform: rotate(90deg); }
+
+/* 代码内容区 */
+.code-body { display: none; background-color: #282c34; border-top: 1px solid var(--md-default-fg-color--lightest); }
+.code-toggle-wrapper.expanded .code-body { display: block; }
+
+.code-body pre { margin: 0; padding: 16px; overflow-x: auto; color: #abb2bf; font-family: Consolas, Monaco, "Andale Mono", monospace; font-size: 14px; line-height: 1.5; }
+/* ================= 中文段落首行缩进两格 ================= */
+/* 只对正文的直接子段落生效，完美避开列表、卡片、提示框里的文字 */
+.md-typeset > p {
+  text-indent: 2em;
+}
+/* ================= 文章标题美化 ================= */
+.md-typeset h1 {
+  font-weight: 800;
+  background: linear-gradient(90deg, #0d9488, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  border-bottom: 3px solid #2dd4bf;
+  padding-bottom: 4px;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  position: relative;
+  padding-left: 14px;
+  color: #0f766e;
+}
+
+.md-typeset h2::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 6px;
+  background: linear-gradient(180deg, #0d9488, #3b82f6);
+  border-radius: 3px;
+}
+/* ================= 左下角萌宠主样式 ================= */
+.pet-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pet-img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #f2fbf5;
+  transition: transform 0.2s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 气泡 */
+.pet-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 150px;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.pet-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent;
+}
+.pet-bubble.show { opacity: 1; transform: translateY(0); }
+
+/* 控制器 */
+.pet-controls {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: auto;
+}
+.pet-container:hover .pet-controls { opacity: 1; }
+
+.pet-controls button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.2s;
+}
+.pet-controls button:hover { background: #ff6b6b; color: white; transform: scale(1.1); }
+
+/* 召回按钮 */
+.pet-recall-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 9997;
+}
+
+/* ================= 萌宠设置弹窗（复刻截图 UI） ================= */
+.pet-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.pet-modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pet-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.pet-modal-overlay.show .pet-modal-content { transform: translateY(0); }
+
+.pet-modal-content h3 { margin-top: 0; font-size: 1.1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+
+/* 大小控制器 */
+.pet-size-control { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.pet-size-control label { font-size: 0.9rem; color: #555; font-weight: 500; }
+.pet-size-control input[type="range"] { width: 100%; cursor: pointer; accent-color: #0d9488; }
+
+/* 台词列表（复刻截图虚线框风格） */
+.pet-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.pet-tip-item {
+  display: flex;
+  align-items: center;
+  border: 1px dashed #d0d7de;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: #fdfdfd;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+.pet-tip-item:hover { border-color: #0d9488; }
+.pet-tip-item .drag-handle { color: #ccc; cursor: grab; font-size: 12px; }
+.pet-tip-item .tip-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  outline: none;
+  color: #333;
+  text-align: center;
+}
+.pet-tip-item .delete-tip {
+  background: transparent;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+.pet-tip-item .delete-tip:hover { color: #ff4d4f; }
+
+/* 添加按钮 */
+#add-pet-tip {
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed #d0d7de;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #555;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+#add-pet-tip:hover { border-color: #0d9488; color: #0d9488; background: #f0fdfa; }
+
+/* 底部操作按钮 */
+.pet-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.pet-modal-actions button {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+#cancel-pet-settings { background: #f5f5f5; color: #555; }
+#cancel-pet-settings:hover { background: #e8e8e8; }
+#save-pet-settings { background: #0d9488; color: #fff; }
+#save-pet-settings:hover { background: #0f766e; }
+
+/* 暗黑模式适配 */
+[data-md-color-scheme="slate"] .pet-modal-content { background: #242424; color: #eee; }
+[data-md-color-scheme="slate"] .pet-modal-content h3 { color: #eee; border-bottom-color: #444; }
+[data-md-color-scheme="slate"] .pet-size-control label { color: #aaa; }
+[data-md-color-scheme="slate"] .pet-tip-item { background: #2a2a2a; border-color: #555; }
+[data-md-color-scheme="slate"] .pet-tip-item .tip-input { color: #eee; }
+[data-md-color-scheme="slate"] #add-pet-tip { background: #2a2a2a; border-color: #555; color: #aaa; }
+[data-md-color-scheme="slate"] #add-pet-tip:hover { border-color: #2dd4bf; color: #2dd4bf; }
+[data-md-color-scheme="slate"] #cancel-pet-settings { background: #333; color: #aaa; }
+[data-md-color-scheme="slate"] #cancel-pet-settings:hover { background: #444; }
+[data-md-color-scheme="slate"] .pet-img { border-color: #444; background-color: #1a231b; }
+[data-md-color-scheme="slate"] .pet-bubble { background: rgba(40, 40, 40, 0.95); color: #eee; }
+[data-md-color-scheme="slate"] .pet-bubble::after { border-color: rgba(40, 40, 40, 0.95) transparent transparent; }
+[data-md-color-scheme="slate"] .pet-controls button { background: rgba(60, 60, 60, 0.9); color: #eee; }
+[data-md-color-scheme="slate"] .pet-recall-btn { background: rgba(60, 60, 60, 0.9); }
+
+
+/* ================= 终极版：透明转实色导航栏（自研 JS 驱动） ================= */
+
+/* 1. 初始状态：彻底透明 */
+.md-header {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out !important;
+}
+.md-tabs {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 2. 滚动时，触发我们自定义的 header-scrolled 类名 */
+.md-header.header-scrolled {
+  background-color: rgba(13, 148, 136, 0.95) !important; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 3. 暗黑模式适配 */
+[data-md-color-scheme="slate"] .md-header {
+  background: transparent !important;
+}
+[data-md-color-scheme="slate"] .md-header.header-scrolled {
+  background-color: rgba(30, 30, 40, 0.95) !important;
+}
