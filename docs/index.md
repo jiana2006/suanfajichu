@@ -29,7 +29,8 @@ hide:
     <div class="kb-profile">
       <img src="assets/gif/valesa.jpg" alt="头像" class="kb-avatar">
       <h3>喵喵知识库</h3>
-      <p>欢迎来到喵喵基础算法，所有资源完全免费开放，开启全新阅读体验！</p>
+      <p>欢迎来到喵喵基础算法，所有资源完全免费开放，开启全新阅读体验！
+      其中重要的部分大部分位于基础算法系列笔记中。</p>
       <a href="home/" class="kb-btn">🎯 查看指引</a>
     </div>
     
