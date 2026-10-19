@@ -156,3 +156,16 @@ for(auto i:res){
 
 现在我们先了解一下这个unordered_map容器。
 
+```
+容器                     是否有序       是否允许重复       底层       查找/插入/删除         
+
+pair<T1,T2>              —              —                 结构体     O(1) 访问             
+set<T>                   有序（升序）   否                 红黑树     O(log n)               
+multiset<T>              有序           是                 红黑树     O(log n)              
+map<K,V>                 按 key 有序    key 不重复         红黑树     O(log n)               
+multimap<K,V>            按 key 有序    key 可重复         红黑树     O(log n)               
+unordered_set<T>         无序           否                 哈希表     平均 O(1)，最坏 O(n)   
+unordered_multiset<T>    无序           是                 哈希表     平均 O(1)，最坏 O(n)    
+unordered_map<K,V>       无序           key 不重复         哈希表     平均 O(1)，最坏 O(n)    
+unordered_multimap<K,V>  无序           key 可重复         哈希表     平均 O(1)，最坏 O(n)    
+```

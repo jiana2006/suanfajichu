@@ -18,6 +18,7 @@ hide:
       <a href="basic-algo/" class="btn btn-secondary">基础算法</a>
       <a href="route-plan/" class="btn btn-secondary">路线规划</a>
       <a href="route/" class="btn btn-secondary">学习分享</a>
+      <a href="comment/" class="btn btn-secondary">评论留言</a>
     </div>
   </div>
 </div>

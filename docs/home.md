@@ -35,7 +35,7 @@ hide:
 - QQ邮箱：3665381446@qq.com / 2568056341@qq.com
 - QQ：3665381446 / 2568056341
 
-特别声明：在这里感谢一位学长我是在看了他的网站之后然后成功搭建了这个网站，也感谢他对我一些专业问题的回答。
+特别声明：在这里感谢一位学长我是在看了他的网站之后然后成功搭建了这个网站，也感谢他对我一些专业问题的回答。这里的一些题目来自力扣，洛谷等平台。在这里对他们表示感谢。
 
 <div style="text-align:center; margin: 2rem 0;">
   <img src="../assets/gif/doro2.jpg" style="width:220px; max-width:100%; height:auto; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.1);" alt="doro2表情包">

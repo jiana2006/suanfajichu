@@ -1,4 +1,18 @@
+<h1>队列</h1>
 队列（queue）先进先出的数据结构。队列在尾部添加元素，在头部删除元素。
+
+写一下队列的基本操作:<br>
+push_back():在队尾插入元素<br>
+push_front():在队头插入元素<br>
+pop_back():在队尾删除元素<br>
+pop_front():在队头删除元素<br>
+front():队头元素<br>
+back():队尾元素<br>
+empty():检查队列是否为空<br>
+size():队列大小<br>
+clear():清空队列<br>
+begin():队头元素迭代器<br>
+end():队尾元素迭代器<br>
 
 创建队列：
 ```
@@ -107,5 +121,51 @@ for(auto it=dq.begin();it!=dq.end();it++){
 2.用for循环遍历deque
 for(int i=0;i<dq.size();i++){
     cout<<dq[i]<<endl;
+}
+```
+
+链接：https://www.luogu.com.cn/problem/P1886
+
+```cpp title="P1886"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n , k ;
+	cin >> n >> k;
+	vector<int>a(n,0);
+	
+	for (int i = 0 ; i < n ;i++){
+		cin >> a[i];	
+	}
+	deque<int> q;
+	for (int i = 0 ; i <  n;i++){
+		while(!q.empty() && q.front()<=i - k){
+			q.pop_front();
+		}
+		while(!q.empty() && a[q.back()]>=a[i]){
+			q.pop_back();
+		}
+		q.push_back(i);
+		if (i>=k-1){
+			cout<< a[q.front()];
+			if (i!=n - 1)cout<< " ";
+		}
+	}
+	cout <<endl;
+	q.clear();
+	for (int i = 0 ; i < n ;i++){
+		while (!q.empty() && a[q.back()] <= a[i]){
+			q.pop_back();
+		}
+		q.push_back(i);
+		if (i >= k - 1){
+			cout << a[q.front()];
+			if (i!=n-1)cout<<" ";
+		}
+	}
+	return 0;
 }
 ```
