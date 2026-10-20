@@ -338,3 +338,32 @@ int main(){
 用mp[a]=b; mp[b]=a; 来存储映射关系。mp[键]=值。
 
 mp.count(x)判断x是否存在。
+
+https://www.luogu.com.cn/problem/P3405
+```cpp title="s"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	int n;
+	cin >>n;
+	int re = 0;
+	unordered_map<string,ll>mp;
+	for (int i =0;i < n;i++){
+		string s1 , s2;
+		cin >> s1 >> s2;
+		string p = s1.substr(0,2);
+		if (p==s2)continue;
+		mp[p+s2]++;
+	}
+	ll ans= 0;
+	for (auto &i:mp){
+		string s3 = i.first;
+		string s4 = s3.substr(2,2)+s3.substr(0,2);
+		if (s3<s4 && mp.count(s4))
+		ans+=i.second * mp[s4];
+	}
+	cout << ans <<endl;
+	return 0;
+}
+```
