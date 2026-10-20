@@ -11,12 +11,12 @@ hide:
   
   <div class="kb-cards" style="max-width: 1000px; width: 100%; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
     
-    <!-- 词达人 -->
-    <a href="#" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">词达人速刷</h3>
-      <p style="color: var(--md-default-fg-color--light); font-size: 0.85rem; margin-top: 0.5rem;">高效完成词汇任务 (cidaren)</p>
-    </a>
+  <!-- 词达人 -->
+<a href="../ci-da-ren/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">词达人速刷</h3>
+  <p style="color: var(--md-default-fg-color--light); font-size: 0.85rem; margin-top: 0.5rem;">高效完成词汇任务 (cidaren)</p>
+</a>
 
     <!-- 学习通强制粘贴 -->
     <a href="#" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
