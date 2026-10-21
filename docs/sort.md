@@ -53,6 +53,17 @@ int main()
 
 这行代码的含义是：对a的元素进行降序排序。即从大到小排序。
 
+<h2>unique</h2>
+unique函数的作用是删除容器中重复的元素。
+unique函数的返回值是一个迭代器，指向第一个重复元素的位置。
+一般这样使用：
+```cpp
+	sort(nums1.begin(),nums1.end());
+	auto it = unique(nums1.begin(),nums1.end());
+	nums1.erase(it,nums1.end());
+	int shu = nums1.size();
+```
+
 
 如果你学过c语言，那么你一定知道冒泡排序和选择排序以及插入排序。
 

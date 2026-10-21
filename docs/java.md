@@ -162,3 +162,79 @@ public class Main {
 
 什么时候用： 需要把多个东西拼在同一行的时候。比如打印九九乘法表，一行要打印好几个式子，就用 print。
 ```
+
+<h2>输出概率</h2>
+<p>给出两个数a和b输出a/b的概率。</p>
+
+```java linenums="1" title="输出概率.java"
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return ;
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        double re = 100.0*b/a;
+        System.out.printf("%.3f%%\n",re);
+        sc.close();
+    }
+}
+```
+<p>解释一下    sc.close();这个方法的作用。</p>
+<p>作用： 关闭扫码枪 sc，释放资源。</p>
+<p>if (!sc.hasNextInt()) return;</p>
+<p>这个语句的作用是：如果输入的不是整数，就直接返回，不执行下面的代码。</p>
+
+<h2>三角形判断</h2>
+给你三个整数a,b,c，判断这三个整数是否能构成一个三角形。<br>
+如果能构成三角形，输出1，否则输出0。
+
+```java linenums="1" title="三角形判断.java"
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+        int maxn=Math.max(a,b,c);
+        int minn=Math.min(a,b,c);
+        int midn=a+b+c-maxn-minn;
+        if(maxn>minn+midn){
+            System.out.println("1");
+    }else {
+        System.out.println("0");
+    }
+}
+```
+
+<h2>三角形面积</h2>
+给你三个点的坐标，输出这三个点构成的三角形的面积，保留两位小数。（本题保证三个点不共线。）<br>
+这里给大家科普一下几个三角形面积的公式。
+
+1. 用坐标公式：s = 1/2|x1*（y2-y3）+x2*（y3-y1）+x3*（y1-y2）|
+
+2. 用海伦公式：记半周长为p，p=(a+b+c)/2，面积为s，则s = √|p（p-a）（p-b）（p-c）|
+
+3. 用三角函数公式：s = 1/2*a*b*sin(∠ABC)
+
+这里因为给了三个点的坐标，所以我们可以用坐标公式来求面积。
+
+```java linenums="1" title="三角形面积.java"
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double x1 = sc.nextDouble();
+        double y1 = sc.nextDouble();
+        double x2 = sc.nextDouble();
+        double y2 = sc.nextDouble();
+        double x3 = sc.nextDouble();
+        double y3 = sc.nextDouble();
+        double s = 0.5 * Math.abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2));
+        System.out.printf("%.2f\n", s);
+        sc.close();
+    }
+}
+```
