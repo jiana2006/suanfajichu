@@ -229,3 +229,99 @@ int main(){
 
 这个sort()后面如果是return a.ch > b.ch，那么就是按照持续时长从大到小排序。<br>
 如果如果是return a.ch < b.ch，那么就是按照持续时长从小到大排序。<br>
+
+<b>我们练习一下用结构体或者pair去排序。</b><br>
+<h2>肥鱼聪明度</h2>
+现在在你面前有n个肥鱼每个肥鱼有他的编号和内存体积。<br>
+我们规定肥鱼使用的先后顺序是：<br>
+1.内存体积大于等于60的肥鱼先使用。超过60的体积越大，优先级越高。<br>
+2.体积小于60的肥鱼按照编号先后顺序使用。<br>
+现在你需要输出肥鱼使用的先后顺序。只需要输出编号即可。<br>
+
+<div style="text-align:center;">
+<img src="../assets/gif/大肥鱼.jpg" style="width:280px; max-width:100%;" alt="大肥鱼表情包"></div>
+下面我将写两种写法，一种是用结构体，一种是用pair。<br>
+
+```cpp title="肥鱼聪明度.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n;
+	cin >> n;
+	vector<pair<string,int>>nums(n);
+	vector<string>nums2(n);
+	int shu = 0;	
+	for (int i = 0 ; i< n ;i++){
+		string s1;
+		int a;
+		cin >> s1 >>a;
+		if(a>=60){
+		nums[i].first=s1; 
+		nums[i].second=a;
+		shu++;	
+		}else {
+		 nums2[i] = s1;
+		}		
+	}
+	stable_sort(nums.begin(),nums.end(),[](const pair<string,int>& a,
+	const pair<string,int>& b){
+		return a.second > b.second;
+	});
+	for (int i = 0 ; i <shu;i++){
+		cout <<nums[i].first<<endl;
+	}
+	for (int j = 0; j < n ;j++)
+	{
+		if (!nums2[j].empty()){
+			cout << nums2[j]<<endl;
+		}
+		
+	}
+	return 0;
+}
+```
+
+
+```cpp title="肥鱼聪明度2.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+const int maxn = 105;
+struct paidui{
+	string s;
+	int a;
+}v[maxn];
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n ;
+	cin >>n;
+	vector<string>nums(n);
+	int shu1 = 0;
+	for (int i = 0 ;i < n;i++){
+		string s1;
+		int shu;
+		cin >> s1 >> shu;
+		if (shu >= 60){
+			v[i].s=s1;
+			v[i].a=shu;
+			shu1++;
+		}else{
+			nums[i] = s1;
+		}
+	}
+	stable_sort(v,v+n,[](paidui x,paidui y){
+		return x.a > y.a;
+	});
+	for (int i = 0 ;i < shu1 ; i++){
+		cout << v[i].s<<endl;
+	}
+	for (int i = 0 ; i <n;i++){
+		if(!nums[i].empty()){
+			cout << nums[i]<<endl;
+		}
+	}
+	
+	return 0;
+}
+```

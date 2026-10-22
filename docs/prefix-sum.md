@@ -279,3 +279,49 @@ nums        2                 4                1          3          5
 right(4*15) 60          (1*15)15          (3*5)15    (1*5)5          1
 ```
 
+<h2>二维前缀和</h2>
+<b>二维递推构造：</b>
+```
+pre[i][j]=pre[i-1][j]+pre[i][j-1]-pre[i-1][j-1]+nums[i-1][j-1]
+```
+<b>二维查询子矩阵和：</b><br>
+查询左上角（x1,y1）,右下角（x2,y2）的子矩阵和为：
+```
+sum=pre[x2][y2]-pre[x2][y1-1]-pre[x1-1][y2]+pre[x1-1][y1-1]
+```
+<h2>二维差分</h2>
+
+我们来写一题简单的二维前缀和和查询子矩阵和。
+<h2>最大区域和</h2>
+现在有一个n*m的矩阵，每个格子有一个值。
+现在给你一个数k要求k*k的子矩阵的和最大。
+
+```cpp title="最大区域和.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n , m , k ;
+	cin >> n >> m >> k;
+	vector<vector<ll>>nums(n+1 , vector<ll>(m+1,0));
+	for(int i = 1 ;i<= n;i++){
+		for (int j = 1 ;j <= m;j++){
+			ll x;
+			cin >>x;
+			nums[i][j]=nums[i-1][j]+nums[i][j-1]-nums[i-1][j-1]+x;
+		}
+	}
+	ll re = -1e18;
+	for (int i = k ; i<= n;i++){
+		for (int j = k ;j <= m;j++){
+			ll shu = nums[i][j]-nums[i-k][j]-nums[i][j-k]+nums[i-k][j-k];
+			re = max(re,shu);
+		}
+	}
+	cout << re<< endl;
+	return 0;
+	
+}
+```
