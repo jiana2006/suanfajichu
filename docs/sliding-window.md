@@ -147,3 +147,102 @@ int main(){
 我们用一个unordered_map来统计每个字符的出现次数。
 如果字符的出现次数为1，
 我们将其加入答案。
+
+<h2>切蛋糕</h2>
+今天是大肥鱼的生日，梁圣给她准备了一个方形蛋糕，蛋糕被不同颜色分成了相同的n块，每个颜色代表不同的数字<br>
+大肥鱼希望自己吃到的数字和最大。但是大肥鱼最多只能吃m块蛋糕。问大肥鱼连续吃蛋糕的最大数字和。
+
+<div style="text-align:center;">
+<img src="../assets/gif/大肥鱼2.jpg" style="width:280px; max-width:100%;" alt="大肥鱼2表情包"></div>
+
+其实这道题应该用队列来解决。
+但是暴力窗口可以得部分分。因为数据量太大了所以不能用暴力窗口。
+但是我觉得暴力窗口可以练一下。
+
+```cpp title="切蛋糕.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n , m; 
+	cin >> n >> m;
+	vector<ll>nums(n+1,0);
+	for (int i =1 ; i <= n ;i++)
+	{
+		int a;
+		cin >>a ;
+		nums[i] = nums[i-1] + a;
+	}
+	
+	ll res = -1e18;
+	for (int i = 1 ;i<= n;i++){
+		for (int j = max(0, i-m); j < i; j++){ 
+			ll re = nums[i] - nums[j];
+			res = max(re, res);
+		}
+	}
+	cout << res << "\n";
+	return 0;
+}
+```
+这个就比较好理解了。<br>
+我们利用前缀和来求区间最大值。第一个for循环是我们假设窗口大小固定去找区间最大值。<br>
+第二个循环就是窗口有1-m个去暴力枚举。<br>
+我们用res来记录区间最大值。<br>
+
+下面写一下正确的解法。
+
+```cpp title="切蛋糕.cpp"
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+const int MAXN = 500005;
+ll nums[MAXN]; // 前缀和数组
+int q[MAXN];   // 单调队列，存的是前缀和数组的【下标】
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n, m;
+    cin >> n >> m;
+
+    // 预处理前缀和
+    for (int i = 1; i <= n; i++) {
+        ll a;
+        cin >> a;
+        nums[i] = nums[i - 1] + a;
+    }
+
+    ll ans = -1e18; // 初始答案设为极小值，防止全负数
+    int head = 1, tail = 0; // 队列头、尾指针
+
+    q[++tail] = 0; // 把下标 0（前缀和为 0）加入队列
+
+    for (int i = 1; i <= n; i++) {
+        // 1. 判断队头是否过期（长度不能超过 m）
+        if (head <= tail && i - q[head] > m) {
+            head++;
+        }
+
+        // 2. 此时队头就是合法范围内最小的前缀和，更新答案
+        ans = max(ans, nums[i] - nums[q[head]]);
+
+        // 3. 维护队列的单调性（单调递增）
+        while (head <= tail && nums[q[tail]] >= nums[i]) {
+            tail--;
+        }
+
+        // 4. 将当前下标加入队尾
+        q[++tail] = i;
+    }
+
+    cout << ans << "\n";
+    return 0;
+}
+```
