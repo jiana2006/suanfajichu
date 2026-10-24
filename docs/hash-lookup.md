@@ -367,3 +367,80 @@ int main(){
 	return 0;
 }
 ```
+
+<h2>干活的大肥鱼</h2>
+你找了n只大肥鱼来干活，你需要给她们发token，于是你给她们每个鱼起了编号，一个编号对应一个鱼的名字，
+现在你要给她们办理账户，但是大肥鱼笨笨的，她们都想拿token去换白饭于是就一窝蜂的将她们的信息放给你有的甚至不放心给你发了好几次信息。<br>
+如果不存在大肥鱼的名字我们就给她办理一个账户然后输出她的编号；<br>
+如果存在了大肥鱼的名字就只需要输出她的编号；<br>
+<img src = "../assets/gif/大肥鱼3.jpg" style="width:280px; max-width:100%;" alt="大肥鱼3表情包">
+
+这里我想补充一下vector的一个用法；<br>
+也就是vector可以动态扩大，我们可以使用push_back()来添加元素。使其容量增加。<br>
+如果知道大概大小可以初始化为0，然后直接通过下标++。<br>
+
+```
+vector<int> v; 
+// 如果用 push_back 扩大：
+v.push_back(0); 
+v[0]++; // 变成 1
+
+// 或者一开始就开好足够大的空间，全初始化为 0：
+vector<int> cnt(100005, 0);
+cnt[10]++; // 直接使用
+```
+放到这道题上面：
+```cpp linenums="1" title="干活的大肥鱼"
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int q;
+	cin >> q;
+	vector<string>nums;
+	while (q--){
+		string s;
+		cin >> s;
+		bool find = false;
+		for (int i = 0 ;i < nums.size(); i++){
+			if (s==nums[i]){
+				cout << i+1 <<"\n";
+				find = true;
+				break;
+			}
+		}
+		if (!find){
+			nums.push_back(s);
+			cout<< nums.size()<<"\n";
+		}	
+	}
+	
+    return 0;
+}
+```
+但是这样写时间复杂度太高了，我们可以在vector中用unordered_map来存储映射关系。
+```cpp linenums="1" title="干活的大肥鱼"
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+ 	int q;
+ 	cin >> q;
+ 	int next = 1;
+ 	unordered_map<string,int>mp;
+ 	while (q--){
+ 		string s;
+ 		cf (mp.find(s)==mp.end()){
+ 			mp[s] = next;
+ 			next in >> s;
+ 		i++;
+		 }
+		 cout << mp[s]<<"\n";
+	 }
+    return 0;
+}
+```
