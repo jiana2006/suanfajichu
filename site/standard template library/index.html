@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -56,6 +57,8 @@
     
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/comments.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -828,6 +831,34 @@
     
   
     字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用函数
   
 
     
@@ -1989,28 +2020,33 @@
               
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
 
-  <h1>STL容器</h1>
+<h1>stl标准模板库</h1>
+<p>stl标准模板库是一个非常强大的库，它提供了很多的容器和算法，可以帮助我们快速地实现很多的功能。</p>
 
-<p>stl标准模板库
-stl容器应该是c++11或以上版本的。</p>
-<p>容器一听名字就知道是做什么的。（储存数据）</p>
-<p>容器的复杂度是O(n)，其中n是容器的元素数量。</p>
-<p>其中我个人最常用的容器是vector。</p>
-<p>vector容器是一个动态数组，可以自动调整大小。</p>
+<p>stl容器应该是c++11或以上版本的。<br></p>
+<p>stl容器一听名字就知道是做什么的。<br></p>
+<p>stl容器的复杂度是O(n)，其中n是容器的元素数量。<br></p>
+
+<p>其中我个人最常用的容器是vector。<br></p></p>
+<p>vector容器是一个动态数组，可以自动调整大小。<br></p>
+
 <p>相较于auto &amp;[101]，vector容器最大的好处是很节省空间的。</p>
 <p>vector&lt;数据类型&gt;+容器名字（大小）</p>
 <p>比如：vector<int>res(n);就是定义了一个大小为n的vector容器，每个元素都是int类型。</p>
 <p>如果是二维数组呢？</p>
 <p>比如：vector&lt;vector<int>&gt;res(n,vector<int>(m));</p>
-<p>vector&lt;vector&lt;数据类型&gt;&gt;容器名字（行数，vector&lt;数据类型&gt;(列数)&gt;）</p>
-<p>初始化二维数组</p>
+<p>vector<vector<数据类型>>容器名字（行数，vector<数据类型>(列数)>）</p>
+
+<p>初始化二维数组：<br></p>
+
 <p>vector&lt;vector<int>&gt;res(n,vector<int>(m,0));</p>
-<p>这里我们使用一下vector；
-现在给你a*b的矩阵，要求你输出它的乘法结果。</p>
+<p>这里我们使用一下vector；<br></p>
+<p>现在给你a*b的矩阵，要求你输出它的乘法结果。</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">vector.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
@@ -2132,6 +2168,18 @@ stl容器应该是c++11或以上版本的。</p>
 <p>下面我们介绍一下unordered_map容器。</p>
 <p>这个属于哈希容器。后面我们会详细介绍哈希表。</p>
 <p>现在我们先了解一下这个unordered_map容器。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>容器                     是否有序       是否允许重复       底层       查找/插入/删除         
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>pair&lt;T1,T2&gt;              —              —                 结构体     O(1) 访问             
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>set&lt;T&gt;                   有序（升序）   否                 红黑树     O(log n)               
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>multiset&lt;T&gt;              有序           是                 红黑树     O(log n)              
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>map&lt;K,V&gt;                 按 key 有序    key 不重复         红黑树     O(log n)               
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>multimap&lt;K,V&gt;            按 key 有序    key 可重复         红黑树     O(log n)               
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>unordered_set&lt;T&gt;         无序           否                 哈希表     平均 O(1)，最坏 O(n)   
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>unordered_multiset&lt;T&gt;    无序           是                 哈希表     平均 O(1)，最坏 O(n)    
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>unordered_map&lt;K,V&gt;       无序           key 不重复         哈希表     平均 O(1)，最坏 O(n)    
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>unordered_multimap&lt;K,V&gt;  无序           key 可重复         哈希表     平均 O(1)，最坏 O(n)    
+</span></code></pre></div>
 
 
 
@@ -2145,6 +2193,21 @@ stl容器应该是c++11或以上版本的。</p>
 
 
                 
+
+  
+  
+    <div class="comments-wrapper" id="comments-wrapper">
+      <div class="comments-heading">
+        <span class="comments-heading__icon">💬</span>
+        <span class="comments-heading__text">评论</span>
+        <span class="comments-heading__sub">不用注册，填个昵称就能说</span>
+      </div>
+      <div id="waline" class="comments-mount">
+        <div class="comments-loading"><span class="comments-spinner"></span>评论加载中…</div>
+      </div>
+    </div>
+  
+
               </article>
             </div>
           
@@ -2187,16 +2250,25 @@ stl容器应该是c++11或以上版本的。</p>
     
     
     
+  
       
       
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
+  
+    <script>
+      window.WALINE_CONFIG = {"commentSorting": "latest", "enabled": true, "imageUploader": false, "lang": "zh-CN", "login": "enable", "pageSize": 10, "pageview": false, "requiredMeta": ["nick"], "serverURL": "https://pinglun-iota.vercel.app"};
+    </script>
+  
+
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
+      
+        <script src="../javascripts/comments.js"></script>
       
     
   </body>

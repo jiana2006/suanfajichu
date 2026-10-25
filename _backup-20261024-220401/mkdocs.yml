@@ -1,0 +1,150 @@
+site_url: https://jiana2006.github.io/suanfajichu/
+site_name: 喵喵基础算法
+site_description: 个人学习知识库
+site_author: 喵喵
+
+theme:
+  name: material
+  custom_dir: overrides   # ⚠️ 就是这一行！告诉 MkDocs 去 overrides 找模板
+  language: zh
+  # ... 后面保持不变 ...
+  logo: assets/gif/valesa.jpg   # 顶栏 Logo
+  favicon: assets/gif/valesa.jpg # 浏览器标签页图标
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    # 导航
+    
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.instant
+    
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    # 搜索
+    - search.suggest
+    - search.highlight
+    # 代码块
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+
+nav:
+  - 门户首页: index.md
+  - 个人主页: home.md
+  - 基础算法:
+    - 开始学习: basic-algo.md
+    - 编程语言:
+      - 选择语言: basic-lang.md
+      - Python: python.md
+      - C语言: c.md
+      - C++: cpp.md
+      - Java: java.md
+    - 数学技巧:
+      - 选择方向: math-skills.md
+      - 经典数学题: math-problem.md
+      - 简化计算: simplify-computation.md
+      - 数学公式: math-formula.md
+    - 核心算法:
+      - 选择分类: core-algo.md
+      - 字符串: string.md
+      - 常用函数: common-functions.md
+      - 排序: sort.md
+      - 枚举: enum.md
+      - 二分查找: binary-search.md
+      - 时间复杂度: Time Complexity.md
+      - 高精度算法: high-precision.md
+      - 动态规划: Dynamic Programming.md
+      - 广度优先搜索: Breadth-First Search.md
+      - 深度优先搜索: Depth-First Search.md
+      - 贪心算法: Greedy Algorithm.md
+      - STL容器: standard template library.md
+      - 前缀和与差分: prefix-sum.md
+      - 树状数组: fenwick-tree.md
+      - 回溯: backtracking.md
+      - 字典树: trie-tree.md
+      - 线段树: segment-tree.md
+      - 滑动窗口: sliding-window.md
+      - 哈希查找: hash-lookup.md
+      - 哈希表: hash-table.md
+      # 下面是合并进来的数据结构
+      - 线性表: linear-list.md
+      - 二叉树: binary-tree.md
+      - 栈: stack.md
+      - 队列: queue.md
+      - 堆: heap.md
+      - 集合: set.md
+      - 图的基本应用: graph.md
+      - 日常练习: daily-exercise.md
+  - 个人学习分享: route.md
+  - 路线:
+    - 前端: frontend.md
+    - 后端: backend.md
+    - 考研: exam.md
+    - 考公: exam-public.md
+    - 测试: test.md
+    - AI: ai.md
+    - 算法: algorithm.md
+    - 嵌入式: embedded.md
+    - 网安: network.md
+    - 其他: other.md
+
+    
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  # 先保留 CDN，等你的本地文件彻底稳定了，再决定是否换成 javascripts/sakana-widget.js
+  - https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js
+  - javascripts/extra.js
+  
+plugins:
+  - optimize
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+

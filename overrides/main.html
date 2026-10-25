@@ -1,0 +1,43 @@
+{#
+  评论区容器
+  ------------------------------------------------------------------
+  Material 的 base.html 里，content 块的内容是 include "partials/content.html"，
+  所以这里的 super() 会原样输出正文，我们只在后面追加评论区。
+
+  是否显示由三件事决定：
+    1. mkdocs.yml → extra.comments.enabled 为 true
+    2. 当前页面不是 404（404.html 自己覆写了 content，本来就走不到这里）
+    3. 页面 front matter 里没有写 comments: false
+
+  ⚠️ 注意：不要写成 `page.meta and page.meta.get(...)`。
+     没写 front matter 的页面 page.meta 是空 dict {}，在 and 链里会被当成假，
+     导致整站评论区都不渲染。
+#}
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  {% set _comments = config.extra.comments if config.extra and config.extra.comments else none %}
+  {% if _comments and _comments.enabled and page and page.meta.get("comments", True) != False %}
+    <div class="comments-wrapper" id="comments-wrapper">
+      <div class="comments-heading">
+        <span class="comments-heading__icon">💬</span>
+        <span class="comments-heading__text">评论</span>
+        <span class="comments-heading__sub">不用注册，填个昵称就能说</span>
+      </div>
+      <div id="waline" class="comments-mount">
+        <div class="comments-loading"><span class="comments-spinner"></span>评论加载中…</div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block config %}
+  {{ super() }}
+  {% if config.extra and config.extra.comments %}
+    <script>
+      window.WALINE_CONFIG = {{ config.extra.comments | tojson }};
+    </script>
+  {% endif %}
+{% endblock %}

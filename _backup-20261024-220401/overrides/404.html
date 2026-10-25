@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <style>
+    /* 隐藏左侧导航栏和右侧目录，打造沉浸式404体验 */
+    .md-sidebar--primary,
+    .md-sidebar--secondary {
+      display: none !important;
+    }
+    /* 让正文内容在隐藏侧边栏后居中显示 */
+    .md-main__inner {
+      margin: 0 auto !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="not-found-container">
+    <div class="not-found-content">
+      <!-- 绝对路径，全宇宙通用 -->
+      <img src="/suanfajichu/assets/gif/valesa.jpg" alt="瓦蕾莎" class="not-found-avatar">
+      <h1 class="not-found-title">哎呀，迷路啦！</h1>
+      <p class="not-found-subtitle" id="random-tip">这里空空如也，连大肥鱼都没游过来呢~</p>
+      <div class="not-found-actions">
+        <a href="/suanfajichu/" class="btn btn-primary">🎯 带我回家</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 直接把脚本放在这里，避免 Jinja2 找不到 scripts 块 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tipElement = document.getElementById('random-tip');
+      if (tipElement) {
+        var tips = [
+          '这里空空如也，连大肥鱼都没游过来呢~',
+          '哎呀，这条路上没有小行星哦，快回家吧！',
+          '瓦蕾莎在这里找不到东西，急得团团转……',
+          '咦？代码写错了吗？还是迷路了呀？',
+          '别找了，这里只有空气，快回首页吃鱼吧！',
+          '糟糕！大肥鱼把页面吃掉了！( ﹁ ﹁ ) ~'
+        ];
+        tipElement.textContent = tips[Math.floor(Math.random() * tips.length)];
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -56,6 +57,8 @@
     
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/comments.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -828,6 +831,34 @@
     
   
     字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用函数
   
 
     
@@ -1989,23 +2020,35 @@
               
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
 
 <h1>前端</h1>
 
-<p>其实前端就是指用户看到的界面，包括HTML、CSS、JavaScript等。</p>
-<p>HTML是超文本标记语言，用于创建网页。不过他严格意义上不算是一种编程语言。</p>
-<p>css是层叠样式表，用于描述网页的外观和格式。</p>
-<p>javascript是脚本语言，用于创建网页的交互和动态效果。</p>
-<p>你们现在看的这个网页，就是前端。他完全就是HTML、CSS、JavaScript的组合。</p>
-<p>不过我没有写javascript的代码。</p>
-<p>根据毕业学长的描述，前端现在已经是死的不能再死了。</p>
-<p>原因就在于前端比较简单容易上手很多位置已经被AI所替代。</p>
-<p>但是我认为还是有必要学习的。</p>
-<p>前端我其实是一直在用vscode来弄的但是写起来确实像记事本不太推荐。</p>
-<p>这里我推荐你用webstorm来弄。</p>
+<p>其实前端就是指用户看到的界面，包括HTML、CSS、JavaScript等<br></p>
+<p>HTML是超文本标记语言，用于创建网页。不过他严格意义上不算是一种编程语言。<br>
+css是层叠样式表，用于描述网页的外观和格式。<br>
+javascript是脚本语言，用于创建网页的交互和动态效果。<br></p>
+<p>你们现在看的这个网页，就是前端。他完全就是HTML、CSS、JavaScript的组合。<br></p>
+<p>根据毕业学长的描述，前端现在已经是死的不能再死了。<br>
+原因就在于前端比较简单容易上手很多位置已经被AI所替代。<br></p>
+<p>但是我认为还是有必要学习的。<br>
+前端我其实是一直在用vscode来弄的但是写起来确实像记事本不太推荐。<br>
+这里我推荐你用webstorm来弄。<br>
+webstorm是一个专业的前端开发工具，他提供了很多功能来帮助你快速开发。<br>
+webstorm的下载地址是：<br>
+https://www.jetbrains.com/webstorm/<br></p>
+<p>学习完这些后你还需要学习前端的框架，比如vue、react等。<br>
+vue和react是一个基于javascript的前端框架，他提供了很多功能来帮助你快速开发。<br></p>
+<p>其中vue现在已经成为了前端开发的主流框架。<br>
+他已经更新到了3.x版本。<br>
+很多公司都在使用vue来开发前端。<br>也说明了vue的流行。<br>
+vue的下载地址是：<br></p>
+<p>现在都是在强调前后端分离。<br>
+但是人是不分离的。<br>
+这就需要我们前端和后端都要学习。<br></p>
 
 
 
@@ -2019,6 +2062,21 @@
 
 
                 
+
+  
+  
+    <div class="comments-wrapper" id="comments-wrapper">
+      <div class="comments-heading">
+        <span class="comments-heading__icon">💬</span>
+        <span class="comments-heading__text">评论</span>
+        <span class="comments-heading__sub">不用注册，填个昵称就能说</span>
+      </div>
+      <div id="waline" class="comments-mount">
+        <div class="comments-loading"><span class="comments-spinner"></span>评论加载中…</div>
+      </div>
+    </div>
+  
+
               </article>
             </div>
           
@@ -2061,16 +2119,25 @@
     
     
     
+  
       
       
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
+  
+    <script>
+      window.WALINE_CONFIG = {"commentSorting": "latest", "enabled": true, "imageUploader": false, "lang": "zh-CN", "login": "enable", "pageSize": 10, "pageview": false, "requiredMeta": ["nick"], "serverURL": "https://pinglun-iota.vercel.app"};
+    </script>
+  
+
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
+      
+        <script src="../javascripts/comments.js"></script>
       
     
   </body>

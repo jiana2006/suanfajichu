@@ -51,12 +51,27 @@
     
       <link rel="stylesheet" href="/suanfajichu/stylesheets/extra.css">
     
+      <link rel="stylesheet" href="/suanfajichu/stylesheets/comments.css">
+    
     <script>__md_scope=new URL("/suanfajichu/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
+  
+  <style>
+    /* 隐藏左侧导航栏和右侧目录，打造沉浸式404体验 */
+    .md-sidebar--primary,
+    .md-sidebar--secondary {
+      display: none !important;
+    }
+    /* 让正文内容在隐藏侧边栏后居中显示 */
+    .md-main__inner {
+      margin: 0 auto !important;
+    }
+  </style>
+
   </head>
   
   
@@ -822,6 +837,34 @@
     
   
     字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/suanfajichu/common-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用函数
   
 
     
@@ -1975,7 +2018,35 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+  <div class="not-found-container">
+    <div class="not-found-content">
+      <!-- 绝对路径，全宇宙通用 -->
+      <img src="/suanfajichu/assets/gif/valesa.jpg" alt="瓦蕾莎" class="not-found-avatar">
+      <h1 class="not-found-title">哎呀，迷路啦！</h1>
+      <p class="not-found-subtitle" id="random-tip">这里空空如也，连大肥鱼都没游过来呢~</p>
+      <div class="not-found-actions">
+        <a href="/suanfajichu/" class="btn btn-primary">🎯 带我回家</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 直接把脚本放在这里，避免 Jinja2 找不到 scripts 块 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tipElement = document.getElementById('random-tip');
+      if (tipElement) {
+        var tips = [
+          '这里空空如也，连大肥鱼都没游过来呢~',
+          '哎呀，这条路上没有小行星哦，快回家吧！',
+          '瓦蕾莎在这里找不到东西，急得团团转……',
+          '咦？代码写错了吗？还是迷路了呀？',
+          '别找了，这里只有空气，快回首页吃鱼吧！',
+          '糟糕！大肥鱼把页面吃掉了！( ﹁ ﹁ ) ~'
+        ];
+        tipElement.textContent = tips[Math.floor(Math.random() * tips.length)];
+      }
+    });
+  </script>
 
               </article>
             </div>
@@ -2029,6 +2100,8 @@
         <script src="https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js"></script>
       
         <script src="/suanfajichu/javascripts/extra.js"></script>
+      
+        <script src="/suanfajichu/javascripts/comments.js"></script>
       
     
   </body>

@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -57,6 +58,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="../stylesheets/comments.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -80,6 +83,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -828,6 +836,34 @@
     
   
     字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用函数
   
 
     
@@ -1874,6 +1910,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    嵌入式
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1891,6 +1947,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 嵌入式核心三要素
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ 嵌入式学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1977,6 +2074,38 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 嵌入式核心三要素
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ 嵌入式学习路线图
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1989,13 +2118,58 @@
               
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
 
-  <h1>嵌入式</h1>
-
-
+<h1>嵌入式</h1>
+<p>这个我个人是很感兴趣的特别是单片机的开发，因为单片机的开发成本低，功耗低，且在一些场景下，单片机的性能也足够了。</p>
+<p>这里我推荐一个学习和实践的好网站嘉立创，他里面有开元广场可以从零实践手搓</p>
+<h1 id="_1">🤖 嵌入式开发</h1>
+<div class="admonition abstract">
+<p class="admonition-title">什么是嵌入式？</p>
+<p>嵌入式系统就是“被嵌入到某个设备中的专用计算机系统”。小到智能手环、微波炉，大到汽车电子、工业机器人、甚至航天器，里面都跑着嵌入式软件。
+一句话总结：<strong>让代码真正动起来，去控制物理世界！</strong></p>
+</div>
+<hr />
+<h2 id="_2">🧠 嵌入式核心三要素</h2>
+<p>学习嵌入式，你主要是在和这三样东西打交道：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">核心要素</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">常见代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MCU (微控制器)</strong></td>
+<td style="text-align: left;">也就是单片机，是整个系统的“大脑”</td>
+<td style="text-align: left;">STM32、ESP32、51单片机</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>C/C++ 语言</strong></td>
+<td style="text-align: left;">嵌入式开发的绝对主力，需要极度关注内存与底层</td>
+<td style="text-align: left;">指针、位操作、结构体</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RTOS (实时操作系统)</strong></td>
+<td style="text-align: left;">当单片机任务太多，需要“调度”时使用</td>
+<td style="text-align: left;">FreeRTOS、RT-Thread、uCOS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">🗺️ 嵌入式学习路线图</h2>
+<p>嵌入式是一个“软硬结合”的领域，门槛相对较高，这条路需要一步一个脚印。</p>
+<p>```mermaid
+graph TD
+    A[C语言基础与微机原理] --&gt; B[裸机开发 STM32/51]
+    B --&gt; C[外设驱动 I2C/SPI/UART]
+    C --&gt; D[引入 RTOS 实时操作系统]
+    D --&gt; E[嵌入式 Linux 驱动开发]</p>
 
 
 
@@ -2009,6 +2183,21 @@
 
 
                 
+
+  
+  
+    <div class="comments-wrapper" id="comments-wrapper">
+      <div class="comments-heading">
+        <span class="comments-heading__icon">💬</span>
+        <span class="comments-heading__text">评论</span>
+        <span class="comments-heading__sub">不用注册，填个昵称就能说</span>
+      </div>
+      <div id="waline" class="comments-mount">
+        <div class="comments-loading"><span class="comments-spinner"></span>评论加载中…</div>
+      </div>
+    </div>
+  
+
               </article>
             </div>
           
@@ -2051,16 +2240,25 @@
     
     
     
+  
       
       
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
+  
+    <script>
+      window.WALINE_CONFIG = {"commentSorting": "latest", "enabled": true, "imageUploader": false, "lang": "zh-CN", "login": "enable", "pageSize": 10, "pageview": false, "requiredMeta": ["nick"], "serverURL": "https://pinglun-iota.vercel.app"};
+    </script>
+  
+
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://fastly.jsdelivr.net/npm/sakana-widget@3.0.1/lib/index.umd.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
+      
+        <script src="../javascripts/comments.js"></script>
       
     
   </body>
