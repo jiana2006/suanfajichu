@@ -238,3 +238,77 @@ vector<int> vis(n + 1, 0);
 for (int i = 1; i <= n; i++)
     if (!vis[i]) bfs(i, g);   // 或 dfs(i)
 ```
+
+下面我们来写一道题：
+
+<h2>追风赶月莫停留，平芜尽处是春山</h2>
+
+<p>背景：你是一名侠客，想要在平芜之上追风赶月，寻找春山。
+题目描述：
+共有 n 个驿站（编号 1 到 n），驿站之间有 
+m 条道路。每条道路都有一个“风景值”（距离）。
+你从任意驿站出发，可以不断选择道路前进。但不能重复选择已经走过的驿站。
+请计算，你在这趟旅程中，最多能积累多少风景值？
+<br>
+输入格式：<br>
+第一行:n,m。 <br>
+接下来 m 行，每行三个数
+u,v,w。 <br>
+输出格式：一个整数，最大风景值。
+</p>
+
+这道题是图的深搜。
+
+```
+#include<bits/stdc++.h>
+using namespace std;
+int n , m;
+const int N = 1005;
+int g[N][N]={0};
+int re = 0;
+int res = 0;
+bool vis[N];
+void dfs(int st){
+re = max(re,res);
+	for (int i = 1 ; i <= n ;i++){
+		if (!vis[i] && g[st][i]){
+			vis[i] = 1;
+			res += g[st][i];
+			dfs(i);			
+			res -= g[st][i]; 
+			vis[i] = 0 ;
+					
+		}	
+	}	
+	return;
+}
+int main(){
+	cin >> n >> m;
+	for (int i = 1 ; i <=m ;i++){
+		int a , b , c;
+		cin >> a >> b >> c;
+		g[a][b] = c;
+		g[b][a] = c;		 
+	}
+	for (int i = 1 ; i <= n ;i++){
+		vis[i] = 1;
+		dfs(i);
+		memset(vis, 0 , sizeof(vis));
+	}
+	cout << re;
+	return 0; 
+}
+```
+
+
+<p>
+这里我们利用二维数组去图以及边的权值。因为图是无向的，所以每个边都要建两次。<br>
+g[a][b] = 0:表示a到b没有边。<br>
+g[a][b] = c:表示a到b有边，边权为c。<br>
+初始时，所有点都没有访问过，所以vis[i] = 0。也就是bool默认为false。<br>
+这里的res-=g[st][i]; 是为了回溯时，将当前点的边权减去，避免重复计算。<br>
+然后vis[i] = 0 ; 是为了回溯时，将当前点的访问标记取消，避免重复访问。<br>
+最后介绍一下memset函数。<br>
+memset函数的作用是将内存中的数据全部设置为指定的值。<br>
+在本题中，我们用memset函数将vis数组全部设置为0，表示所有点都没有访问过。
+</p>

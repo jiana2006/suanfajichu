@@ -6,13 +6,17 @@ hide:
 comments: false
 ---
 
-<!-- 上半部分：柏码风门户横幅 -->
 <div class="hero-section">
   <div class="hero-content">
     <h1 class="hero-title">欢迎来到 <br/><span class="title-gradient">喵喵基础算法</span></h1>
-    <p class="hero-subtitle">专注于算法与计算机基础，记录个人的学习成长之路。所有学习资源完全免费开放，快来加入吧！</p>
+   
+    <p >专注于算法基础，记录个人的学习成长之路。<br>所有学习资源完全免费开放，快来加入吧！</p>
     <div class="hero-code">
-      <code>System.out.println("Hello World!");</code>
+      <code>System.out.println("Hello World!");<br>
+      print("Hello World!");<br>
+      cout << "Hello World!" << endl;<br>
+      printf("Hello World!\n");
+      </code>
     </div>
     <div class="hero-buttons">
       <a href="home/" class="btn btn-primary">个人主页</a>

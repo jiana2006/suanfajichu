@@ -864,3 +864,82 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
   gap: 6px;
   align-items: center;
 }
+/* ================= 知识库左侧卡片极致美化 ================= */
+
+.kb-profile {
+  background: var(--md-default-bg-color);
+  border-radius: 16px !important; /* 更圆润的倒角 */
+  padding: 2rem 1.5rem !important; /* 增加内部留白，让文字呼吸 */
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important; /* 更柔和高级的阴影 */
+  border: 1px solid var(--md-default-fg-color--lightest);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kb-profile:hover {
+  transform: translateY(-2px); /* 鼠标放上去微微浮起 */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 1. 标题：加粗、深邃、有质感 */
+.kb-profile h3 {
+  margin: 1rem 0 0.8rem 0 !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important; /* 更粗更醒目 */
+  color: #1f2937 !important; /* 高级深黑 */
+  letter-spacing: 1px;
+}
+
+/* 2. 正文：拉开行距、颜色更有质感 */
+.kb-profile p {
+  font-size: 0.9rem !important;
+  color: #4b5563 !important; /* 碳灰色，比纯灰更有质感 */
+  line-height: 1.8 !important; /* 关键！行高拉满，阅读极佳 */
+  margin: 0 auto 1.5rem auto !important; /* 距离下方按钮留出空间 */
+  text-indent: 0 !important;
+  text-align: center !important;
+  font-weight: 500 !important;
+}
+
+/* 3. 头像：加个好看的环 */
+.kb-avatar {
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 3px solid var(--md-primary-fg-color); /* 主题色边框 */
+  padding: 3px; /* 留点白边形成光环 */
+  background: var(--md-default-bg-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.kb-profile:hover .kb-avatar {
+  transform: rotate(10deg) scale(1.05); /* 鼠标放上去头像歪头卖萌 */
+}
+
+/* 4. 按钮：高级渐变和悬浮感 */
+.kb-btn {
+  display: inline-block;
+  padding: 0.6rem 1.8rem !important;
+  background: linear-gradient(135deg, #0d9488, #14b8a6) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  border-radius: 20px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.kb-btn:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.4) !important;
+}
+
+/* 5. 暗黑模式适配 */
+[data-md-color-scheme="slate"] .kb-profile h3 { color: #f3f4f6 !important; }
+[data-md-color-scheme="slate"] .kb-profile p { color: #9ca3af !important; }
+[data-md-color-scheme="slate"] .kb-profile {
+  background: #242424 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
