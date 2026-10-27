@@ -55,3 +55,77 @@ n>0时，树有且只有一个根结点。
 <div style="text-align:center;">
 <img src="../assets/gif/完全二叉树.jpg" style="width:280px; max-width:100%;" alt="完全二叉树"></div>
 完全二叉树：除了最后一层，其他层的结点都有两个子结点。最后一层的结点都从左到右连续排列。但是最后一层可以没有满。
+
+我们接下来学习一下如何表示树：
+<h3>二叉树的表示</h3>
+我们一般用结构体+左右指针来表示二叉树。
+```
+struct TreeNode {
+    int val;        // 节点的值
+    TreeNode* left; // 左孩子
+    TreeNode* right;// 右孩子
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+```
+<b>或者我们用数组模拟二叉树。</b>
+```
+int val[N];   // 点的值
+int left[N];  // 左儿子的编号
+int right[N]; // 右儿子的编号
+```
+<h3>多叉树/一般树的表示</h3>
+```
+vector<int>g[N];
+cin >> u >> v;
+g[u].push_back(v);
+```
+<b>如果是一颗无向树，我们需要双向建边。</b>
+```
+g[u].push_back(v);
+g[v].push_back(u);
+```
+<h3>带权树的表示</h3>
+vector+pair
+```
+vector<pair<int,int>>g[N];
+```
+下面我们写一道简单的题二叉树的题目：
+<h2>遍历二叉树</h2>
+给你一个二叉树n个节点，后面n行第一个字符表示根结点，后面两个字符表示左子结点和右子结点。
+我们用*表示空结点。<br>
+请输出前序遍历的结果。
+
+```cpp linenums="1" title="遍历二叉树.cpp"
+
+#include<bits/stdc++.h>
+using namespace std;
+struct TreeNode{
+	char left;
+	char right;
+
+}tree[300]; 
+void pre(char u){
+	if (u == '*')return;
+	cout << u;
+	pre(tree[u].left);
+	pre(tree[u].right);
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n ;
+	cin >> n;
+	char root;
+	for (int i = 0 ; i < n ;i++){
+		char u , v , w ;
+		cin >> u >> v >> w;
+		if (i==0)root = u;
+		tree[u].left = v;
+		tree[u].right = w; 
+	}
+	pre(root);
+	return 0;
+}
+```
+这个就是二叉树的遍历
+没错学图和树之前BFS和DFS是必备的算法。

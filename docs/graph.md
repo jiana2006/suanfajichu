@@ -259,7 +259,7 @@ u,v,w。 <br>
 
 这道题是图的深搜。
 
-```
+```cpp title="追风赶月莫停留，平芜尽处是春山.cpp"
 #include<bits/stdc++.h>
 using namespace std;
 int n , m;
@@ -312,3 +312,115 @@ g[a][b] = c:表示a到b有边，边权为c。<br>
 memset函数的作用是将内存中的数据全部设置为指定的值。<br>
 在本题中，我们用memset函数将vis数组全部设置为0，表示所有点都没有访问过。
 </p>
+
+我们下面来一题用链表存储的图。
+<h2>happy new year</h2>
+<p>
+众所周知，威龙是三角洲中最豪的干员，现在他一个喷气来到了总裁，但是总裁里面有n个星期五(野人)，你龙叔的14想喝血了，总裁里的野人之间是相互认识的他们凭借（happy new year）<s>踏平纽约</s>相互信任，现在，他们每个人都有一个编号，接下来m行表示野人之间的联系，后面一个整数k代表被14大四的野人，
+如果一个野人被14大四，会改变野人之间的连通性，则输出“窝累铜泥丸”，否则输出“踏平纽约”即可。如果野人全部被大四则增加一行输出“我从来都不会输”。</p>
+
+输入样例：
+
+5 4
+0 1
+1 3
+3 0
+0 4
+5
+1 2 0 4 3
+
+输出样例：
+
+踏平纽约
+
+踏平纽约
+
+窝累铜泥丸
+
+踏平纽约
+
+踏平纽约
+
+我从来都不会输
+
+```cpp title="happy new year.cpp"
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+const int MAXN = 10005; // 假设野人最多 10000 个
+vector<int> g[MAXN];    // 邻接表存野人之间的联系
+bool dead[MAXN];        // 标记野人是否被大四
+bool vis[MAXN];         // DFS 访问标记
+int n, m, k;
+
+// DFS 顺藤摸瓜，把所有没被大四且能走到的野人标记
+void dfs(int u) {
+    vis[u] = true;
+    for (int v : g[u]) {
+        if (!dead[v] && !vis[v]) {
+            dfs(v);
+        }
+    }
+}
+
+// 统计当前剩下的野人分成了几个互不相交的团伙
+int count_tribes() {
+    memset(vis, 0, sizeof(vis));
+    int cnt = 0;
+    for (int i = 1; i <= n; i++) {
+        // 如果野人还活着，且还没被访问过，说明发现了一个新团伙
+        if (!dead[i] && !vis[i]) {
+            cnt++;
+            dfs(i);
+        }
+    }
+    return cnt;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> n >> m;
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    // 计算开局状态下的团伙数量
+    int last_cnt = count_tribes();
+
+    cin >> k;
+    for (int i = 0; i < k; i++) {
+        int u;
+        cin >> u;
+        
+        // 14 动手，大四这个野人
+        dead[u] = true;
+        
+        // 看看大四他之后，团伙数量变成了多少
+        int cur_cnt = count_tribes();
+
+        // 如果团伙数量变多了，说明野人之间的联系被切断，图裂开了
+        if (cur_cnt > last_cnt) {
+            cout << "窝累铜泥丸\n"; // Red Alert
+        } else {
+            cout << "踏平纽约\n";   // 没有改变连通性
+        }
+        
+        // 更新团伙数量，用于下一次判断
+        last_cnt = cur_cnt;
+    }
+
+    // 如果野人全部被大四
+    if (k == n) {
+        cout << "我从来都不会输\n";
+    }
+
+    return 0;
+}
+```
