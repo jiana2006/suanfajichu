@@ -269,9 +269,226 @@ int main(){
   return 0;
 }
 
-
 ```
+我们在来一题相似的题：https://www.luogu.com.cn/problem/P1162
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闭合区域染色</title>
+<style>
+  :root{
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --text:#24292f;
+    --muted:#57606a;
+    --accent:#2563eb;
+    --border:#d0d7de;
+    --code-bg:#f6f8fa;
+    --tip:#ddf4ff;
+    --tip-border:#54aeff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:24px 16px 64px;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75;
+    font-size:16px;
+  }
+  .container{
+    max-width:860px;
+    margin:0 auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:32px 36px 48px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  h1{
+    font-size:28px;
+    margin:0 0 8px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--border);
+  }
+  h2{
+    font-size:20px;
+    margin:32px 0 12px;
+    padding-left:10px;
+    border-left:4px solid var(--accent);
+    line-height:1.3;
+  }
+  p{margin:12px 0;}
+  ul{margin:12px 0;padding-left:24px;}
+  li{margin:6px 0;}
+  code{
+    background:var(--code-bg);
+    padding:2px 6px;
+    border-radius:4px;
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    font-size:14px;
+    border:1px solid var(--border);
+  }
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+    overflow-x:auto;
+    margin:12px 0;
+  }
+  pre code{
+    background:none;
+    border:none;
+    padding:0;
+    font-size:14px;
+    line-height:1.6;
+  }
+  .sample-wrap{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .sample{
+    flex:1 1 280px;
+    min-width:0;
+  }
+  .sample-title{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .tip{
+    background:var(--tip);
+    border-left:4px solid var(--tip-border);
+    padding:12px 16px;
+    border-radius:6px;
+    margin:16px 0;
+  }
+  .formula{
+    text-align:center;
+    font-size:17px;
+    margin:16px 0;
+  }
+  @media(max-width:600px){
+    .container{padding:20px 18px 32px;}
+    h1{font-size:23px;}
+    h2{font-size:18px;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
 
+  <h1>闭合区域染色</h1>
+
+  <h2>题目描述</h2>
+  <p>给定一个 <code>n × n</code> 的方阵，方阵中只包含数字 <code>0</code> 和 <code>1</code>。</p>
+  <p>其中，数字 <code>1</code> 构成一个闭合圈。请把闭合圈内部的所有 <code>0</code> 改成 <code>2</code>，其他数字保持不变。</p>
+  <p>判断一个 <code>0</code> 是否在闭合圈内的方法：</p>
+  <ul>
+    <li>从该 <code>0</code> 出发，只能向上、下、左、右四个方向移动；</li>
+    <li>只能经过数字 <code>0</code>；</li>
+    <li>如果无论如何都无法到达方阵边界，则说明这个 <code>0</code> 在闭合圈内。</li>
+  </ul>
+  <p>题目保证：</p>
+  <ul>
+    <li>方阵中只有一个闭合圈；</li>
+    <li>闭合圈内至少有一个 <code>0</code>；</li>
+    <li>闭合圈内的所有 <code>0</code> 是连通的。</li>
+  </ul>
+
+  <h2>输入格式</h2>
+  <p>第一行输入一个整数 <code>n</code>，表示方阵大小。</p>
+  <p>接下来输入 <code>n</code> 行，每行 <code>n</code> 个整数，表示一个 <code>n × n</code> 的 <code>0/1</code> 方阵。</p>
+
+  <h2>输出格式</h2>
+  <p>输出修改后的完整方阵，共 <code>n</code> 行，每行 <code>n</code> 个整数，用空格分隔。</p>
+
+  <h2>输入样例</h2>
+  <pre><code>6
+0 0 0 0 0 0
+0 0 1 1 1 1
+0 1 1 0 0 1
+1 1 0 0 0 1
+1 0 0 0 0 1
+1 1 1 1 1 1</code></pre>
+
+  <h2>输出样例</h2>
+  <pre><code>0 0 0 0 0 0
+0 0 1 1 1 1
+0 1 1 2 2 1
+1 1 2 2 2 1
+1 2 2 2 2 1
+1 1 1 1 1 1</code></pre>
+
+  <h2>数据范围</h2>
+  <p>对于 <code>100%</code> 的数据：</p>
+  <p class="formula"><code>1 ≤ n ≤ 30</code></p>
+
+  <div class="tip">
+    <strong>提示：</strong>可以从方阵边界上的 <code>0</code> 出发，向四个方向搜索所有能够到达的 <code>0</code>，这些 <code>0</code> 都在闭合圈外。标记完成后，剩下的 <code>0</code> 就是闭合圈内部的 <code>0</code>，将它们改为 <code>2</code> 即可。
+  </div>
+
+</div>
+</body>
+</html>
+```cpp linenums="1" title="填颜色.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int n;
+const int N = 35;
+int g[N][N];
+int dx[4] = {0, 0, -1, 1};
+int dy[4] = {1, -1, 0, 0};
+bool vis[N][N];
+
+void dfs(int x, int y) {
+    vis[x][y] = true;
+    for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i];         
+        int ny = y + dy[i];       
+        if (nx < 1 || nx > n || ny < 1 || ny > n) continue;
+        if (vis[nx][ny]) continue;
+        if (g[nx][ny] != 0) continue;
+        dfs(nx, ny);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0); 
+	cin.tie(0);
+    cin >> n;
+    for (int i = 1; i <= n; i++)        
+        for (int j = 1; j <= n; j++)
+            cin >> g[i][j];
+
+    for (int i = 1; i <= n; i++) {
+        if (g[i][1] == 0 && !vis[i][1]) dfs(i, 1);
+        if (g[i][n] == 0 && !vis[i][n]) dfs(i, n);
+    }
+   
+    for (int j = 1; j <= n; j++) {
+        if (g[1][j] == 0 && !vis[1][j]) dfs(1, j);
+        if (g[n][j] == 0 && !vis[n][j]) dfs(n, j);
+    }
+
+
+    for (int i = 1; i <= n; i++) {        
+        for (int j = 1; j <= n; j++) {
+            if (g[i][j] == 0 && !vis[i][j]) g[i][j] = 2;
+            cout << g[i][j] << ' ';
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+```
 
 来一道题：<h1 style="\\\*\\\*font-weight:bold; color:#222;\\\*\\\*">奶娃的笑：</h1>
 
