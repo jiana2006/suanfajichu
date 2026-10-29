@@ -131,6 +131,8 @@ int main(){
     </div>
 </div>
 
+
+
 我们在来一题练习一下dfs的模板：<br>
 <h2>组合数的输出：</h2>
 组合就是从n个数中取出m个数，不考虑顺序。且（n>=m）<br>
@@ -173,6 +175,99 @@ int main(){
 函数，访问这个相邻节点。最后我们回溯，把当前数字上的数字标记为未被使用过。<br>
 </p>
 
+<h2>奇怪的电梯：</h2>
+现在有一个奇怪的电梯，它只能向上或向下移动。而且第i层楼上有一个数字k，现在给你两个数字a和b，要求你从a楼出发，到b楼，输出最少需要按多少次按钮。<br>
+
+这道题正确解法是BFS。
+
+```cpp title="奇怪的电梯.cpp（DFS）"
+#include<bits/stdc++.h>
+using namespace std;
+int n , a , b ;
+const int N = 205;
+int v[N];
+bool used[N];
+int re = 1e8;
+void dfs(int st , int step){
+	if (st == b){
+		re = min(re,step);
+		return ;
+	}
+	if (step >= re)return ;
+	used[st] = true ;
+	int nst = st + v[st];
+	if (nst>=1 && nst <= n && !used[nst]){
+		dfs(nst,step+1);
+	}
+	nst = st - v[st];
+	if (nst >= 1 && nst <= n && !used[nst]){
+		dfs(nst,step+1);
+	}
+	used[st] = false;
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n >> a >> b;
+	
+	for (int i = 1 ; i <= n; i++){
+		cin >> v[i]; 
+	}
+	dfs(a,0);
+	if (re == 1e8){
+		return -1;
+	}else {
+		cout << re <<"\n";
+	}
+	return 0;
+}
+```
+
+```cpp title="奇怪的电梯.cpp（BFS）"
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 205;
+int n , a , b;
+int k[N];
+int dis[N];
+bool vis[N];
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n >> a >> b ;
+	for (int i = 1 ; i <= n ;i++){
+		cin >> k[i];
+	}
+	queue<int> q;
+	q.push(a);
+	vis[a] = 1;
+	dis[a] = 0;
+	while (!q.empty()){
+		int u = q.front();
+		q.pop();
+		if (u==b){
+			cout << dis[u];
+			return 0;
+		}
+		int up = u + k[u];
+		int down = u - k[u];
+		if(up <= n && !vis[up]){
+			vis[up] = 1;
+			dis[up] = dis[u] + 1;
+			q.push(up);
+		}
+		if (down >= 1 && !vis[down]){
+			vis[down] = 1;
+			dis[down] = dis[u] + 1;
+			q.push(down);
+		}
+	}
+	cout << -1 ;
+	return 0;
+}
+```
+
+现在
 我们再来一题：
 <h2>走迷宫：</h2>
 <p>好的本喵来喵喵几句：<br>
