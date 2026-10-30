@@ -15,7 +15,7 @@ hide:
     <a href="../basic-lang/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 220px;">
       <div style="font-size: 3rem; margin-bottom: 1rem;">💻</div>
       <h3 style="margin: 0; color: var(--md-primary-fg-color);">编程语言</h3>
-      <p style="color: var(--md-default-fg-color--light); margin-top: 0.5rem;">Python、C、C++、Java 基础</p>
+      <p style="color: var(--md-default-fg-color--light); margin-top: 0.5rem;">Python、C、C++、Java、C#基础</p>
     </a>
 
     <!-- 方块 2：数学技巧（指向 math-skills 选择页） -->

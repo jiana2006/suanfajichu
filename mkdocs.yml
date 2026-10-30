@@ -54,6 +54,7 @@ nav:
       - C语言: c.md
       - C++: cpp.md
       - Java: java.md
+      - C#: csharp.md
     - 数学技巧:
       - 选择方向: math-skills.md
       - 经典数学题: math-problem.md

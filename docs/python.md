@@ -1,8 +1,15 @@
-python其实我比较推荐去学习。因为python的语法简单，学习成本低。同时python的库也很多，可以用来解决很多问题。
-python设计的初心是为了让代码更易读，更易维护。
-
-冷知识：python是用c语言写的。
-
+<h1>python</h1>
+<p>python其实我比较推荐去学习。因为python的语法简单，学习成本低。同时python的库也很多，可以用来解决很多问题。
+<b>主要是python是用的最多的编程语言。</b>
+python设计的初心是为了让代码更易读，更易维护。<br>
+冷知识：python是用c语言写的。<br>
+这里给大家说一下python和c++的区别：<br>
+1.python确实很简便写的时候很快，但是运行效率是很慢的。<br>
+2.c++虽然代码写着很多框架，但是运行效率是很高的。<br>
+这就是为啥打比赛时，一般用c++去写。<br>
+另外如果你想去学AI或者Agent开发，那么python是一个很好的选择。<br>
+比如说大肥鱼（deepseek）就是用python写的。<br>
+</p>
 
 <div style="text-align:center; margin:20px 0;">
   <video autoplay loop muted playsinline style="width:320px; max-width:100%; border-radius:8px;">
@@ -83,7 +90,7 @@ print(a-b)
 
 因为“/”在python里是浮点数除法，而“//”是整数除法。
 
-好的python暂时告一段落
+好的python暂时告一段落,后续会继续更新。尽请期待。
 
 <div style="text-align:center;">
 <img src="../assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="睡觉表情包"></div>

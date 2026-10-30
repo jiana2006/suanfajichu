@@ -26,5 +26,10 @@ hide:
       <div style="font-size: 3rem; margin-bottom: 1rem;">☕</div>
       <h3 style="margin: 0; color: var(--md-primary-fg-color);">Java</h3>
     </a>
+    <!-- 🌟 新增的 C# 卡片 -->
+    <a href="../csharp/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 180px;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🎶</div>
+      <h3 style="margin: 0; color: var(--md-primary-fg-color);">C#</h3>
+    </a>
   </div>
 </div>

@@ -10,12 +10,14 @@ comments: false
   <div class="hero-content">
     <h1 class="hero-title">欢迎来到 <br/><span class="title-gradient">喵喵基础算法</span></h1>
    
-    <p >专注于算法基础，记录个人的学习成长之路。<br>所有学习资源完全免费开放，快来加入吧！</p>
+    <!-- <p >专注于算法基础，记录个人的学习成长之路。<br>所有学习资源完全免费开放，快来加入吧！</p> -->
     <div class="hero-code">
-      <code>System.out.println("Hello World!");<br>
+      <code>
       print("Hello World!");<br>
-      cout << "Hello World!" << endl;<br>
-      printf("Hello World!\n");
+      printf("Hello World!");<br>           
+      cout << "Hello World!";<br>
+      System.out.println("Hello World!");<br>
+      Console.WriteLine("Hello, World!");
       </code>
     </div>
     <div class="hero-buttons">
