@@ -68,6 +68,56 @@ int main(){
 
 如：
 ```
-int sum(int a, int b)
-int sum(int a, int b, int c)
+int sum(int a, int b)//2个参数
+int sum(int a, int b, int c)//3个参数
 ```
+如：
+```
+float cube(float i)
+int cube(int i)
+```
+如：
+```
+double sum(int a, double b)
+double sum(double a, int b)
+```
+<b>注意：</b>
+
+（1）若两个函数除了返回类型不同，其他都相同，那么非法。
+
+如：
+```
+float cube(float i)
+double cube(float i)//非法
+```
+
+(2)重载与带缺值的函数一起使用时，有可能会导致二义性。
+如：
+```
+int sum(int a)
+int sum(int a = 0, int b = 0, int c = 0)
+```
+
+
+下面我们学习：异常处理机制。
+
+(1)检查异常（使用try语句块）
+
+(2)抛出异常（使用throw语句）
+
+(3)捕捉异常（使用catch语句）
+
+一般格式如下：
+```
+throw 表达式;
+
+try{
+    可能会抛出异常的代码;
+}catch(异常类型 异常对象){
+    处理异常的代码;
+}
+```
+
+下面我们学习：具有默认参数的构造函数。
+
+如果构造函数的参数值通常是不变的，只有在特殊情况下才需要改变，那么就可以使用默认参数。

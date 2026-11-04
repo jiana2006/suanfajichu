@@ -82,6 +82,7 @@ nav:
       - 滑动窗口: sliding-window.md
       - 哈希查找: hash-lookup.md
       - 哈希表: hash-table.md
+      - 并查集: union-find.md
       # 下面是合并进来的数据结构
       - 线性表: linear-list.md
       - 二叉树: binary-tree.md
