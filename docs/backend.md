@@ -121,3 +121,165 @@ try{
 下面我们学习：具有默认参数的构造函数。
 
 如果构造函数的参数值通常是不变的，只有在特殊情况下才需要改变，那么就可以使用默认参数。
+
+<h2>类的继承机制</h2>
+
+继承就是在已有的类的或称为基类的基础上创建新类，这个类就是派生类。
+
+c++中有单继承、多继承、多态性等机制。
+
+<h3>单继承</h3>
+单继承：由一个基类派生出一个派生类。
+```
+        基类
+        |  |
+        |  |
+        派 派
+        生 生
+        类 类
+        1  2
+```
+
+```
+父类：基类（person）
+子类：派生类（student）
+```
+人类里面包含学生类。
+
+
+<h3>多继承</h3>
+
+多继承：由两个或者多个基类派生出一个派生类。
+
+```
+        基类1  基类2  基类~
+            派生类
+```
+
+如：
+```
+学生类    员工类
+    在职学生类
+```
+在职学生类：既是在校学生，又是单位员工，所以它同时继承学生类和员工类。
+
+类的单继承声明格式：
+
+```
+class 派生类名：继承方式 基类名{
+    派生类成员声明
+};
+```
+
+下面我们实战一下：
+
+
+<h3>实战题：在职学生信息管理</h3>
+<p>
+题目要求<br>
+定义基类 Person：<br>
+
+保护成员：name（姓名）、age（年龄）<br>
+
+构造函数带默认参数：姓名默认 "未知"，年龄默认 18<br>
+
+成员函数 showPerson() 输出姓名和年龄<br>
+
+定义 Student 类，单继承 Person：<br>
+
+私有成员：stuNo（学号）、major（专业）<br>
+
+构造函数带默认参数
+
+成员函数 showStudent() 输出个人信息、学号、专业<br>
+
+定义 Employee 类：<br>
+
+保护成员：empNo（工号）、dept（部门）<br>
+
+构造函数带默认参数
+
+成员函数 showEmployee() 输出工号和部门<br>
+
+定义 WorkingStudent 类，多继承 Student 和 Employee：<br>
+
+私有成员：company（工作单位）<br>
+
+构造函数带默认参数
+
+成员函数 showAll() 输出全部信息<br>
+
+在 main() 中：<br>
+
+创建一个全部使用默认参数的对象，输出信息<br>
+
+创建一个使用实际参数的对象，输出信息</p>
+
+```cpp title="在职学生信息管理"
+#include<bits/stdc++.h>
+using namespace std;
+class person{
+	protected:
+		string name;
+		int age;
+	public:
+		person (string n = "未知" , int a = 18) : name(n) ,
+		 age (a){ } 
+		 void showperson() const{
+		 cout << "姓名:" << name << "年龄:" << age << endl; 
+		 }
+};
+class student : public person{
+	private:
+		string stuno;
+		string major;
+	public :
+		student(string n = "未知",int a = 18, string s = "000" , 
+		string m = "未定")
+		:person(n,a),stuno(s),major(m){}
+	void showstudent() const{
+		showperson();
+		cout << "学号:"  << stuno << ",专业:" << major << endl;
+	}
+};
+class employee{
+	protected:
+		string empno;
+		string dept;
+	public:
+		employee(string e = "E000" , string d = ""):empno(e),dept(d){
+		}
+		void showemployee() const{
+			cout << "工号:" << empno << "部门:" << dept << endl;
+		}
+};
+class workingstudent : public student , public employee{
+	private:
+		string company;
+	public:
+		workingstudent(string n = "未定" , int a = 18,
+		string s = "000" , string m = "未定",
+		string e = "E000", string d = "未定",
+		string c = "未定"):student(n,a,s,m),employee(e,d),
+		company(c){
+		}
+		void showall() const 
+		{
+			cout << "====== 在职学生信息 ======" << endl;
+			showstudent();
+			showemployee();
+			cout << "工作单位" << company << endl; 
+		}
+};
+int main(){
+	workingstudent ws1;
+	ws1.showall();
+	cout << endl;
+	workingstudent ws2("钾钠", 19 , "2025" , "计算机科学与技术",
+	"E1001" , "研发部", "某公司"); 
+	ws2.showall();
+	return 0;
+}
+```
+写了很久也是敲出来了。
+
