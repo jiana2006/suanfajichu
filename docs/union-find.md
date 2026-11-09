@@ -1,4 +1,16 @@
 <h1>并查集</h1>
+<p>并查集是一种非常强大的数据结构，它可以快速地合并和查询两个元素是否所属同一个集合。</p>
+
+<div style="text-align:center;">
+<img src="../assets/gif/并查集3.jpg" style="width:280px; max-width:100%;" alt="并查集"></div>
+
+
+<div style="text-align:center;">
+<img src="../assets/gif/并查集2.jpg" style="width:280px; max-width:100%;" alt="并查集"></div>
+
+
+<div style="text-align:center;">
+<img src="../assets/gif/并查集1.jpg" style="width:280px; max-width:100%;" alt="并查集"></div>
 ```
 public class Code01_UnionFindNowCoder {
     public static int MAXN = 1000001;

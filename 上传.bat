@@ -6,21 +6,30 @@ D:
 cd /D D:\MkDocs\my-wiki
 
 echo ========================================
-echo   喵喵基础算法 - 上传到 GitHub
+echo   喵喵基础算法  -  上传到 GitHub
 echo ========================================
 echo.
 
-echo [1/3] 检查改动...
+echo [当前改动]
 git status --short
 echo.
 
-echo [2/3] 提交...
-git add -A
-git commit -m "更新ing"
-echo.
+set "MSG="
+set /p MSG=提交说明（直接回车 = 更新网站）: 
+if not defined MSG set "MSG=更新网站"
 
-echo [3/3] 推送...
-git push
+echo.
+echo [1/3] git add .
+git add .
+
+echo [2/3] git commit -m "%MSG%"
+git commit -m "%MSG%"
+if errorlevel 1 (
+  echo       ^(没有新改动，跳过 commit^)
+)
+
+echo [3/3] git push origin main
+git push origin main
 echo.
 
 echo ========================================
