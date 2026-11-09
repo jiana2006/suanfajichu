@@ -153,7 +153,10 @@ struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    treenode(int x){
+        val = x;
+        left = right = nullptr;
+    }
 };
 ```
 
@@ -352,6 +355,13 @@ int main(){
 ```
 
 TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}<br>
+也可以写成：
+```
+ treenode(int x){
+        val = x;
+        left = right = nullptr;
+    }
+```
 解释：<br>
 定义了一个构造函数，当你创建一个新的树节点（TreeNode）时，把传入的值 x 赋给节点本身的值 val，并且把它的左孩子 left 和右孩子 right 都默认设为空指针（nullptr）。
 
@@ -380,3 +390,6 @@ void dfs(TreeNode* head){
     cout << head->val << " ";  // 【位置 3】左右两边都走完了，最后打印
 }
 ```
+
+但是这些都是标准写法不是我们打比赛的时候会用的。（学了一下午给学长看成果被嘲笑了）
+
