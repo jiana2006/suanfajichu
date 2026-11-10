@@ -393,3 +393,85 @@ void dfs(TreeNode* head){
 
 但是这些都是标准写法不是我们打比赛的时候会用的。（学了一下午给学长看成果被嘲笑了）
 
+下面我们写一下竞赛用于建树的代码：
+
+我们竞赛的时候图和树都是用邻接表存储的。
+
+```cpp title="竞赛用于建树的代码"
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 2e5 + 10; // 根据题目数据范围修改
+int n;
+vector<int> adj[N]; // 存图/树
+int sz[N];          // 树形DP常用的：存子树大小
+
+// u: 当前节点, fa: 它的父亲节点
+void dfs(int u, int fa) {
+    sz[u] = 1; // 初始化子树大小包含自己
+    
+    // 遍历 u 的所有邻居
+    for (int v : adj[u]) {
+        if (v == fa) continue; // 遇到父亲就跳过（防止死循环走回头路）
+        
+        // 此时 v 一定是 u 的儿子！
+        dfs(v, u);             // 递归处理儿子
+        
+        sz[u] += sz[v];        // 回溯时累加子树大小（这里写具体逻辑）
+    }
+}
+
+void solve() {
+    cin >> n;
+    for (int i = 1; i <= n; i++) adj[i].clear(); // 多组数据必须清空 vector
+    
+    for (int i = 1; i < n; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u); // 树是无向的，双向建边
+    }
+    
+    dfs(1, 0); // 从 1 号节点开始，它的父亲是 0（虚拟节点）
+}
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+    int t; cin >> t;
+    while (t--) solve();
+    return 0;
+}
+```
+
+```cpp title="竞赛用于建树的代码2"
+const int N = 1e5 + 10;
+const int M = 2 * N;
+int head[N], next[M], to[M], cnt;
+void add (int a, int b){
+    to[cnt] = b;
+    next[cnt] = head[a];
+    head[a] = cnt++;
+}
+void dfs(int u, int fa){
+    for (int i = head[u]; i != -1; i = next[i]){
+        int v = to[i];
+        if (v == fa) continue;//遇到父节点就跳过
+        //只要不是父节点，那v就是u的子节点
+        dfs(v, u);//继续往下找子节点
+    }
+}
+int main(){
+    int n;
+    cin >> n;
+    memset(head, -1, sizeof (head));
+    cnt = 0;
+    for (int i = 1; i < n; i++){
+        int a, b;
+        cin >> a >> b;
+        add(a, b);
+        add(b, a);
+    }
+    dfs(1, 0);
+    return 0;
+}
+```
