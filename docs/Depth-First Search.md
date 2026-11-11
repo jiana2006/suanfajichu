@@ -706,3 +706,72 @@ int main(){
   return 0;
 }
 ```
+
+上面的都是我写bfs没完全开智写的，真正的dfs现在开始。
+
+<h2>岛屿数量：</h2>
+
+给你一个m*n的网格，网格中每个单元格要么是0（水），要么是1（地）。你计算网格中岛屿的数量。
+岛屿被水包围，由水平或垂直方向相邻的1组成。
+
+输入样例：
+```
+4 5
+1 1 0 0 0 
+1 1 0 0 0 
+0 0 1 0 0 
+0 0 0 1 1
+```
+输出样例：
+```
+3
+```
+
+```cpp linenums="1" title="岛屿数量.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define end "\n"
+int n, k;
+const int N = 305;
+
+int a[N][N];
+bool b[N][N];
+void dfs(int x, int y){
+	if (x < 0 || y < 0 || x >= n || y >= k || b[x][y] || a[x][y] == 0)return;
+	b[x][y] = true;
+	int dx[4] = {0, 0, -1, 1}; 
+	int dy[4] = {1, -1, 0, 0};
+	for (int i = 0; i < 4; i++){
+		dfs(dx[i] + x, dy[i] + y);
+	}
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n >> k;
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j < k; j++){
+			cin >> a[i][j];
+		}
+	}
+	int ans = 0;
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j < k; j++){
+			if (a[i][j] == 1 && !b[i][j]){
+				dfs(i, j);
+				ans ++;
+			}
+		}
+	}	
+	cout << ans << endl;
+	return 0; 
+	
+}
+```
+
+上面的dfs就是自己定义的以后个函数，我之前一直以为都要写到dfs函数中，其实主要的还是在main函数中。
+
+像这里面我们就是从main里面的(0,0)开始调用dfs函数，用dfs去遍历所有的1，把所有的1都标记为已访问。
+
+因此下面的才是核心而上面的dfs函数你写多了就会知道他是有模板的。
