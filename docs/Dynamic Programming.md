@@ -670,10 +670,222 @@ cout << dp[0][0] << endl;
 	return 0;
 }
 ```
-
 <p>这里解释一下s.at(i)和t.at(j)的含义：</p>
 <p>s.at(i)表示s的第i个字符</p>
 <p>用.at()函数可以避免越界。</p>
 <p>.at()在访问之前，会先检查一下i是否合法，如果i>=0 && i<s.length():安全放行，返回字符。</p>
-<p>如果i不合法，会抛出out_of_range异常。</p
->
+<p>如果i不合法，会抛出out_of_range异常。</p>
+<h2>状态机类动态规划问题：</h2>
+
+把当前情况划分成有限个“状态”，然后规定“在某个状态下，遇到某个输入，会跳到哪个状态”。<br>
+普通的动态规划是求解一个优化问题，比如求最大值、最小值、最短路径等。<br>
+比如说:
+```
+dp[i] = 前 i 个元素的最优解
+```
+而状态机DP是求解一个状态机的问题，比如求解一个状态机的最优解。
+```
+dp[i][s] = 处理到第 i 个位置，当前处于状态 s 的最优解
+```
+
+<h2>买卖股票的最佳时机问题：</h2>
+
+给一个数n，表示有n天的股票价格。你只能选择在某一天买入股票，然后在某一天卖出股票。设计一个算法，计算出最大利润。
+如果不能获得利润，返回利润为0。
+
+样例输入：
+```
+6
+7 1 5 3 6 4
+```
+样例输出：
+```
+5
+```
+我们用一种标准的状态机DP和一种优化的状态机DP。
+
+```cpp title="买卖股票的最佳时机状态机DP.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n;
+    cin >> n;
+
+    if (n == 0){
+        cout << 0 << endl;
+        return 0;
+    }
+
+    vector<int> nums(n, 0);
+    for (int i = 0; i < n; i++){
+        cin >> nums[i];
+    }
+
+    vector<vector<int>> dp(n, vector<int>(2, 0));
+
+    dp[0][0] = 0;              // 第 0 天不持有
+    dp[0][1] = -nums[0];       // 第 0 天持有 = 第 0 天买入
+
+    for (int i = 1; i < n; i++){
+        dp[i][0] = max(dp[i-1][0], dp[i-1][1] + nums[i]);
+        dp[i][1] = max(dp[i-1][1], -nums[i]);        // 只允许一次交易
+    }
+
+    cout << dp[n-1][0] << endl;
+    return 0;
+}
+
+```
+
+这里面的我们用二维数组来表示状态机，dp[i][0]表示第i天不持有股票的最优解，dp[i][1]表示第i天持有股票的最优解。
+
+再解释一下状态机的转移方程：
+```
+当前状态	               来源 1   	来源 2
+不持有      dp[i][0]	一直不持有	    之前持有，今天卖出
+持有        dp[i][1]	一直持有	    之前不持有，今天买入
+```
+
+
+```cpp title="买卖股票的最佳时机.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+typedef long long ll;
+int main(){
+    vector<int>prices;
+	int n;
+    cin >> n;
+    for (int i = 0; i < n; i++){
+        cin >> prices[i];
+    }
+    int dp = 0;
+    int dp1= -prices[0];
+    for (int i = 1; i < n; i++){
+        int dp = max(dp,dp1 + prices[i]);
+        int dp1 = max(dp1,dp - prices[i]);
+    }
+    cout << dp << endl;
+    return 0;
+}
+
+```
+写到这里挺有感悟的，之前也是这么入门普通的动态规划问题。不知不觉已经过去了3个月了。<b>时过境迁，物是人非。</b>
+
+下面我们写这个问题的进阶版：
+
+<h2>买卖股票的最佳时机问题进阶版：</h2>
+
+给你一个数n，表示有n天的股票价格。在每一天你可以决定是否买入股票、卖出股票、或者保持现状。你在任何时候最多只能有一股股票。然而你可以在同一天多次买卖该股票。但是你要确保你持有的股票数量不能超过1股。
+
+样例输入：
+```
+6
+7 1 5 3 6 4
+```
+样例输出：
+```
+7
+```
+解释：
+在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4。
+随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6 - 3 = 3。
+最大总利润为 4 + 3 = 7 。 
+
+这道题和上面的差别就在于上面的在那么多天内只能交易一次，而在这道题中，你可以多次交易。但是你要确保你持有的股票数量不能超过1股。
+
+```cpp title="买卖股票的最佳时机进阶版状态机DP.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin >> n;
+	vector<int>nums(n,0);
+	for (int i = 0; i < n; i++){
+		cin >> nums[i];
+	}
+	if (n == 0){
+	cout << "0" <<endl;	
+	return 0;
+	}
+	vector<vector<int>>dp(n,vector<int>(2,0));
+	dp[0][0] = 0;
+	dp[0][1] = -nums[0];
+	for (int i = 1; i < n; i++){
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1] + nums[i]);
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0] - nums[i]); 
+	}
+	cout << dp[n-1][0] << endl;
+	return 0;
+}
+
+```
+
+别急这个题还有3.0版本。
+
+<h2>买卖股票的最佳时机问题3.0版本：</h2>
+
+给你一个数n，表示有n天的股票价格。你最多可以完成两笔交易。<b>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</b>
+
+样例输入：
+```
+8
+3 3 5 0 0 3 1 4
+
+```
+样例输出：
+```
+6
+```
+
+样例解释：在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。
+
+
+```cpp title="买卖股票的最佳时机3.0版本状态机DP.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n;
+    cin >> n;
+
+    if (n == 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    vector<int> prices(n);
+    for (int i = 0; i < n; i++) cin >> prices[i];
+
+    // dp[i][0..3] 对应 buy1, sell1, buy2, sell2
+    vector<vector<int>> dp(n, vector<int>(4, 0));
+
+    dp[0][0] = -prices[0];   // buy1
+    dp[0][1] = 0;            // sell1
+    dp[0][2] = -prices[0];   // buy2（允许同一天买两次？下面解释）
+    dp[0][3] = 0;            // sell2
+
+    for (int i = 1; i < n; i++){
+        dp[i][0] = max(dp[i-1][0], -prices[i]);
+        dp[i][1] = max(dp[i-1][1], dp[i-1][0] + prices[i]);
+        dp[i][2] = max(dp[i-1][2], dp[i-1][1] - prices[i]);
+        dp[i][3] = max(dp[i-1][3], dp[i-1][2] + prices[i]);
+    }
+
+    cout << dp[n-1][3] << endl;
+    return 0;
+}
+```
