@@ -444,3 +444,231 @@ int main() {
     return 0;
 }
 ```
+
+现在察觉我自己的哈希学的很差因此我现在要加强一下。
+
+<h2>《星光学习平台 · 年度荣誉与奖励结算》</h2>
+
+<p>题目描述:<br>
+"星光学习平台"开设了一门《算法与数据结构》课程。学员完成全部学习后获得一个总评成绩（0~100 的整数）。平台规定：<br>
+
+总评成绩 ≥ 60 才能获得结业证书；<br>
+
+在此基础上发放学习基金：<br>
+
+总评成绩落在 [G, 100] 区间：发放 50 元；<br>
+
+总评成绩落在 [60, G) 区间：发放 20 元；<br>
+
+平台还会把总评成绩前 K 名的学员列入年度"荣耀榜"。<br>
+
+请你编写程序，完成两件事：<br>
+
+统计平台一共发放了多少元学习基金；<br>
+
+按规则输出荣耀榜学员的名次、账号、成绩。<br>
+
+排名规则：<br>
+
+按总评成绩非升序（从高到低）排列；<br>
+
+成绩相同的学员名次并列；<br>
+
+名次并列时，按账号的字典序升序输出；<br>
+
+并列名次会占用后续名次的位置（例如两人并列第 3，则下一名是第 5）。<br>
+</p>
+
+<p>输入格式：<br>
+第一行给出 3 个整数：<br>
+
+N（1 ≤ N ≤ 10000）：学员总数；<br>
+
+G（60 < G < 100）：学习基金等级分界线；<br>
+
+K（1 ≤ K ≤ 100 且 K ≤ N）：进入荣耀榜的最低名次。<br>
+
+接下来 N 行，每行给出：<br>
+
+一个账号（长度不超过 15、不含空格的字符串）；<br>
+
+一个总评成绩（0 ~ 100 的整数）。<br>
+
+题目保证没有重复的账号。<br>
+</p>
+
+<p>输出格式：<br>
+第一行：一个整数，表示发放的学习基金总面值（元）。<br>
+
+随后若干行：按排名规则输出荣耀榜学员，<br>	
+每个学员占一行，格式为：<br>
+名次 账号 成绩<br>
+</p>
+
+```cpp linenums="1" title="星光学习平台 · 年度荣誉与奖励结算"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl '\n'
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n, g, k;
+	cin >> n >> g >> k;
+	vector<pair<string,int>> v;
+	v.reserve(n);
+	int res = 0;
+	for (int i = 0; i < n; i++){
+		string s; int a;
+		cin >> s >> a;
+		v.emplace_back(s, a);                   
+		if (a >= g && a <= 100)  res += 50;
+		else if (a >= 60 && a < g) res += 20;
+	}
+	sort(v.begin(), v.end(), [](const auto& x, const auto& y){
+		if (x.second != y.second)return x.second > y.second;
+		return x.first < y.first;
+	});
+	cout << res << endl; 
+	int r= 1;
+	for (int i = 0; i < n; i++){
+		if (i > 0 && v[i].second != v[i-1].second)
+			r = i + 1;                        
+		if (r > k) break;                     
+		cout << r << " " << v[i].first <<" "<< v[i].second << endl;
+	}
+	return 0;
+}
+```
+再来一道类似的题：
+
+<article class="problem-statement">
+    <h1 class="problem-title">A. 排名表</h1>
+    
+    <div class="problem-meta">
+        <span class="time-limit">每次测试时间限制：2秒</span>
+        <span class="memory-limit">内存限制：256兆字节</span>
+    </div>
+
+    <div class="problem-content">
+        <p>又一场编程比赛结束了。你拿到了比赛的最终结果表。表里有以下数据：对于每支队伍，显示两个数字：解题数和总罚时。但是，没有任何队伍显示其最终名次。</p>
+        
+        <p>你非常清楚比较两支队伍结果的规则。假设队伍 a 解出了 <code>p<sub>a</sub></code> 道题，总罚时为 <code>t<sub>a</sub></code>；队伍 b 解出了 <code>p<sub>b</sub></code> 道题，总罚时为 <code>t<sub>b</sub></code>。如果队伍 a 解出的题更多，或者解出相同数量的题但总罚时更少，那么队伍 a 的最终排名就高于队伍 b。换句话说，如果 <code>p<sub>a</sub> &gt; p<sub>b</sub></code>，或者 <code>p<sub>a</sub> = p<sub>b</sub></code> 且 <code>t<sub>a</sub> &lt; t<sub>b</sub></code>，队伍 a 在最终结果表中的排名就高于队伍 b。</p>
+        
+        <p>规定：<strong>解题数相同且罚时相同的队伍，共享所有对应的名次。</strong>更正式地说，假设有一组 <code>x</code> 支队伍，他们的解题数相同且罚时相同。再假设有 <code>y</code> 支队伍的表现好于这组队伍。在这种情况下，该组中的所有队伍共享 <code>y+1, y+2, ..., y+x</code> 这些名次。表现差于这组队伍的其他队伍，在结果表中从第 <code>y+x+1</code> 名开始获得名次。</p>
+        
+        <p>你的任务是计算：给定列表中有多少支队伍共享了第 <code>k</code> 名。</p>
+    </div>
+
+    <h2 class="section-title">输入格式</h2>
+    <div class="section-content">
+        <p>第一行包含两个整数 <code>n</code> 和 <code>k</code>（<code>1 &le; k &le; n &le; 50</code>）。</p>
+        <p>接下来 <code>n</code> 行描述队伍的信息：第 <code>i</code> 行包含两个整数 <code>p<sub>i</sub></code> 和 <code>t<sub>i</sub></code>（<code>1 &le; p<sub>i</sub>, t<sub>i</sub> &le; 50</code>）——分别是第 <code>i</code> 支队伍的解题数和总罚时。行内所有数字由空格分隔。</p>
+    </div>
+
+    <h2 class="section-title">输出格式</h2>
+    <div class="section-content">
+        <p>在唯一的一行中输出最终结果表中获得第 <code>k</code> 名的队伍数量。</p>
+    </div>
+
+    <h2 class="section-title">样例 1</h2>
+    <div class="sample-container">
+        <div class="sample-block">
+            <div class="sample-title">输入</div>
+            <pre class="sample-input"><code>7 2
+4 10
+4 10
+4 10
+3 20
+2 1
+2 1
+1 10
+</code></pre>
+        </div>
+        <div class="sample-block">
+            <div class="sample-title">输出</div>
+            <pre class="sample-output"><code>3
+</code></pre>
+        </div>
+    </div>
+
+    <h2 class="section-title">样例 2</h2>
+    <div class="sample-container">
+        <div class="sample-block">
+            <div class="sample-title">输入</div>
+            <pre class="sample-input"><code>5 4
+3 1
+3 1
+5 3
+3 1
+3 1
+</code></pre>
+        </div>
+        <div class="sample-block">
+            <div class="sample-title">输出</div>
+            <pre class="sample-output"><code>4
+</code></pre>
+        </div>
+    </div>
+
+    <h2 class="section-title">提示</h2>
+    <div class="section-content">
+        <p><strong>第一个样例的最终结果表如下：</strong></p>
+        <ul>
+            <li>第 1-3 名 —— 解出 4 题，罚时等于 10</li>
+            <li>第 4 名 —— 解出 3 题，罚时等于 20</li>
+            <li>第 5-6 名 —— 解出 2 题，罚时等于 1</li>
+            <li>第 7 名 —— 解出 1 题，罚时等于 10</li>
+        </ul>
+        <p>该表显示，第二名由解出 4 题且罚时为 10 的队伍共享，共有 3 支这样的队伍。</p>
+
+        <p><strong>第二个样例的最终结果表如下：</strong></p>
+        <ul>
+            <li>第 1 名 —— 解出 5 题，罚时等于 3</li>
+            <li>第 2-5 名 —— 解出 3 题，罚时等于 1</li>
+        </ul>
+        <p>该表显示，第四名由解出 3 题且罚时为 1 的队伍共享，共有 4 支这样的队伍。</p>
+    </div>
+</article>
+
+```cpp  title="排名表.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n, g, k;
+	cin >> n >> g >> k;	
+	int res = 0;
+	vector<pair<string, int>>v;
+	for (int i = 0; i < n; i++){
+		string s;
+		int a;
+		cin >> s >> a;
+		v.emplace_back(s, a);	
+		if (a >= g && a <= 100)res+=50;
+		if (a >= 60 && a < g)res+=20;
+			
+	}
+
+	sort(v.begin(),v.end(), [](const auto& x, const auto& y){
+		if(x.second != y.second)return x.second > y.second;
+		return x.first > y.first;
+	});
+	cout << res << endl;
+	for (int i = 0; i < k; i++){
+		cout << i + 1 << " " << v[i].first << " " << v[i].second << endl;
+	}
+	return 0;
+}
+```
+我们介绍一下emplace_back函数:
+
+这个是c++11新增的函数，用于在vector容器的末尾构造一个元素，而不是直接使用push_back函数。
+他和push_back函数的区别在于，他可以在构造元素时直接指定元素的类型，而push_back函数只能在构造元素时指定元素的值。所以可以理解为push_back的pro max版本。
+
+这里面我们用if(x.second != y.second)return x.second > y.second;就是根据罚时排序，罚时相同的队伍，根据队伍名称排序。写if就是为了可以选择两个东西去进行排序。
