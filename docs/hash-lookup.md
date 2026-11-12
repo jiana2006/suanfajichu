@@ -672,3 +672,178 @@ int main(){
 他和push_back函数的区别在于，他可以在构造元素时直接指定元素的类型，而push_back函数只能在构造元素时指定元素的值。所以可以理解为push_back的pro max版本。
 
 这里面我们用if(x.second != y.second)return x.second > y.second;就是根据罚时排序，罚时相同的队伍，根据队伍名称排序。写if就是为了可以选择两个东西去进行排序。
+
+
+
+<article class="problem-statement">
+    <h1 class="problem-title">B. 预选赛</h1>
+    
+    <div class="problem-meta">
+        <span class="time-limit">每次测试时间限制：1秒</span>
+        <span class="memory-limit">内存限制：256兆字节</span>
+    </div>
+
+    <div class="problem-content">
+        <p>很快，Berland 将举办学校团队编程奥林匹克竞赛。从 Berland 的 <code>m</code> 个地区中，每个地区将受邀派出一支两人队伍参加比赛。为了组建队伍，举行了预选赛，共有 <code>n</code> 名 Berland 学生参加。Berland 的每个地区至少有 2 名学生参加。每个预选赛参赛者的成绩是一个 0 到 800 之间（含）的整数。</p>
+        
+        <p>每个地区的队伍由该地区预选赛中成绩最好的两名成员组成（即队伍中的任何一人都不能被该地区未入选且得分更高的人替换）。某些地区的队伍可能无法唯一确定，也就是说，满足上述条件的队伍不止一支。在这种情况下，该地区需要举行加赛。如果两支队伍中至少有一名队员不同，则认为这两支队伍是不同的。数据保证每个地区至少有 2 名代表参赛。</p>
+        
+        <p>你的任务是，根据预选赛的成绩，确定每个地区的队伍，或者声明该地区需要加赛才能确定队伍。</p>
+    </div>
+
+    <h2 class="section-title">输入格式</h2>
+    <div class="section-content">
+        <p>第一行包含两个整数 <code>n</code> 和 <code>m</code>（<code>2 &le; n &le; 100,000</code>，<code>1 &le; m &le; 10,000</code>，<code>n &ge; 2m</code>）—— 预选赛参赛人数和 Berland 的地区数。</p>
+        <p>接下来 <code>n</code> 行，每行按以下格式描述一名参赛者：姓氏（长度 1 到 10 个字符，由大小写英文字母组成）、地区编号（1 到 <code>m</code> 的整数）和得分（0 到 800 之间的整数）。</p>
+        <p>保证所有参赛者的姓氏互不相同，且每个地区至少有两人参加。仅大小写不同的姓氏应视为不同。</p>
+    </div>
+
+    <h2 class="section-title">输出格式</h2>
+    <div class="section-content">
+        <p>输出 <code>m</code> 行。第 <code>i</code> 行输出第 <code>i</code> 个地区的队伍 —— 两名队伍成员的姓氏（任意顺序），如果该地区需要加赛，则输出一个字符 <code>"?"</code>（不含引号）。</p>
+    </div>
+
+    <h2 class="section-title">样例 1</h2>
+    <div class="sample-container">
+        <div class="sample-block">
+            <div class="sample-title">输入</div>
+            <pre class="sample-input"><code>5 2
+Ivanov 1 763
+Andreev 2 800
+Petrov 1 595
+Sidorov 1 790
+Semenov 2 503
+</code></pre>
+        </div>
+        <div class="sample-block">
+            <div class="sample-title">输出</div>
+            <pre class="sample-output"><code>Sidorov Ivanov
+Andreev Semenov
+</code></pre>
+        </div>
+    </div>
+
+    <h2 class="section-title">样例 2</h2>
+    <div class="sample-container">
+        <div class="sample-block">
+            <div class="sample-title">输入</div>
+            <pre class="sample-input"><code>5 2
+Ivanov 1 800
+Andreev 2 763
+Petrov 1 800
+Sidorov 1 800
+Semenov 2 503
+</code></pre>
+        </div>
+        <div class="sample-block">
+            <div class="sample-title">输出</div>
+            <pre class="sample-output"><code>?
+Andreev Semenov
+</code></pre>
+        </div>
+    </div>
+
+    <h2 class="section-title">提示</h2>
+    <div class="section-content">
+        <ul class="note-list">
+            <li>在第一个样例中，每个地区的队伍都可以唯一确定。</li>
+            <li>在第二个样例中，第 2 区的队伍可以唯一确定，而第 1 区可以组建三支队伍："Petrov"-"Sidorov"、"Ivanov"-"Sidorov"、"Ivanov"-"Petrov"，因此无法唯一确定一支队伍。</li>
+        </ul>
+    </div>
+</article>
+
+```cpp  title="预选赛.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0); 
+    int n, m;
+    cin >> n >> m;
+    vector<tuple<string, int, int>> v;
+    v.reserve(n);
+    
+    for (int i = 0; i < n; i++){
+        string s; int a, b;
+        cin >> s >> a >> b;
+        v.emplace_back(s, a, b);
+    }
+    sort(v.begin(), v.end(), [](const auto &x, const auto &y){      
+        if (get<1>(x) != get<1>(y)) {
+            return get<1>(x) < get<1>(y);
+        }
+        return get<2>(x) > get<2>(y);    
+    });
+ 
+    vector<string> first_name(m + 1);
+    vector<string> second_name(m + 1);
+    vector<int> second_score(m + 1, -1);
+    vector<int> third_score(m + 1, -1);
+    vector<int> cnt(m + 1, 0); 
+    
+    for (int i = 0; i < n; i++) {
+        int region = get<1>(v[i]);
+        int score = get<2>(v[i]);
+        string name = get<0>(v[i]);
+        
+        cnt[region]++;
+        if (cnt[region] == 1) {
+            first_name[region] = name;
+        } else if (cnt[region] == 2) {
+            second_name[region] = name;
+            second_score[region] = score;
+        } else if (cnt[region] == 3) {
+            third_score[region] = score;
+        }
+    }
+  
+    for (int i = 1; i <= m; i++) {
+        if (cnt[i] >= 3 && second_score[i] == third_score[i]) {
+            cout << "?" << '\n';
+        } else {
+            cout << first_name[i] << " " << second_name[i] << '\n';
+        }
+    }
+
+    return 0;
+}
+```
+这里介绍一下tuple函数:他是c++1引入的，可以理解为“可以装任意多个不同类型数据的超级pair”
+pair只能装两个不同类型的数据，而tuple可以装任意多个不同类型的数据。
+
+1. 定义与初始化
+
+要使用 tuple，需要包含头文件 <tuple>（不过平时你用的 <bits/stdc++.h> 已经包含了）。
+
+```
+#include <tuple>
+
+// 方式一：直接定义并赋值
+tuple<string, int, int> t1("Ivanov", 1, 763); 
+
+// 方式二：使用 make_tuple 自动推导类型
+auto t2 = make_tuple("Andreev", 2, 800);
+
+// 方式三：先声明，后赋值（不推荐，容易乱）
+tuple<string, int, int> t3;
+t3 = make_tuple("Petrov", 1, 595);
+
+// 方式四：放进 vector 里（就像你在 659B 代码里写的那样）
+vector<tuple<string, int, int>> v;
+v.emplace_back("Sidorov", 1, 790); 
+```
+
+2. 访问元素：get<下标>()
+
+这是 tuple 最核心的用法。注意：下标必须是编译期常量（也就是不能是变量），且从 0 开始。
+```
+auto t = make_tuple("Ivanov", 1, 763);
+
+cout << get<0>(t) << endl; // 输出 "Ivanov"
+cout << get<1>(t) << endl; // 输出 1
+cout << get<2>(t) << endl; // 输出 763
+
+// 修改元素的值
+get<2>(t) = 800; // 把分数改成 800
+```
