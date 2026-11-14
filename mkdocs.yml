@@ -105,6 +105,8 @@ nav:
     - 网安: network.md
     - 其他: other.md
 
+    
+
 # ⚠️ 原来 plugins 写了三遍，YAML 里后一个会覆盖前一个，
 #    所以两个 search 配置和 optimize 实际只有最后那个生效。
 #    这里合并成一个，避免以后再踩坑。
