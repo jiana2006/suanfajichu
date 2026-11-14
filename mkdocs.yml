@@ -104,7 +104,8 @@ nav:
     - 嵌入式: embedded.md
     - 网安: network.md
     - 其他: other.md
-
+  - 电脑基础: 
+    - windows常用cmd命令: windows-cmd.md
     
 
 # ⚠️ 原来 plugins 写了三遍，YAML 里后一个会覆盖前一个，
