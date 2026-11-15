@@ -775,3 +775,146 @@ int main(){
 像这里面我们就是从main里面的(0,0)开始调用dfs函数，用dfs去遍历所有的1，把所有的1都标记为已访问。
 
 因此下面的才是核心而上面的dfs函数你写多了就会知道他是有模板的。
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>纸条树颜色问题</title>
+</head>
+<body>
+
+<h1>纸条树颜色问题</h1>
+
+<p>
+    有 <strong>n</strong> 张编号为 1 至 n 的纸条，用 n-1 根细线连成一棵树。
+    纸条的颜色用数组 c<sub>1</sub>, c<sub>2</sub>, …, c<sub>n</sub> 表示，
+    其中 c<sub>i</sub> 表示第 i 张纸条的颜色。
+</p>
+
+<p>
+    每次操作可以选择一张只连着一根细线的纸条，把与它相连的纸条染成它的颜色，
+    再拿走所选纸条和这根线。重复操作，直到只剩一张纸条。
+</p>
+
+<p>
+    请计算最后的纸条可能有多少种不同颜色。
+</p>
+
+<h2>【名词解释】</h2>
+<p>
+    树：是指这样的一张图，其由 n 个节点和 n-1 条边构成，
+    其上的任意两个点都连通，且不存在环。
+</p>
+
+<h2>输入描述</h2>
+<p>
+    第一行输入一个整数 n (1 ≤ n ≤ 2 × 10<sup>5</sup>)，表示纸条数量。
+</p>
+<p>
+    第二行输入 n 个整数 c<sub>1</sub>, c<sub>2</sub>, …, c<sub>n</sub>
+    (1 ≤ c<sub>i</sub> ≤ n)，表示各张纸条的颜色。
+</p>
+<p>
+    此后 n-1 行，第 i 行输入两个整数 u<sub>i</sub>, v<sub>i</sub>
+    (1 ≤ u<sub>i</sub>, v<sub>i</sub> ≤ n)，
+    表示编号为 u<sub>i</sub>, v<sub>i</sub> 的纸条之间有一根细线。
+    保证这些连接构成一棵树。
+</p>
+
+<h2>输出描述</h2>
+<p>
+    输出一个整数，表示最后可能出现的颜色种数。
+</p>
+
+<h2>示例 1</h2>
+<p>输入：</p>
+<pre><code>5
+4 1 2 1 3
+1 2
+1 3
+1 4
+1 5
+</code></pre>
+
+<p>输出：</p>
+<pre><code>3
+</code></pre>
+
+<p>
+    说明：最终可以留下颜色 1, 2, 3。
+</p>
+
+<h2>示例 2</h2>
+<p>输入：</p>
+<pre><code>1
+1
+</code></pre>
+
+<p>输出：</p>
+<pre><code>1
+</code></pre>
+
+</body>
+</html>
+
+这道题就是让你去判断哪个节点上连接了2条边及以上如果连结了2条边及以上，那么这个纸的颜色就不会留到最后。
+
+```cpp linenums="1" title="纸条树颜色问题.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+typedef long long ll;
+const int N = 1e5 + 10;
+const int M = 2 * N;
+int h[N], n[M], t[M], cnt;
+void add (int a, int b){
+	t[cnt] = b;
+	n[cnt] = h[a];
+	h[a] = cnt ++;
+}
+int c[N];
+bool vis[N];
+void dfs(int u, int fa){
+	int d= 0;
+	for (int i = h[u]; i != -1; i = n[i]){
+		d ++;
+		int v = t[i];
+		if (v == fa)continue;
+		dfs(v, u);
+	}
+	if (d == 1){
+		vis[c[u]] = true;
+	}
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin >> n;
+	for (int i = 1; i <= n; i++)cin >> c[i];
+	if (n == 1){
+		cout << "1" << endl;
+		return 0;
+	}
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	for (int i = 1; i < n; i++){
+		int a, b;
+		cin >> a >> b;
+		add(a, b);
+		add(b, a);
+	}
+	dfs(1, 0);
+	int re = 0;
+	for (int i = 1; i <= n; i++){
+		if (vis[i]){
+			re ++;
+		}
+	}
+	cout << re << endl;
+	return 0;
+}
+```
+这里面的d++是统计节点连接的边数。
