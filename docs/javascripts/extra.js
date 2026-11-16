@@ -59,7 +59,7 @@
       path.includes('/basic-lang/') || 
       path.includes('/math-skills/') || 
       path.includes('/core-algo/') ||
-      path.includes('/route-plan/') ||
+      path.includes('/route-plan/') || 
       path.includes('/learning-tools/') || 
       path.includes('/404/') || 
       path.includes('/404.html');
@@ -437,7 +437,7 @@
     });
   }
 
-  // ==================== 9. 折叠代码块点击交互（全局事件委托，只绑定一次） ====================
+  // ==================== 9. 折叠代码块点击交互 ====================
   document.addEventListener('click', function(e) {
     const header = e.target.closest('.code-header');
     if (header) {
@@ -448,8 +448,86 @@
     }
   });
 
+  // ==================== 5.5 唯美信封开机动画 ====================
+  function initBootAnimation() {
+    // 只在首页触发
+    const path = window.location.pathname;
+    const isHome = path === '/' || path.endsWith('/suanfajichu/') || path.endsWith('/index.html');
+    if (!isHome) return;
+
+    // 使用 sessionStorage 控制，确保每次会话只出现一次
+    if (sessionStorage.getItem('bootAnimated')) return;
+
+    // 1. 注入动画所需 DOM
+    const overlay = document.createElement('div');
+    overlay.id = 'envelope-overlay';
+    overlay.innerHTML = `
+      <div id="envelope-wrapper">
+        <div class="envelope">
+          <div class="envelope-back"></div>
+          <div class="letter">
+            <div class="letter-text" id="letter-content"></div>
+          </div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-front"></div>
+        </div>
+        <div class="click-hint" id="click-hint">👆 点击打开信件</div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // 2. 点击事件：打开信件
+    const wrapper = document.getElementById('envelope-wrapper');
+    const hint = document.getElementById('click-hint');
+    const letter = document.querySelector('.letter');
+    const letterContent = document.getElementById('letter-content');
+    let isOpened = false;
+
+    wrapper.addEventListener('click', () => {
+      if (isOpened) return;
+      isOpened = true;
+      hint.style.opacity = '0'; // 隐藏提示语
+
+      // 打开信封盖子
+      overlay.classList.add('is-open');
+
+      // 信纸滑出，并逐渐展开
+      setTimeout(() => {
+        letter.style.transform = 'translateY(-40%) scale(1.1)';
+        letter.style.zIndex = '10';
+        
+        // 开始打字机效果
+        const text = "欢迎进入"; // 你修改的文案
+        let i = 0;
+        const typeWriter = () => {
+          if (i < text.length) {
+            if (text.charAt(i) === '\n') {
+              letterContent.innerHTML += '<br>';
+            } else {
+              letterContent.innerHTML += text.charAt(i);
+            }
+            i++;
+            setTimeout(typeWriter, 100); // 打字速度
+          } else {
+            // 文字打完后，点击任意处关闭动画
+            wrapper.addEventListener('click', () => {
+              overlay.style.opacity = '0';
+              setTimeout(() => {
+                overlay.remove();
+                sessionStorage.setItem('bootAnimated', 'true');
+              }, 800);
+            });
+          }
+        };
+        typeWriter();
+
+      }, 600); // 等信封盖打开后再滑出
+    });
+  }
+
   // ==================== 10. 完美兼容 MkDocs SPA 机制（唯一入口） ====================
   function initAll() {
+    initBootAnimation(); // 🌟 唤醒开机动画
     initArticlePage();
     init404RandomTip();
     initPet();

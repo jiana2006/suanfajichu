@@ -424,3 +424,197 @@ int main() {
     return 0;
 }
 ```
+
+<h2>链式前向星存储方式</h2>
+
+下面介绍一下链式前向星存储方式。
+这个具体我弄到二叉树里面了，可以去看看。
+```cpp title="链式前向星存储方式"
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+const int N = 1e5 + 10, M = 2 * N;
+int h[N], t[M], n[M], w[M], cnt;
+int dist[N];
+
+void add(int a, int b, int c){
+    t[cnt]   = b;
+    w[cnt]   = c;
+    n[cnt] = h[a];
+    h[a]  = cnt++;
+}
+
+void dfs(int u, int fa, int d){
+    dist[u] = d;
+    for (int i = h[u]; i != -1; i = n[i]){
+        int v = t[i];
+        if (v == fa) continue;
+        dfs(v, u, d + w[i]);
+    }
+}
+int main(){
+    ios::sync_with_stdio(0); 
+	cin.tie(0);
+    memset(h, -1, sizeof h);
+    int n; 
+	cin >> n;
+    for (int i = 1; i < n; i++){
+        int u, v, c; 
+		cin >> u >> v >> c;
+        add(u, v, c);
+        add(v, u, c);
+    }
+    dfs(1, 0, 0);
+    for (int i = 1; i <= n; i++) 
+	cout << dist[i] << ' ';
+    cout << '\n';
+    return 0;
+}
+
+```
+<h2>拓扑排序</h2>
+下面介绍一下拓扑排序：
+
+图片居中：
+<div style="text-align:center;">
+<img src="../assets/gif/拓扑排序.jpg" style="width:280px; max-width:100%;" alt="拓扑排序"></div>
+
+
+```cpp title="拓扑排序"
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+const int M = 2 * N;
+
+int h[N], t[M], nxt[M], cnt = 0; // 链式前向星
+int in_deg[N];                   // 记录每个点的入度
+
+void add(int a, int b) {
+    t[cnt] = b;
+    nxt[cnt] = h[a];
+    h[a] = cnt++;
+}
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+    memset(h, -1, sizeof h);
+    
+    int n, m;
+    cin >> n >> m; // n个点，m条有向边
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        add(u, v);      // 加一条 u -> v 的有向边
+        in_deg[v]++;    // v 的入度加 1
+    }
+
+    queue<int> q;
+    // 1. 第一步：把所有入度为 0 的点放进队列
+    for (int i = 1; i <= n; i++) {
+        if (in_deg[i] == 0) {
+            q.push(i);
+        }
+    }
+
+    vector<int> topo_order; // 用来存最终的拓扑序列
+    
+    // 2. 第二步：不断取出队头，删掉它，并更新它指向的点的入度
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        
+        topo_order.push_back(u); // 把 u 加入我们的排序结果
+        
+        // 遍历 u 的所有出边
+        for (int e = h[u]; e != -1; e = nxt[e]) {
+            int v = t[e];
+            in_deg[v]--;         // ★ 核心：把 v 的入度减 1（相当于删掉了 u 指向 v 的这条边）
+            
+            // 如果 v 的入度变成 0 了，说明它也可以被拿出来了
+            if (in_deg[v] == 0) {
+                q.push(v);
+            }
+        }
+    }
+
+    // 3. 第三步：检查是否有环（这正是你笔记右下角写的那句）
+    if (topo_order.size() == n) {
+        // 成功排完了所有点，无环
+        for (int x : topo_order) cout << x << " ";
+        cout << "\n";
+    } else {
+        // 没能排完所有点，说明图里有点一直进不去队列（入度一直 > 0），即存在环
+        cout << "图中存在环，无法进行拓扑排序！" << endl;
+    }
+
+    return 0;
+}
+```
+
+```cpp title="拓扑排序"
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+const int M = 2 * N;
+int h[N], nxt[M], t[M], cnt = 0;
+int state[N]; // 0:未访问, 1:正在访问(递归栈中), 2:已访问完成
+vector<int> topo;
+bool has_cycle = false;
+
+void add(int a, int b) {
+    t[cnt] = b;
+    nxt[cnt] = h[a];
+    h[a] = cnt++;
+}
+
+void dfs(int u) {
+    state[u] = 1; 
+    
+    // ★ 结束条件变成 i != -1
+    for (int i = h[u]; i != -1; i = nxt[i]) {
+        int v = t[i];
+        
+        if (state[v] == 1) {
+            has_cycle = true;
+            return;
+        } else if (state[v] == 0) {
+            dfs(v);
+        }
+    }
+    
+    state[u] = 2; 
+    topo.push_back(u); 
+}
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+    
+    // ★ 重要：h 数组初始化为 -1
+    memset(h, -1, sizeof h);
+    
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        add(u, v); 
+    }
+    
+    for (int i = 1; i <= n; i++) {
+        if (state[i] == 0) dfs(i);
+    }
+    
+    if (has_cycle) {
+        cout << "有环\n";
+    } else {
+        reverse(topo.begin(), topo.end()); // 记得逆序
+        for (int x : topo) cout << x << " ";
+        cout << "\n";
+    }
+    return 0;
+}
+```

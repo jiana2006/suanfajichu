@@ -475,3 +475,69 @@ int main(){
     return 0;
 }
 ```
+上面的写法叫做链式前向星存储方式。
+这里介绍一下他的原理：
+
+<div style="text-align:center;">
+<img src="../assets/gif/链式前向星.jpg" style="width:280px; max-width:100%;" alt="链式前向星"></div>
+
+字太丑了就这样吧。
+
+```
+int h[N], t[M], n[M], cnt = 0;
+// 初始化：memset(h, -1, sizeof h);
+
+void add(int u, int v){      // 加一条 u -> v 的边
+    to[cnt]  = v;            // 这条边指向 v
+    n[cnt] = h[u];      // 这条边的"下一条" = 原来 u 的表头
+    h[u]  = cnt;          // 让这条边成为 u 的新表头
+    cnt++;                   // 边编号 +1
+}
+```
+
+上面的是不带权值的树的建树代码。下面我们看一下带权值的树的建树代码。
+
+```cpp title="带权值的树的建树代码"
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+const int N = 1e5 + 10, M = 2 * N;
+int h[N], t[M], n[M], w[M], cnt;
+int dist[N];
+
+void add(int a, int b, int c){
+    t[cnt]   = b;
+    w[cnt]   = c;
+    n[cnt] = h[a];
+    h[a]  = cnt++;
+}
+
+void dfs(int u, int fa, int d){
+    dist[u] = d;
+    for (int i = h[u]; i != -1; i = n[i]){
+        int v = t[i];
+        if (v == fa) continue;
+        dfs(v, u, d + w[i]);
+    }
+}
+int main(){
+    ios::sync_with_stdio(0); 
+	cin.tie(0);
+    memset(h, -1, sizeof h);
+    int n; 
+	cin >> n;
+    for (int i = 1; i < n; i++){
+        int u, v, c; 
+		cin >> u >> v >> c;
+        add(u, v, c);
+        add(v, u, c);
+    }
+    dfs(1, 0, 0);
+    for (int i = 1; i <= n; i++) 
+	cout << dist[i] << ' ';
+    cout << '\n';
+    return 0;
+}
+```
+这个多了w数组，用来存储边的权值。

@@ -864,3 +864,136 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
   gap: 6px;
   align-items: center;
 }
+/* ================= 唯美信封开机动画 ================= */
+#envelope-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease;
+}
+
+#envelope-wrapper {
+  position: relative;
+  cursor: pointer;
+  /* 初始从右上角飞入的动画 */
+  animation: flyIn 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes flyIn {
+  0% { transform: translate(100vw, -100vh) scale(0.1) rotate(20deg); opacity: 0; }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* 信封主体 */
+.envelope {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.6s ease;
+}
+
+/* 信封后层（放信纸的地方） */
+.envelope-back {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #e2e8f0;
+  border-radius: 8px;
+}
+
+/* 信纸 */
+.letter {
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  background: #fdfbf7;
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 信纸上的文字 */
+.letter-text {
+  font-family: 'STKaiti', 'KaiTi', serif; /* 楷体更文艺 */
+  font-size: 1.4rem;
+  color: #1f2937;
+  line-height: 1.8;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* 信封盖子 */
+.envelope-flap {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 120px;
+  background: #cbd5e1;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  border-radius: 8px 8px 0 0;
+  transform-origin: top;
+  transition: transform 0.6s ease;
+  z-index: 3;
+}
+
+/* 信封前半部分（盖住信纸下半截） */
+.envelope-front {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 160px;
+  background: #f1f5f9;
+  clip-path: polygon(0 100%, 0 20%, 50% 60%, 100% 20%, 100% 100%);
+  border-radius: 0 0 8px 8px;
+  z-index: 4;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05) inset;
+}
+
+/* 点击提示 */
+.click-hint {
+  text-align: center;
+  color: #fff;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  animation: pulse 1.5s infinite;
+  transition: opacity 0.3s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* 打开状态 */
+#envelope-overlay.is-open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1; /* 盖子翻到后面去 */
+}
+
+#envelope-overlay.is-open .envelope {
+  transform: translateY(10%) scale(1.5); /* 整体放大 */
+}
+
+#envelope-overlay.is-open .envelope-front,
+#envelope-overlay.is-open .envelope-back {
+  opacity: 0;
+  transition: opacity 0.4s ease 0.5s; /* 信封淡出，只剩信纸 */
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .envelope { width: 260px; height: 180px; }
+  .letter-text { font-size: 1.1rem; }
+  #envelope-overlay.is-open .envelope { transform: translateY(10%) scale(1.2); }
+}
