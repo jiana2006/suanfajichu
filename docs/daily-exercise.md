@@ -531,3 +531,633 @@ int main(){
     return 0;
 }
 ```
+
+
+下面将会是维序一周的练习（树）：
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>580C - 凯法和公园</title>
+</head>
+<body>
+
+  <h1>580C - 凯法和公园（Kefa and Park）</h1>
+
+  <p>时间限制：2 秒</p>
+  <p>内存限制：256 MB</p>
+
+  <h2>题目描述</h2>
+  <p>凯法（Kefa）决定用自己第一份丰厚的薪水去餐厅庆祝。</p>
+  <p>他住在一个不寻常的公园旁边。这个公园是一棵有 <var>n</var> 个顶点的有根树，根是顶点 1。顶点 1 也是凯法的家。</p>
+  <p>不幸的是，公园里还有猫。凯法已经知道哪些顶点上有猫。</p>
+  <p>公园的叶子顶点上开有餐厅。凯法想选一个餐厅去吃饭，但他非常怕猫。因此，如果从餐厅到他家的路径上，包含超过 <var>m</var> 个连续有猫的顶点，他就不会去这个餐厅。</p>
+  <p>你的任务是帮助凯法计算：他一共可以去多少个餐厅。</p>
+
+  <h2>输入格式</h2>
+  <p>第一行包含两个整数 <var>n</var> 和 <var>m</var>（2 ≤ <var>n</var> ≤ 10<sup>5</sup>，1 ≤ <var>m</var> ≤ <var>n</var>），分别表示树的顶点数，以及凯法最多能接受的连续有猫顶点数。</p>
+  <p>第二行包含 <var>n</var> 个整数 <var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, ..., <var>a</var><sub>n</sub>。若 <var>a</var><sub>i</sub> = 0，表示顶点 <var>i</var> 没有猫；若 <var>a</var><sub>i</sub> = 1，表示顶点 <var>i</var> 有猫。</p>
+  <p>接下来 <var>n</var> − 1 行，每行包含两个整数 <var>x</var><sub>i</sub> 和 <var>y</var><sub>i</sub>（1 ≤ <var>x</var><sub>i</sub>, <var>y</var><sub>i</sub> ≤ <var>n</var>，<var>x</var><sub>i</sub> ≠ <var>y</var><sub>i</sub>），表示树中顶点 <var>x</var><sub>i</sub> 和 <var>y</var><sub>i</sub> 之间有一条边。</p>
+  <p>保证给出的边构成一棵树。</p>
+
+  <h2>输出格式</h2>
+  <p>输出一个整数，表示从凯法家出发，路径上连续有猫的顶点数不超过 <var>m</var> 的叶子餐厅数量。</p>
+
+  <h2>样例 1</h2>
+
+  <h3>输入</h3>
+  <pre><code>4 1
+1 1 0 0
+1 2
+1 3
+1 4</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>样例 2</h2>
+
+  <h3>输入</h3>
+  <pre><code>7 1
+1 0 1 1 0 0 0
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>说明</h2>
+  <p>树是含有 <var>n</var> 个顶点和 <var>n</var> − 1 条边的连通图。有根树是指定一个特殊顶点作为根的树。在有根树中，对于一条边连接的两个顶点，离根更近的那个叫父节点，另一个叫子节点。没有子节点的顶点称为叶子。</p>
+  <p>第一个样例中，有猫的顶点被标记出来。餐厅在顶点 2、3、4。凯法不能去顶点 2 的餐厅。</p>
+  <p>第二个样例中，餐厅在顶点 4、5、6、7。凯法不能去餐厅 6 和 7。</p>
+
+</body>
+</html>
+
+
+```cpp title="atcode580C.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+
+const int N = 1e5 + 10;
+const int M = 2 * N;
+
+int h[N], nxt[M], t[M], cnt;
+int a[N];
+
+void add (int a, int b){
+	t[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt ++;
+}
+
+int n, m;
+int re = 0;
+
+void dfs(int u, int fa, int shu){
+	if (shu > m) return; // 剪枝
+	
+	bool leaf = true;    // 先假设是叶子
+	
+	for (int i = h[u]; i != -1; i = nxt[i]){
+		int v = t[i];
+		if (v == fa) continue;
+		
+		leaf = false;    // 只要进了这个循环，说明有儿子，不是叶子
+		
+		int nshu;
+		if (a[v] == 1){
+			nshu = shu + 1;
+		}else{
+			nshu = 0;
+		}
+		
+		dfs(v, u, nshu); // ★ 修复 1：传参改成 v, u
+	}
+	
+	// ★ 修复 2：判断叶子的逻辑必须放在 for 循环的外面
+	if (leaf) {
+		re++;
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	
+	cin >> n >> m;
+	
+	// ★ 修复 3：下标从 1 开始
+	for (int i = 1; i <= n; i++) cin >> a[i];
+	
+	for (int i = 1; i < n; i++){
+		int u, v; // 建议不要用 a, b 做变量名，容易和上面的猫数组 a 混淆
+		cin >> u >> v;
+		add(u, v);
+		add(v, u);
+	}
+	
+	dfs(1, 0, a[1]);
+	
+	cout << re << endl;
+	 
+	return 0;
+}
+```
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1689C - 被感染的树</title>
+</head>
+<body>
+
+  <h1>1689C - 被感染的树（Infected Tree）</h1>
+
+  <p>时间限制：3 秒</p>
+  <p>内存限制：256 MB</p>
+
+  <h2>题目描述</h2>
+  <p>Byteland 是一片美丽的土地，以美丽的树而闻名。</p>
+  <p>Misha 找到了一棵有 <var>n</var> 个顶点的二叉树，顶点编号为 1 到 <var>n</var>。二叉树是一个无环的连通无向图，包含 <var>n</var> 个顶点和 <var>n</var> − 1 条边。每个顶点的度数至多为 3，其中根是编号为 1 的顶点，根的度数至多为 2。</p>
+  <p>不幸的是，根被感染了。</p>
+  <p>接下来会发生 <var>n</var> 次如下过程：</p>
+  <ul>
+    <li>Misha 要么选择一个未被感染且未被删除的顶点，将它以及所有与它相连的边删除；要么什么也不做。</li>
+    <li>然后，感染会扩散到所有与已感染顶点通过一条边相连的顶点。所有已经感染的顶点仍然保持感染状态。</li>
+  </ul>
+  <p>由于 Misha 没有太多时间思考，请告诉他：最多能有多少个顶点免于感染？注意，被删除的顶点不算作被拯救。</p>
+
+  <h2>输入格式</h2>
+  <p>输入包含多组测试数据。</p>
+  <p>第一行一个整数 <var>t</var>（1 ≤ <var>t</var> ≤ 5000），表示测试数据组数。</p>
+  <p>接下来是每组测试数据。</p>
+  <p>每组测试数据第一行一个整数 <var>n</var>（2 ≤ <var>n</var> ≤ 3 × 10<sup>5</sup>），表示树的顶点数。</p>
+  <p>接下来 <var>n</var> − 1 行，每行两个正整数 <var>u</var><sub>i</sub> 和 <var>v</var><sub>i</sub>（1 ≤ <var>u</var><sub>i</sub>, <var>v</var><sub>i</sub> ≤ <var>n</var>），表示它们之间有一条边。</p>
+  <p>保证给出的图是一棵以 1 为根的二叉树。还保证所有测试数据的 <var>n</var> 之和不超过 3 × 10<sup>5</sup>。</p>
+
+  <h2>输出格式</h2>
+  <p>对于每组测试数据，输出 Misha 最多能拯救的顶点数。</p>
+
+  <h2>样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>4
+2
+1 2
+4
+1 2
+2 3
+2 4
+7
+1 2
+1 5
+2 3
+2 4
+5 6
+5 7
+15
+1 2
+2 3
+3 4
+4 5
+4 6
+3 7
+2 8
+1 9
+9 10
+9 11
+10 12
+10 13
+11 14
+11 15</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>0
+2
+2
+10</code></pre>
+
+  <h2>说明</h2>
+  <p>第一组数据中，唯一可行的操作是删除顶点 2，这样总共拯救 0 个顶点。</p>
+  <p>第二组数据中，如果删除顶点 2，可以拯救顶点 3 和 4。</p>
+
+</body>
+</html>
+
+```cpp title="atcode580C.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+
+const int N = 3e5 + 10;
+const int M = 2 * N;
+int h[N], nxt[M], t[M], cnt;
+int sz[N], f[N];
+
+void add (int a, int b){
+	t[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt++;
+}
+
+void dfs(int u, int fa){
+	int c1 = 0, c2 = 0;
+	sz[u] = 1; // ★ 修复 1：子树大小初始包含自己
+	
+	for (int i = h[u]; i != -1; i = nxt[i]){
+		int v = t[i];
+		if (v == fa) continue;
+		
+		dfs(v, u);
+		sz[u] += sz[v]; // 累加子树大小
+		
+		// 记录前两个儿子（假设题目保证每个点度数有限制，或者只考虑前两个子节点）
+		if (c1 == 0) c1 = v;
+		else c2 = v; 
+	}
+	
+	if (c1 == 0) {
+		f[u] = 0;
+	} else if (c2 == 0) {
+		f[u] = sz[c1] - 1;
+	} else {
+		f[u] = max(sz[c1] - 1 + f[c2], sz[c2] - 1 + f[c1]);
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int t;
+	cin >> t;
+	while (t--){
+		int n;
+		cin >> n;
+		cnt = 0;
+		
+		// ★ 修复 3：只清空前 n 个节点的内容，大大节省时间，避免 TLE
+		for (int i = 1; i <= n; i++) {
+			h[i] = -1;
+			sz[i] = 0; // 清理 sz 数组
+			f[i] = 0;  // 清理 f 数组
+		}
+		
+		for (int i = 1; i < n; i++){
+			int u, v;
+			cin >> u >> v;
+			add(u, v);
+			add(v, u);
+		}
+		
+		dfs(1, 0);
+		cout << f[1] << endl;
+	}
+	
+	return 0;
+}
+```
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1324F - 最大白色子树</title>
+</head>
+<body>
+
+  <h1>1324F - 最大白色子树（Maximum White Subtree）</h1>
+
+  <p>时间限制：2 秒</p>
+  <p>内存限制：256 MB</p>
+
+  <h2>题目描述</h2>
+  <p>给定一棵包含 <var>n</var> 个顶点的树。树是一个有 <var>n</var> − 1 条边的连通无向图。</p>
+  <p>每个顶点 <var>v</var> 都有一个颜色：如果 <var>a</var><sub>v</sub> = 1，则顶点 <var>v</var> 是白色；如果 <var>a</var><sub>v</sub> = 0，则顶点 <var>v</var> 是黑色。</p>
+  <p>对于每个顶点 <var>v</var>，你需要解决以下问题：</p>
+  <p>如果你选择一棵包含顶点 <var>v</var> 的子树，那么最多能得到多少个“白点数 − 黑点数”？这里的子树指给定树的一个连通子图。</p>
+  <p>形式化地说，如果选择的子树包含 <var>cnt</var><sub>w</sub> 个白点和 <var>cnt</var><sub>b</sub> 个黑点，你需要最大化 <var>cnt</var><sub>w</sub> − <var>cnt</var><sub>b</sub>。</p>
+
+  <h2>输入格式</h2>
+  <p>第一行包含一个整数 <var>n</var>（2 ≤ <var>n</var> ≤ 2 × 10<sup>5</sup>），表示树的顶点数。</p>
+  <p>第二行包含 <var>n</var> 个整数 <var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, ..., <var>a</var><sub>n</sub>（0 ≤ <var>a</var><sub>i</sub> ≤ 1），其中 <var>a</var><sub>i</sub> 表示第 <var>i</var> 个顶点的颜色。</p>
+  <p>接下来 <var>n</var> − 1 行描述树的边。第 <var>i</var> 行包含两个整数 <var>u</var><sub>i</sub> 和 <var>v</var><sub>i</sub>，表示一条连接顶点 <var>u</var><sub>i</sub> 和 <var>v</var><sub>i</sub> 的边（1 ≤ <var>u</var><sub>i</sub>, <var>v</var><sub>i</sub> ≤ <var>n</var>，<var>u</var><sub>i</sub> ≠ <var>v</var><sub>i</sub>）。</p>
+  <p>保证这些边构成一棵树。</p>
+
+  <h2>输出格式</h2>
+  <p>输出 <var>n</var> 个整数 <var>res</var><sub>1</sub>, <var>res</var><sub>2</sub>, ..., <var>res</var><sub>n</sub>。其中 <var>res</var><sub>i</sub> 表示：在包含顶点 <var>i</var> 的某个子树中，白点数减黑点数的最大值。</p>
+
+  <h2>样例 1</h2>
+
+  <h3>输入</h3>
+  <pre><code>9
+0 1 1 1 0 0 0 0 1
+1 2
+1 3
+3 4
+3 5
+2 6
+4 7
+6 8
+5 9</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2 2 2 2 2 1 1 0 2</code></pre>
+
+  <h2>样例 2</h2>
+
+  <h3>输入</h3>
+  <pre><code>4
+0 0 1 0
+1 2
+1 3
+1 4</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>0 -1 1 -1</code></pre>
+
+  <h2>说明</h2>
+  <p>第一个样例中，黑色顶点在图中加粗显示。</p>
+  <p>第二个样例中，对于顶点 2、3、4，最优子树分别只包含它们自己。对于顶点 1，最优子树由顶点 1 和顶点 3 组成。</p>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1528A - Parsa 的巨大树</title>
+</head>
+<body>
+
+  <h1>1528A - Parsa 的巨大树（Parsa's Humongous Tree）</h1>
+
+  <p>时间限制：1 秒</p>
+  <p>内存限制：256 MB</p>
+
+  <h2>题目描述</h2>
+  <p>Parsa 有一棵巨大的树，包含 <var>n</var> 个顶点。对于每个顶点 <var>v</var>，他写了两个整数 <var>l</var><sub>v</sub> 和 <var>r</var><sub>v</sub>。</p>
+  <p>为了让 Parsa 的树看起来更加壮观，Nima 想给每个顶点 <var>v</var> 分配一个整数 <var>a</var><sub>v</sub>，满足 <var>l</var><sub>v</sub> ≤ <var>a</var><sub>v</sub> ≤ <var>r</var><sub>v</sub>，使得 Parsa 的树的美感最大化。</p>
+  <p>Nima 对美感的定义很奇怪。他把树的美感定义为：对于树中每条边 (<var>u</var>, <var>v</var>)，计算 |<var>a</var><sub>u</sub> − <var>a</var><sub>v</sub>|，然后对所有边求和。</p>
+  <p>由于 Parsa 的树太大了，Nima 无法自己最大化美感。你的任务是求出 Parsa 的树可能达到的最大美感。</p>
+
+  <h2>输入格式</h2>
+  <p>第一行包含一个整数 <var>t</var>（1 ≤ <var>t</var> ≤ 250），表示测试数据组数。</p>
+  <p>对于每组测试数据：</p>
+  <p>第一行包含一个整数 <var>n</var>（2 ≤ <var>n</var> ≤ 10<sup>5</sup>），表示 Parsa 的树的顶点数。</p>
+  <p>接下来 <var>n</var> 行，第 <var>i</var> 行包含两个整数 <var>l</var><sub>i</sub> 和 <var>r</var><sub>i</sub>（1 ≤ <var>l</var><sub>i</sub> ≤ <var>r</var><sub>i</sub> ≤ 10<sup>9</sup>）。</p>
+  <p>接下来 <var>n</var> − 1 行，每行包含两个整数 <var>u</var> 和 <var>v</var>（1 ≤ <var>u</var>, <var>v</var> ≤ <var>n</var>，<var>u</var> ≠ <var>v</var>），表示 Parsa 的树中顶点 <var>u</var> 和 <var>v</var> 之间有一条边。</p>
+  <p>保证给出的图是一棵树。保证所有测试数据的 <var>n</var> 之和不超过 2 × 10<sup>5</sup>。</p>
+
+  <h2>输出格式</h2>
+  <p>对于每组测试数据，输出 Parsa 的树的最大可能美感。</p>
+
+  <h2>样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>3
+2
+1 6
+3 8
+1 2
+3
+1 3
+4 6
+7 9
+1 2
+2 3
+6
+3 14
+12 20
+12 19
+2 12
+10 17
+3 17
+3 2
+6 5
+1 5
+2 6
+4 6</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>7
+8
+62</code></pre>
+
+  <h2>说明</h2>
+  <p>第一组数据中，一种可行赋值是 <var>a</var> = {1, 8}，美感为 |1 − 8| = 7。</p>
+  <p>第二组数据中，一种可行赋值是 <var>a</var> = {1, 5, 9}，美感为 |1 − 5| + |5 − 9| = 8。</p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>274B - 零树</title>
+</head>
+<body>
+
+  <h1>274B - 零树（Zero Tree）</h1>
+
+  <p>时间限制：2 秒</p>
+  <p>内存限制：256 MB</p>
+
+  <h2>题目描述</h2>
+  <p>树是一个有 <var>n</var> 个顶点和恰好 <var>n</var> − 1 条边的图。它满足：任意两个顶点之间恰好存在一条最短路径（按边数计算）。</p>
+  <p>树 <var>T</var> 的子树是指：顶点集合和边集合分别都是 <var>T</var> 的顶点集合和边集合的子集，并且本身也是一棵树。</p>
+  <p>给定一棵有 <var>n</var> 个顶点的树。顶点编号为 1 到 <var>n</var>。每个顶点上写有一个整数。初始时，第 <var>i</var> 个顶点上的整数为 <var>v</var><sub>i</sub>。</p>
+  <p>一次操作如下：</p>
+  <ul>
+    <li>选择一棵包含顶点 1 的子树。</li>
+    <li>把这棵子树中所有顶点上的整数同时加 1 或同时减 1。</li>
+  </ul>
+  <p>请计算：让树上所有顶点上的整数都变成 0，最少需要多少次操作。</p>
+
+  <h2>输入格式</h2>
+  <p>第一行包含一个整数 <var>n</var>（1 ≤ <var>n</var> ≤ 10<sup>5</sup>）。</p>
+  <p>接下来 <var>n</var> − 1 行，每行包含两个整数 <var>a</var><sub>i</sub> 和 <var>b</var><sub>i</sub>（1 ≤ <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub> ≤ <var>n</var>，<var>a</var><sub>i</sub> ≠ <var>b</var><sub>i</sub>），表示顶点 <var>a</var><sub>i</sub> 和 <var>b</var><sub>i</sub> 之间有一条边。保证输入图是一棵树。</p>
+  <p>最后一行包含 <var>n</var> 个用空格分隔的整数 <var>v</var><sub>1</sub>, <var>v</var><sub>2</sub>, ..., <var>v</var><sub>n</sub>（|<var>v</var><sub>i</sub>| ≤ 10<sup>9</sup>）。</p>
+
+  <h2>输出格式</h2>
+  <p>输出一个整数，表示让所有整数变成 0 所需的最少操作次数。</p>
+  <p>提示：请使用 64 位整数。</p>
+
+  <h2>样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>3
+1 2
+1 3
+1 -1 1</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>3</code></pre>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>161D - 树上距离</title>
+</head>
+<body>
+
+  <h1>161D - 树上距离（Distance in Tree）</h1>
+
+  <p>时间限制：3 秒</p>
+  <p>内存限制：512 MB</p>
+
+  <h2>题目描述</h2>
+  <p>树是一个连通且不包含环的图。</p>
+  <p>树中两个顶点之间的距离，是指连接这两个顶点的最短路径上的边数。</p>
+  <p>给定一棵有 <var>n</var> 个顶点的树和一个正整数 <var>k</var>。请计算有多少对不同的顶点，它们之间的距离恰好为 <var>k</var>。</p>
+  <p>注意，顶点对 (<var>v</var>, <var>u</var>) 和 (<var>u</var>, <var>v</var>) 被认为是同一对。</p>
+
+  <h2>输入格式</h2>
+  <p>第一行包含两个整数 <var>n</var> 和 <var>k</var>（1 ≤ <var>n</var> ≤ 50000，1 ≤ <var>k</var> ≤ 500），分别表示顶点数和要求的距离。</p>
+  <p>接下来 <var>n</var> − 1 行描述边，每行格式为：“<var>a</var><sub>i</sub> <var>b</var><sub>i</sub>”（1 ≤ <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub> ≤ <var>n</var>，<var>a</var><sub>i</sub> ≠ <var>b</var><sub>i</sub>），表示第 <var>i</var> 条边连接顶点 <var>a</var><sub>i</sub> 和 <var>b</var><sub>i</sub>。所有给出的边互不相同。</p>
+
+  <h2>输出格式</h2>
+  <p>输出一个整数，表示树中距离恰好为 <var>k</var> 的不同顶点对数量。</p>
+  <p>提示：请使用 64 位整数。</p>
+
+  <h2>样例 1</h2>
+
+  <h3>输入</h3>
+  <pre><code>5 2
+1 2
+2 3
+3 4
+2 5</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>4</code></pre>
+
+  <h2>样例 2</h2>
+
+  <h3>输入</h3>
+  <pre><code>5 3
+1 2
+2 3
+3 4
+4 5</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>说明</h2>
+  <p>第一个样例中，距离为 2 的顶点对是：(1, 3)、(1, 5)、(3, 5)、(2, 4)。</p>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DP P - 独立集</title>
+</head>
+<body>
+
+  <h1>DP P - 独立集（Independent Set）</h1>
+
+  <p>时间限制：2 秒</p>
+  <p>内存限制：1024 MiB</p>
+  <p>分值：100 分</p>
+
+  <h2>题目描述</h2>
+  <p>有一棵包含 <var>N</var> 个顶点的树，顶点编号为 1, 2, …, <var>N</var>。</p>
+  <p>对于每个 <var>i</var>（1 ≤ <var>i</var> ≤ <var>N</var> − 1），第 <var>i</var> 条边连接顶点 <var>x</var><sub>i</sub> 和顶点 <var>y</var><sub>i</sub>。</p>
+  <p>Taro 决定把每个顶点涂成白色或黑色。但是，不允许两个相邻的顶点都被涂成黑色。</p>
+  <p>求一共有多少种合法的涂色方案，答案对 10<sup>9</sup> + 7 取模。</p>
+
+  <h2>约束条件</h2>
+  <ul>
+    <li>输入中的所有值都是整数。</li>
+    <li>1 ≤ <var>N</var> ≤ 10<sup>5</sup></li>
+    <li>1 ≤ <var>x</var><sub>i</sub>, <var>y</var><sub>i</sub> ≤ <var>N</var></li>
+    <li>给定的图是一棵树。</li>
+  </ul>
+
+  <h2>输入格式</h2>
+  <p>输入从标准输入给出，格式如下：</p>
+  <pre><code>N
+x<sub>1</sub> y<sub>1</sub>
+x<sub>2</sub> y<sub>2</sub>
+:
+x<sub>N−1</sub> y<sub>N−1</sub></code></pre>
+
+  <h2>输出格式</h2>
+  <p>输出合法涂色方案数对 10<sup>9</sup> + 7 取模后的结果。</p>
+
+  <h2>样例输入 1</h2>
+  <pre><code>3
+1 2
+2 3</code></pre>
+
+  <h2>样例输出 1</h2>
+  <pre><code>5</code></pre>
+
+  <p>一共有 5 种合法涂色方案。</p>
+
+  <h2>样例输入 2</h2>
+  <pre><code>4
+1 2
+1 3
+1 4</code></pre>
+
+  <h2>样例输出 2</h2>
+  <pre><code>9</code></pre>
+
+  <p>一共有 9 种合法涂色方案。</p>
+
+  <h2>样例输入 3</h2>
+  <pre><code>1</code></pre>
+
+  <h2>样例输出 3</h2>
+  <pre><code>2</code></pre>
+
+  <h2>样例输入 4</h2>
+  <pre><code>10
+8 5
+10 8
+6 5
+1 5
+4 8
+2 10
+3 6
+9 2
+1 7</code></pre>
+
+  <h2>样例输出 4</h2>
+  <pre><code>157</code></pre>
+
+</body>
+</html>

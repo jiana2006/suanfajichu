@@ -465,7 +465,8 @@
       <div id="envelope-wrapper">
         <div class="envelope">
           <div class="envelope-back"></div>
-          <div class="letter">
+                    <div class="letter">
+            <img src="/suanfajichu/assets/gif/valesa.jpg" alt="valesa" class="letter-stamp">
             <div class="letter-text" id="letter-content"></div>
           </div>
           <div class="envelope-flap"></div>

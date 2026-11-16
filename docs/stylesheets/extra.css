@@ -997,3 +997,17 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
   .letter-text { font-size: 1.1rem; }
   #envelope-overlay.is-open .envelope { transform: translateY(10%) scale(1.2); }
 }
+/* 信纸上的瓦蕾莎贴纸 */
+.letter-stamp {
+  position: absolute;
+  top: 15px;       /* 距离顶部 */
+  left: 15px;      /* 距离左侧 */
+  width: 65px;     /* 图片大小 */
+  height: 65px;
+  border-radius: 50%; /* 圆形头像 */
+  object-fit: cover;
+  border: 3px solid #ffffff; /* 白色边框，像拍立得照片 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* 小阴影，有立体感 */
+  transform: rotate(-15deg); /* 稍微倾斜一点点，看起来更俏皮 */
+  z-index: 5;      /* 确保显示在最上层 */
+}
