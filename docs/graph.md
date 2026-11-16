@@ -618,3 +618,147 @@ int main() {
     return 0;
 }
 ```
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>家谱树（拓扑排序）</title>
+</head>
+<body>
+
+  <h1>家谱树（拓扑排序）</h1>
+
+  <h2>题目背景</h2>
+  <p>
+    一个家族人数很多，成员之间的辈分关系十分复杂。现在已知每个人有哪些后代，
+    请你整理出一个合理的辈分顺序。
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    给定 <var>N</var> 个人之间的后代关系。对于第 <var>i</var> 个人，会给出他的所有后代编号。
+  </p>
+  <p>
+    请你输出一个人员排列，使得对于任意一对有直接或间接前后辈关系的人，
+    <strong>后辈一定排在前辈的后面</strong>。
+  </p>
+  <p>
+    换句话说，若 <var>u</var> 是 <var>v</var> 的前辈，则输出序列中 <var>u</var> 必须出现在
+    <var>v</var> 之前。
+  </p>
+  <p>
+    如果存在多种合法排列，输出其中任意一种即可。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行包含一个整数 <var>N</var>，表示家族中的人数，满足
+    <code>1 &le; N &le; 100</code>。
+  </p>
+  <p>
+    接下来有 <var>N</var> 行。第 <var>i</var> 行描述第 <var>i</var> 个人的后代信息，
+    包含若干个整数，表示这些编号的人是第 <var>i</var> 个人的后代。
+  </p>
+  <p>
+    每行以整数 <code>0</code> 结束，表示该人的后代信息描述完毕。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出一行，包含 <var>N</var> 个整数，表示一个满足辈分先后关系的排列。
+  </p>
+  <p>
+    如果存在多种答案，输出任意一种即可。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>5
+0
+4 5 1 0
+1 0
+5 3 0
+3 0</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2 4 5 3 1</code></pre>
+
+  <h2>说明</h2>
+  <p>对于样例，可以理解为：</p>
+  <ul>
+    <li>第 <code>2</code> 个人的后辈包括 <code>4, 5, 1</code>；</li>
+    <li>第 <code>3</code> 个人的后辈包括 <code>1</code>；</li>
+    <li>第 <code>4</code> 个人的后辈包括 <code>5, 3</code>；</li>
+    <li>第 <code>5</code> 个人的后辈包括 <code>3</code>。</li>
+  </ul>
+  <p>
+    输出序列 <code>2 4 5 3 1</code> 中，每个人的后辈都排在该人的后面，
+    因此是一个合法答案。其他合法答案也可以被接受。
+  </p>
+
+</body>
+</html>
+
+```cpp title="家谱树.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+const int N = 105;
+const int M = N * N;
+int h[N], nxt[M], t[M], cnt;
+int d[N];
+void add(int a, int b){
+	t[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt++; 
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin >> n;
+
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	memset(d, 0, sizeof(d));
+	for (int i = 1; i <= n; i++){
+		int v;
+		while(cin >> v && v != 0){
+			add(i, v);
+			d[v] ++;
+		} 
+	}
+	queue<int> q;
+	for (int i = 1; i <= n; i++){
+		if(d[i] == 0)
+		q.push(i);
+	}
+	vector<int>o;
+	while (!q.empty()){
+		int u = q.front();
+		q.pop();
+		o.push_back(u);
+		for (int i = h[u]; i != -1; i = nxt[i]){
+			int v = t[i];
+			d[v]--;
+			if (d[v] == 0){
+				q.push(v);
+			}
+		}
+	}
+	if (o.size() == n){
+		for (int x : o){
+			cout << x << " ";
+		}
+		cout << endl;
+	}else{
+		cout << "0\n";
+	}
+	return 0;
+}
+
+```
