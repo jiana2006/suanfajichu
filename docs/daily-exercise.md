@@ -1265,3 +1265,136 @@ int main(){
 	return 0;
 }
 ```
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>1073. 树的中心</title>
+</head>
+<body>
+
+    <header>
+        <h1>1073. 树的中心</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>题目描述</h2>
+            <p>给定一棵树，树中包含 <code>n</code> 个节点（编号为 <code>1</code> 到 <code>n</code>）和 <code>n - 1</code> 条无向边，每条边都有一个权值。</p>
+            <p>请你在树中找到一个节点，使得该节点到树中其他节点的最远距离尽可能小。</p>
+        </section>
+
+        <section>
+            <h2>输入格式</h2>
+            <p>第一行包含一个整数 <code>n</code>。</p>
+            <p>接下来的 <code>n - 1</code> 行，每行包含三个整数 <code>ai</code>、<code>bi</code> 和 <code>ci</code>，表示节点 <code>ai</code> 和节点 <code>bi</code> 之间存在一条权值为 <code>ci</code> 的边。</p>
+        </section>
+
+        <section>
+            <h2>输出格式</h2>
+            <p>输出一个整数，表示所求节点到树中其他节点的最远距离。</p>
+        </section>
+
+        <section>
+            <h2>数据范围</h2>
+            <ul>
+                <li><code>1 ≤ n ≤ 10000</code></li>
+                <li><code>1 ≤ ai, bi ≤ n</code></li>
+            </ul>
+
+            <p>输入样例：</p>
+            <pre>
+```
+5
+2 1 1
+3 2 1
+4 3 1
+5 1 1
+```
+            </pre>
+            <p>输出样例：</p>
+            <pre>
+```
+2
+```
+</pre>
+        </section>
+    </main>
+
+</body>
+</html>
+
+```cpp title="树的中心.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define endl "\n" 
+const int N = 1e5 + 10;
+const int M = 2 * N;
+int h[N], nxt[M], t[M], w[M], cnt;
+void add(int a, int b, int c){
+	t[cnt] = b;
+	w[cnt] = c;
+	nxt[cnt] = h[a];
+	h[a] = cnt ++;
+}
+ll d1[N], d2[N];
+int son[N];
+ll up[N]; 
+void dfs(int u, int fa){
+	for (int i = h[u]; i != -1; i = nxt[i]){		
+		int v = t[i];
+		if (v == fa)continue;
+		dfs(v, u);	
+		ll d = d1[v] + w[i];
+		if (d > d1[u]){
+			d2[u] = d1[u];
+			d1[u] = d;
+			son[u] = v;
+		}else if(d > d2[u]){
+			d2[u] = d;
+		}
+	}
+}
+void dfs_up(int u, int fa){
+	for (int i = h[u]; i != -1; i = nxt[i]){
+		int v = t[i];
+		if (v == fa)continue;
+		if (son[u] == v){
+			up[v] = max(up[u], d2[u]) + w[i];
+		}else {
+			up[v] = max(up[u], d1[u]) + w[i];
+		}
+		dfs_up(v, u);
+	}
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	int n;
+	cin >> n;
+	for (int i = 1; i < n; i++){
+		int a, b, c;
+		cin >> a >> b >> c;
+		add(a, b, c);
+		add(b, a, c);		
+	}
+	dfs(1, 0);
+	up[1] = 0;
+	dfs_up(1, 0);
+	ll re = 1e18;
+	for (int i = 1; i <= n; i++){
+		re = min(re, max(d1[i], up[i]));
+	}
+	cout << re << endl;
+	
+	return 0;
+}
+
+```
