@@ -1161,3 +1161,107 @@ x<sub>N−1</sub> y<sub>N−1</sub></code></pre>
 
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>B4016 树的直径</title>
+</head>
+<body>
+
+    <h1>B4016 树的直径</h1>
+
+    <h2>题目描述</h2>
+    <p>给定一棵 $n$ 个结点的树，树没有边权。请求出树的直径是多少，即树上最长的不重复经过一个点的路径长度是多少。</p>
+
+    <h2>输入格式</h2>
+    <p>第一行输入一个正整数 $n$，表示结点个数。<br>
+    第二行开始，往下一共 $n-1$ 行，每一行两个正整数 $(u,v)$，表示一条边。</p>
+
+    <h2>输出格式</h2>
+    <p>输出一行，表示树的直径是多少。</p>
+
+    <h2>输入输出样例 #1</h2>
+    
+    <h3>输入 #1</h3>
+    <pre>
+```
+5
+1 2
+2 4
+4 5
+2 3
+```
+</pre>
+
+    <h3>输出 #1</h3>
+    <pre>
+```
+3
+```
+</pre>
+
+    <h2>说明/提示</h2>
+    <p>数据保证，$1 \leq n \leq 10^5$。</p>
+
+</body>
+</html>
+
+
+```cpp title="树的直径.cpp"
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+
+const int N = 1e5 + 10;
+const int M = 2 * N;
+int h[N], nxt[M], t[M], cnt;
+int re = 0;
+int f[N];
+void add(int a, int b){
+	t[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt ++;
+} 
+
+void dfs(int u, int fa){
+	int d1 = 0, d2 = 0; 
+	for (int i = h[u]; i != -1; i = nxt[i]){
+		int v = t[i];
+		if (v == fa)continue;
+		dfs(v, u);
+		int d = f[v] + 1;
+		f[u] = max(f[u], d);
+		if (d >= d1){
+			d2 = d1;
+			d1 = d;
+		}else if(d > d2){
+			d2 = d;
+		}
+		re = max(re, d1 + d2);
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);	
+	int n;
+	cin >> n;
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	for (int i = 1; i < n; i++){
+		int a, b;
+		cin >> a >> b;
+		add(a, b);
+		add(b, a);
+	}
+	dfs(1, 0);
+	cout << re << endl;
+	return 0;
+}
+```

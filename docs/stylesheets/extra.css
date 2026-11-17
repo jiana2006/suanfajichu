@@ -1011,3 +1011,114 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
   transform: rotate(-15deg); /* 稍微倾斜一点点，看起来更俏皮 */
   z-index: 5;      /* 确保显示在最上层 */
 }
+/* ================= 读者专属笔记本 ================= */
+#user-note-trigger {
+  position: fixed;
+  right: 0;
+  top: 35%;
+  width: 40px;
+  height: 40px;
+  background: var(--md-primary-fg-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border-radius: 8px 0 0 8px; /* 左侧圆角，贴合边缘 */
+  cursor: pointer;
+  z-index: 9990;
+  box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background 0.2s;
+}
+#user-note-trigger:hover {
+  transform: scale(1.05);
+  background: #14b8a6;
+}
+
+#user-note-drawer {
+  position: fixed;
+  top: 0;
+  right: -400px; /* 默认隐藏在屏幕右侧外 */
+  width: 320px;
+  height: 100vh;
+  background: var(--md-default-bg-color);
+  box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+  z-index: 9999;
+  transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* 抽屉打开状态 */
+#user-note-drawer.open {
+  right: 0;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 10px;
+}
+.note-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--md-primary-fg-color);
+}
+#note-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--md-default-fg-color--light);
+}
+
+#note-textarea {
+  flex: 1;
+  width: 100%;
+  resize: none;
+  border: none;
+  background: var(--md-default-bg-color--light);
+  border-radius: 8px;
+  padding: 15px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--md-default-fg-color);
+  outline: none;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.note-footer {
+  margin-top: 15px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #10b981; /* 绿色提示 */
+}
+
+/* 暗黑模式适配 */
+[data-md-color-scheme="slate"] #user-note-drawer {
+  background: #1a231b;
+}
+[data-md-color-scheme="slate"] #note-textarea {
+  background: #111a14;
+  color: #eee;
+}
+/* ================= 萌宠点击 Q弹 回弹效果 ================= */
+@keyframes pet-jump {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.75) translateY(10px); } /* 先压扁并下沉 */
+  60% { transform: scale(1.15) translateY(-15px); } /* 猛烈弹起并拉长 */
+  80% { transform: scale(0.95) translateY(0); }    /* 落回一点 */
+  100% { transform: scale(1) translateY(0); }      /* 恢复原状 */
+}
+
+/* 使用贝塞尔曲线让回弹更有物理感 */
+.pet-jumping {
+  animation: pet-jump 0.5s cubic-bezier(0.28, 0.84, 0.42, 1) forwards !important;
+}

@@ -528,17 +528,73 @@
 
   // ==================== 10. 完美兼容 MkDocs SPA 机制（唯一入口） ====================
   function initAll() {
-    initBootAnimation(); // 🌟 唤醒开机动画
+    initBootAnimation(); 
     initArticlePage();
     init404RandomTip();
     initPet();
     initScrollHeader();
     initCollapsibleCodeBlocks();
+    initUserNotes(); // 🌟 唤醒专属笔记本
   }
 
   if (typeof document$ !== 'undefined') {
     document$.subscribe(initAll); 
   } else {
     document.addEventListener('DOMContentLoaded', initAll);
+ }
+
+  // ==================== 11. 读者专属笔记本（本地存储） ====================
+  function initUserNotes() {
+    // 如果已经存在，就只更新内容，不重复创建
+    let drawer = document.getElementById('user-note-drawer');
+    let trigger = document.getElementById('user-note-trigger');
+    const pageKey = 'user_note_' + window.location.pathname; // 按页面路径区分笔记
+
+    if (!trigger) {
+      // 1. 创建悬浮按钮（放在页面右侧中间）
+      trigger = document.createElement('div');
+      trigger.id = 'user-note-trigger';
+      trigger.innerHTML = '📝';
+      trigger.title = '我的专属笔记';
+      document.body.appendChild(trigger);
+
+      // 2. 创建抽屉
+      drawer = document.createElement('div');
+      drawer.id = 'user-note-drawer';
+      drawer.innerHTML = `
+        <div class="note-header">
+          <h3>📝 我的专属笔记</h3>
+          <button id="note-close-btn">×</button>
+        </div>
+        <textarea id="note-textarea" placeholder="在这里记录你的学习心得...&#10;（笔记会保存在你当前浏览器中）"></textarea>
+        <div class="note-footer">
+          <span id="note-save-status">已自动保存</span>
+        </div>
+      `;
+      document.body.appendChild(drawer);
+
+      // 3. 绑定事件
+      trigger.onclick = () => drawer.classList.toggle('open');
+      document.getElementById('note-close-btn').onclick = () => drawer.classList.remove('open');
+
+      const textarea = document.getElementById('note-textarea');
+      const status = document.getElementById('note-save-status');
+
+      // 输入时自动保存
+      textarea.addEventListener('input', () => {
+        localStorage.setItem(pageKey, textarea.value);
+        status.textContent = '保存中...';
+        clearTimeout(window.noteSaveTimer);
+        window.noteSaveTimer = setTimeout(() => {
+          status.textContent = '已自动保存';
+        }, 500);
+      });
+    }
+
+    // 每次切换页面，更新抽屉里的内容
+    const textarea = document.getElementById('note-textarea');
+    if (textarea) {
+      textarea.value = localStorage.getItem(pageKey) || '';
+    }
   }
-})();
+})(); 

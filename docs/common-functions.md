@@ -192,6 +192,37 @@ int b = 20;
 [a, &b]	     按值捕获 a，按引用捕获 b
 ```
 
+lambda从小到大排序：
+```
+sort(v.begin(), v.end(), [](const auto & x, const auto &y){
+    return x.second < y.second;
+});
+```
+从大到小排序：
+```
+sort(v.begin(), v.end(), [](const auto & x, const auto &y){
+    return x.second > y.second;
+});
+```
+按照两个关键字排序：
+```
+sort(v.begin(), v.end(), [](const auto & x, const auto &y){
+    if(x.second != y.second)return x.second > y.second;
+    return x.first < y.first;
+});
+```
+
+<p>例子：</p>
+```
+vector<pair<string, int>> v(n);
+for(int i = 0; i < n; i++){
+    cin >> v[i].first >> v[i].second;
+}
+sort(v.begin(), v.end(), [](const auto & x, const auto &y){
+    return x.second < y.second;
+});
+```
+
 
 我们来写一道全排列的题目：
 <h2>全排列：</h2>

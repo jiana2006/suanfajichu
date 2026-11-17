@@ -483,6 +483,11 @@ int main(){
 
 字太丑了就这样吧。
 
+
+<div style="text-align:center;">
+<img src="../assets/gif/链式前向星2.jpg" style="width:280px; max-width:100%;" alt="链式前向星2"></div>
+
+这里感谢zyf学长的讲解。
 ```
 int h[N], t[M], n[M], cnt = 0;
 // 初始化：memset(h, -1, sizeof h);
