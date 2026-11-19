@@ -288,3 +288,69 @@ int main() {
     sort(nums.begin(), nums.end(), cmp);
 }
 ```
+
+<h2>反悔贪心算法：</h2>
+
+<h1>老鹰抓小鸡</h1>
+
+<h2>题意简述</h2>
+<p>游戏共进行 n 轮。第 i 轮开始时，先有 a<sub>i</sub> 只新小鸡加入队伍；随后老鹰可以选择是否发起挑战：</p>
+<ul>
+  <li>发起挑战：必须抓走恰好 b<sub>i</sub> 只小鸡，且当前队伍中至少要有 b<sub>i</sub> 只，挑战才成功，本轮获胜，被抓走的小鸡不再回来。</li>
+  <li>放弃本轮：本轮不胜，队伍数量不变。</li>
+</ul>
+<p>求老鹰最多能获胜多少轮。</p>
+
+<p>输入：</p>
+<pre><code>6
+2 2 1 2 1 0
+1 2 2 3 4 4</code></pre>
+<p>按上述流程逐轮处理，最终堆大小为 3，与样例输出一致。</p>
+
+<h3>复杂度</h3>
+<p>每轮最多一次入堆、一次出堆，堆操作 O(log n)，总时间复杂度 O(n log n)，空间复杂度 O(n)。</p>
+
+```cpp linenums="1" title="反悔贪心算法.cpp"
+
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+
+    vector<ll> a(n), b(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+
+    priority_queue<ll> pq; // 最大堆，保存已选择抓走的小鸡数量
+    ll sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+
+        // 先假设本轮挑战成功
+        pq.push(b[i]);
+        sum -= b[i];
+
+        // 如果当前不可行，就放弃消耗最大的一轮
+        if (sum < 0) {
+            sum += pq.top();
+            pq.pop();
+        }
+    }
+
+    cout << pq.size() << '\n';
+
+    return 0;
+}
+```

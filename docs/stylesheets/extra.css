@@ -1122,3 +1122,76 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
 .pet-jumping {
   animation: pet-jump 0.5s cubic-bezier(0.28, 0.84, 0.42, 1) forwards !important;
 }
+/* ================= 物理引擎宠物定位 ================= */
+.pet-container {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9998;
+  will-change: transform; /* 优化动画性能 */
+}
+
+/* ================= 右侧专属笔记本 ================= */
+#user-note-trigger {
+  position: fixed;
+  right: 0;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  background: var(--md-primary-fg-color);
+  color: white;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+  z-index: 999;
+  transition: transform 0.3s;
+}
+#user-note-trigger:hover { transform: translateX(-5px); }
+
+#user-note-drawer {
+  position: fixed;
+  right: -320px;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: var(--md-default-bg-color);
+  box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+#user-note-drawer.open { right: 0; }
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.note-header h3 { margin: 0; font-size: 1.1rem; }
+#note-close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--md-default-fg-color); }
+
+#note-textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  padding: 20px;
+  background: transparent;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--md-default-fg-color);
+  line-height: 1.6;
+}
+.note-footer {
+  padding: 10px 20px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}

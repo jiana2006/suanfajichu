@@ -899,6 +899,75 @@ int main(){
 </html>
 
 
+```cpp linenums="1" title="1324F.cpp.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define endl "\n"
+const int N = 2e5 + 10;
+const int M = 2 * N;
+int h[N], nxt[M], t[M], cnt;
+void add(int a, int b){
+    t[cnt] = b;
+    nxt[cnt] = h[a];
+    h[a] = cnt ++;
+}
+int f[N], ans[N];
+int a[N];
+void dfs1(int u, int fa){
+    if(a[u] == 1)f[u] = 1;
+    else f[u] = -1;
+    for (int i = h[u]; i != -1; i = nxt[i]){
+        int j = t[i];
+        if (j == fa) continue;
+        dfs1(j, u);
+        if(f[j] > 0)f[u] += f[j];
+    }
+}
+void dfs2(int u, int fa){
+    for (int i = h[u]; i != -1; i = nxt[i]){
+        int j = t[i];
+        if (j == fa) continue;
+        int x = ans[u] - max(0, f[j]);
+        if (x > 0){
+            ans[j] = f[j] + x;
+        }
+        else{
+            ans[j] = f[j];
+        }
+        dfs2(j, u);
+    }
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int n;
+    cin >> n;
+    cnt = 0;
+    memset(h, -1, sizeof(h));
+    for (int i = 1; i <= n; i++){
+        cin >> a[i];
+    } 
+    for (int i = 1; i < n; i++){
+        int x, y;
+        cin >> x >> y;
+        add(x, y);
+        add(y, x);
+    }  
+    dfs1(1, 0);
+    ans[1] = f[1];
+    dfs2(1, 0);
+    for (int i = 1; i <= n; i++){
+        cout << ans[i] << " ";
+    }
+
+
+    return 0;
+}
+
+```
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -968,6 +1037,9 @@ int main(){
 
 </body>
 </html>
+
+
+
 
 <!DOCTYPE html>
 <html lang="zh-CN">

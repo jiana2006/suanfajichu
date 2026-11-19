@@ -122,10 +122,9 @@
     }
   }
 
-  // ==================== 5. 左下角萌宠互动 ====================
+  // ==================== 5. 左下角萌宠互动（物理引擎+音效版） ====================
   function initPet() {
     const isHidden = localStorage.getItem('petHidden') === 'true';
-
     if (document.getElementById('pet-container')) return;
 
     // 召回按钮
@@ -154,16 +153,23 @@
     const petContainer = document.createElement('div');
     petContainer.id = 'pet-container';
     petContainer.className = 'pet-container';
+    petContainer.style.left = '0';
+    petContainer.style.top = '0';
+    petContainer.style.transition = 'none'; 
 
-    const savedLeft = localStorage.getItem('petLeft');
-    const savedTop = localStorage.getItem('petTop');
-    const savedSize = localStorage.getItem('petSize') || '80';
+    const savedSize = parseInt(localStorage.getItem('petSize')) || 80;
     
-    if (savedLeft && savedTop) {
-      petContainer.style.left = savedLeft + 'px';
-      petContainer.style.top = savedTop + 'px';
-      petContainer.style.bottom = 'auto';
-    }
+    // 物理引擎状态
+    let posX = parseInt(localStorage.getItem('petLeft')) || 20;
+    let posY = parseInt(localStorage.getItem('petTop')) || (window.innerHeight - savedSize - 20);
+    let velX = 0, velY = 0;
+    let isDragging = false, isAnimating = false;
+    let startX, startY, lastMouseX, lastMouseY, dragStartTime;
+    const friction = 0.96, bounce = 0.75;
+
+    // 音效
+    const clickAudio = new Audio('/suanfajichu/assets/audio/pop.mp3');
+    clickAudio.volume = 0.5;
 
     const bubble = document.createElement('div');
     bubble.className = 'pet-bubble';
@@ -190,13 +196,8 @@
     petContainer.appendChild(controls);
     document.body.appendChild(petContainer);
 
-    const defaultTips = [
-      '喵喵喵~', '今天也要加油学算法哦！', '点我干嘛？(｡･ω･｡)',
-      '大肥鱼在偷懒呢~', '别卷了，休息一下吧！', '你又在写 Bug 吗？',
-      '嘿嘿，被你发现了！', '写完这段代码就去吃鱼吧！', '好困啊，陪我玩一会儿嘛~'
-    ];
-
-    let petTips = JSON.parse(localStorage.getItem('petTips')) || [...defaultTips];
+    const defaultTips = ['喵喵喵~', '今天也要加油学算法哦！', '点我干嘛？(｡･ω･｡)', '大肥鱼在偷懒呢~'];
+    let petTips = JSON.parse(localStorage.getItem('petTips')) || defaultTips;
     let currentTipIndex = parseInt(localStorage.getItem('petTipIndex')) || 0;
 
     function getNextTip() {
@@ -207,95 +208,108 @@
       return tip;
     }
 
-    img.addEventListener('click', (e) => {
-      if (petContainer.dataset.dragging === 'true') return;
-      bubble.textContent = getNextTip();
-      bubble.classList.add('show');
-      petContainer.style.transform = 'scale(0.8)';
-      setTimeout(() => { petContainer.style.transform = 'scale(1.1)'; }, 150);
-      setTimeout(() => { petContainer.style.transform = 'scale(1)'; }, 300);
-      clearTimeout(window.petBubbleTimer);
-      window.petBubbleTimer = setTimeout(() => { bubble.classList.remove('show'); }, 4000);
-    });
+    function updatePhysics() {
+      if (isDragging) return;
+      velX *= friction; velY *= friction;
+      posX += velX; posY += velY;
+      const winW = window.innerWidth, winH = window.innerHeight;
 
-    document.getElementById('pet-close').addEventListener('click', (e) => {
-      e.stopPropagation();
-      petContainer.style.display = 'none';
-      localStorage.setItem('petHidden', 'true');
-      const rb = document.getElementById('pet-recall-btn');
-      if (rb) rb.style.display = 'flex';
-    });
+      if (posX < 0) { posX = 0; velX *= -bounce; playSound(); }
+      if (posX > winW - savedSize) { posX = winW - savedSize; velX *= -bounce; playSound(); }
+      if (posY < 0) { posY = 0; velY *= -bounce; playSound(); }
+      if (posY > winH - savedSize) { posY = winH - savedSize; velY *= -bounce; playSound(); }
 
-    document.getElementById('pet-settings').addEventListener('click', (e) => {
-      e.stopPropagation();
-      openSettingsModal(petTips, savedSize, (newTips, newSize) => {
-        petTips = newTips;
-        localStorage.setItem('petTips', JSON.stringify(petTips));
-        currentTipIndex = 0;
-        localStorage.setItem('petTipIndex', 0);
-        img.style.width = newSize + 'px';
-        img.style.height = newSize + 'px';
-        localStorage.setItem('petSize', newSize);
-        bubble.textContent = getNextTip();
-        bubble.classList.add('show');
-        clearTimeout(window.petBubbleTimer);
-        window.petBubbleTimer = setTimeout(() => { bubble.classList.remove('show'); }, 3000);
-      });
-    });
+      petContainer.style.transform = `translate(${posX}px, ${posY}px)`;
 
-    document.getElementById('pet-change').addEventListener('click', (e) => {
-      e.stopPropagation();
-      const presetImages = {
-        '1': '/suanfajichu/assets/gif/doro.jpg',
-        '2': '/suanfajichu/assets/gif/valesa.jpg',
-        '3': '/suanfajichu/assets/gif/ciallo.jpg',
-        '4': '/suanfajichu/assets/gif/tafei.jpg'
-      };
-      const choice = prompt("输入数字更换角色：\n1. Doro 🐱\n2. 瓦蕾莎 🧝‍♀️\n3. Ciallo 🌸\n4. Tafei 🐼\n\n或者直接粘贴图片 URL：", "1");
-      if (choice) {
-        let newSrc = presetImages[choice] || choice;
-        img.src = newSrc;
-        localStorage.setItem('petImgSrc', newSrc);
+      if (Math.abs(velX) > 0.1 || Math.abs(velY) > 0.1) {
+        requestAnimationFrame(updatePhysics);
+      } else {
+        isAnimating = false;
+        localStorage.setItem('petLeft', Math.round(posX));
+        localStorage.setItem('petTop', Math.round(posY));
       }
-    });
+    }
 
-    // 拖拽移动
-    let isDragging = false;
-    let startX, startY, initialLeft, initialTop;
+    function playSound() {
+      const clone = clickAudio.cloneNode();
+      clone.volume = 0.3;
+      clone.play().catch(e => {});
+    }
 
     petContainer.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.pet-controls') || e.target.closest('.pet-bubble')) return;
-      isDragging = true;
-      petContainer.dataset.dragging = 'false';
-      startX = e.clientX;
-      startY = e.clientY;
-      const rect = petContainer.getBoundingClientRect();
-      initialLeft = rect.left;
-      initialTop = rect.top;
+      if (e.target.closest('.pet-controls')) return;
+      isDragging = true; isAnimating = false;
+      dragStartTime = Date.now();
+      startX = e.clientX - posX; startY = e.clientY - posY;
+      lastMouseX = e.clientX; lastMouseY = e.clientY;
       petContainer.style.cursor = 'grabbing';
-      petContainer.style.transition = 'none';
       e.preventDefault();
     });
 
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) petContainer.dataset.dragging = 'true';
-      petContainer.style.left = `${initialLeft + dx}px`;
-      petContainer.style.top = `${initialTop + dy}px`;
-      petContainer.style.bottom = 'auto';
+      posX = e.clientX - startX; posY = e.clientY - startY;
+      velX = e.clientX - lastMouseX; velY = e.clientY - lastMouseY;
+      lastMouseX = e.clientX; lastMouseY = e.clientY;
+      petContainer.style.transform = `translate(${posX}px, ${posY}px)`;
     });
 
-    document.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        petContainer.style.cursor = 'pointer';
-        petContainer.style.transition = 'transform 0.2s ease';
-        const rect = petContainer.getBoundingClientRect();
-        localStorage.setItem('petLeft', rect.left);
-        localStorage.setItem('petTop', rect.top);
-        setTimeout(() => { petContainer.dataset.dragging = 'false'; }, 100);
+    document.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      petContainer.style.cursor = 'pointer';
+      const dragDuration = Date.now() - dragStartTime;
+      
+      if (dragDuration < 200 && Math.abs(velX) < 5 && Math.abs(velY) < 5) {
+        // 算作点击
+        bubble.textContent = getNextTip();
+        bubble.classList.add('show');
+        playSound();
+        img.style.transform = 'scale(0.8)';
+        setTimeout(() => { img.style.transform = 'scale(1)'; }, 150);
+        clearTimeout(window.petBubbleTimer);
+        window.petBubbleTimer = setTimeout(() => { bubble.classList.remove('show'); }, 4000);
+        velX = 0; velY = 0;
+      } else {
+        // 算作拖拽抛出
+        isAnimating = true;
+        requestAnimationFrame(updatePhysics);
+      }
+    });
+
+    petContainer.style.transform = `translate(${posX}px, ${posY}px)`;
+
+    // 隐藏/召回
+    document.getElementById('pet-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      petContainer.style.display = 'none';
+      localStorage.setItem('petHidden', 'true');
+      recallBtn.style.display = 'flex';
+    });
+
+    // 设置
+    document.getElementById('pet-settings').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openSettingsModal(petTips, savedSize.toString(), (newTips, newSize) => {
+        petTips = newTips;
+        localStorage.setItem('petTips', JSON.stringify(petTips));
+        img.style.width = newSize + 'px'; img.style.height = newSize + 'px';
+        localStorage.setItem('petSize', newSize);
+      });
+    });
+
+    // 换角色
+    document.getElementById('pet-change').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const presetImages = {
+        '1': '/suanfajichu/assets/gif/doro.jpg',
+        '2': '/suanfajichu/assets/gif/valesa.jpg',
+        '3': '/suanfajichu/assets/gif/ciallo.jpg'
+      };
+      const choice = prompt("输入数字更换角色：\n1. Doro 🐱\n2. 瓦蕾莎 🧝‍♀️\n3. Ciallo 🌸", "1");
+      if (choice && presetImages[choice]) {
+        img.src = presetImages[choice];
+        localStorage.setItem('petImgSrc', presetImages[choice]);
       }
     });
   }
@@ -327,10 +341,8 @@
       modal.querySelector('#pet-size-range').addEventListener('input', (e) => {
         modal.querySelector('#pet-size-value').textContent = e.target.value;
       });
-
       modal.querySelector('#cancel-pet-settings').onclick = () => modal.classList.remove('show');
       modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('show'); };
-
       modal.querySelector('#add-pet-tip').onclick = () => {
         const list = modal.querySelector('#pet-tips-list');
         const newItem = document.createElement('div');
@@ -369,8 +381,7 @@
       const inputs = listContainer.querySelectorAll('.tip-input');
       const newTips = Array.from(inputs).map(input => input.value.trim()).filter(v => v !== '');
       const finalTips = newTips.length > 0 ? newTips : ['点我干嘛？'];
-      const newSize = modal.querySelector('#pet-size-range').value;
-      onSave(finalTips, newSize);
+      onSave(finalTips, modal.querySelector('#pet-size-range').value);
       modal.classList.remove('show');
     };
 
@@ -381,58 +392,39 @@
   function initScrollHeader() {
     const header = document.querySelector('.md-header');
     if (!header) return;
-
     const checkScroll = () => {
-      if (window.scrollY > 20) {
-        header.classList.add('header-scrolled');
-      } else {
-        header.classList.remove('header-scrolled');
-      }
+      if (window.scrollY > 20) header.classList.add('header-scrolled');
+      else header.classList.remove('header-scrolled');
     };
-
     window.removeEventListener('scroll', window.myScrollHandler);
     window.myScrollHandler = checkScroll;
     window.addEventListener('scroll', window.myScrollHandler);
     checkScroll();
   }
 
-  // ==================== 8. 自动折叠代码块（零缩进！） ====================
+  // ==================== 8. 自动折叠代码块 ====================
   function initCollapsibleCodeBlocks() {
-    const codeBlocks = document.querySelectorAll('.md-typeset .highlight');
-    
-    codeBlocks.forEach((block) => {
+    document.querySelectorAll('.md-typeset .highlight').forEach((block) => {
       if (block.closest('.code-toggle-wrapper')) return;
-      
       const filename = block.querySelector('span.filename');
       if (!filename) return;
-      
       const titleText = filename.textContent.trim();
-      const pre = block.querySelector('pre');
-      if (!pre) return;
-      
+      if (!block.querySelector('pre')) return;
+
       const wrapper = document.createElement('div');
       wrapper.className = 'code-toggle-wrapper';
-      
-      const header = document.createElement('div');
-      header.className = 'code-header';
-      header.innerHTML = `
-        <div class="left-bar"></div>
-        <div class="status-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-        <div class="code-title">${titleText}</div>
-        <div class="arrow-icon">
-          <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"></polygon></svg>
+      wrapper.innerHTML = `
+        <div class="code-header">
+          <div class="left-bar"></div>
+          <div class="status-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div class="code-title">${titleText}</div>
+          <div class="arrow-icon"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"></polygon></svg></div>
         </div>
       `;
-      
       const body = document.createElement('div');
       body.className = 'code-body';
       body.appendChild(block.cloneNode(true));
-      
-      wrapper.appendChild(header);
       wrapper.appendChild(body);
-      
       block.parentNode.replaceChild(wrapper, block);
     });
   }
@@ -442,30 +434,23 @@
     const header = e.target.closest('.code-header');
     if (header) {
       const wrapper = header.closest('.code-toggle-wrapper');
-      if (wrapper) {
-        wrapper.classList.toggle('expanded');
-      }
+      if (wrapper) wrapper.classList.toggle('expanded');
     }
   });
 
-  // ==================== 5.5 唯美信封开机动画 ====================
+  // ==================== 10. 唯美撕信开机动画 ====================
   function initBootAnimation() {
-    // 只在首页触发
     const path = window.location.pathname;
     const isHome = path === '/' || path.endsWith('/suanfajichu/') || path.endsWith('/index.html');
-    if (!isHome) return;
+    if (!isHome || sessionStorage.getItem('bootAnimated')) return;
 
-    // 使用 sessionStorage 控制，确保每次会话只出现一次
-    if (sessionStorage.getItem('bootAnimated')) return;
-
-    // 1. 注入动画所需 DOM
     const overlay = document.createElement('div');
     overlay.id = 'envelope-overlay';
     overlay.innerHTML = `
       <div id="envelope-wrapper">
         <div class="envelope">
           <div class="envelope-back"></div>
-                    <div class="letter">
+          <div class="letter">
             <img src="/suanfajichu/assets/gif/valesa.jpg" alt="valesa" class="letter-stamp">
             <div class="letter-text" id="letter-content"></div>
           </div>
@@ -477,7 +462,6 @@
     `;
     document.body.appendChild(overlay);
 
-    // 2. 点击事件：打开信件
     const wrapper = document.getElementById('envelope-wrapper');
     const hint = document.getElementById('click-hint');
     const letter = document.querySelector('.letter');
@@ -487,30 +471,21 @@
     wrapper.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
-      hint.style.opacity = '0'; // 隐藏提示语
-
-      // 打开信封盖子
+      hint.style.opacity = '0'; 
       overlay.classList.add('is-open');
 
-      // 信纸滑出，并逐渐展开
       setTimeout(() => {
         letter.style.transform = 'translateY(-40%) scale(1.1)';
         letter.style.zIndex = '10';
-        
-        // 开始打字机效果
-        const text = "欢迎进入"; // 你修改的文案
+        const text = "欢迎进入"; 
         let i = 0;
         const typeWriter = () => {
           if (i < text.length) {
-            if (text.charAt(i) === '\n') {
-              letterContent.innerHTML += '<br>';
-            } else {
-              letterContent.innerHTML += text.charAt(i);
-            }
+            if (text.charAt(i) === '\n') letterContent.innerHTML += '<br>';
+            else letterContent.innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 100); // 打字速度
+            setTimeout(typeWriter, 100);
           } else {
-            // 文字打完后，点击任意处关闭动画
             wrapper.addEventListener('click', () => {
               overlay.style.opacity = '0';
               setTimeout(() => {
@@ -521,44 +496,23 @@
           }
         };
         typeWriter();
-
-      }, 600); // 等信封盖打开后再滑出
+      }, 600);
     });
   }
 
-  // ==================== 10. 完美兼容 MkDocs SPA 机制（唯一入口） ====================
-  function initAll() {
-    initBootAnimation(); 
-    initArticlePage();
-    init404RandomTip();
-    initPet();
-    initScrollHeader();
-    initCollapsibleCodeBlocks();
-    initUserNotes(); // 🌟 唤醒专属笔记本
-  }
-
-  if (typeof document$ !== 'undefined') {
-    document$.subscribe(initAll); 
-  } else {
-    document.addEventListener('DOMContentLoaded', initAll);
- }
-
-  // ==================== 11. 读者专属笔记本（本地存储） ====================
+  // ==================== 11. 读者专属笔记本 ====================
   function initUserNotes() {
-    // 如果已经存在，就只更新内容，不重复创建
     let drawer = document.getElementById('user-note-drawer');
     let trigger = document.getElementById('user-note-trigger');
-    const pageKey = 'user_note_' + window.location.pathname; // 按页面路径区分笔记
+    const pageKey = 'user_note_' + window.location.pathname;
 
     if (!trigger) {
-      // 1. 创建悬浮按钮（放在页面右侧中间）
       trigger = document.createElement('div');
       trigger.id = 'user-note-trigger';
       trigger.innerHTML = '📝';
       trigger.title = '我的专属笔记';
       document.body.appendChild(trigger);
 
-      // 2. 创建抽屉
       drawer = document.createElement('div');
       drawer.id = 'user-note-drawer';
       drawer.innerHTML = `
@@ -567,34 +521,41 @@
           <button id="note-close-btn">×</button>
         </div>
         <textarea id="note-textarea" placeholder="在这里记录你的学习心得...&#10;（笔记会保存在你当前浏览器中）"></textarea>
-        <div class="note-footer">
-          <span id="note-save-status">已自动保存</span>
-        </div>
+        <div class="note-footer"><span id="note-save-status">已自动保存</span></div>
       `;
       document.body.appendChild(drawer);
 
-      // 3. 绑定事件
       trigger.onclick = () => drawer.classList.toggle('open');
       document.getElementById('note-close-btn').onclick = () => drawer.classList.remove('open');
 
       const textarea = document.getElementById('note-textarea');
       const status = document.getElementById('note-save-status');
-
-      // 输入时自动保存
       textarea.addEventListener('input', () => {
         localStorage.setItem(pageKey, textarea.value);
         status.textContent = '保存中...';
         clearTimeout(window.noteSaveTimer);
-        window.noteSaveTimer = setTimeout(() => {
-          status.textContent = '已自动保存';
-        }, 500);
+        window.noteSaveTimer = setTimeout(() => status.textContent = '已自动保存', 500);
       });
     }
 
-    // 每次切换页面，更新抽屉里的内容
     const textarea = document.getElementById('note-textarea');
-    if (textarea) {
-      textarea.value = localStorage.getItem(pageKey) || '';
-    }
+    if (textarea) textarea.value = localStorage.getItem(pageKey) || '';
   }
-})(); 
+
+  // ==================== 12. 完美兼容 MkDocs SPA 机制 ====================
+  function initAll() {
+    initBootAnimation(); 
+    initArticlePage();
+    init404RandomTip();
+    initPet();
+    initScrollHeader();
+    initCollapsibleCodeBlocks();
+    initUserNotes();
+  }
+
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(initAll); 
+  } else {
+    document.addEventListener('DOMContentLoaded', initAll);
+  }
+})(); // 🌟 正确的闭包
