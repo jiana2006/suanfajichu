@@ -504,7 +504,8 @@
   function initUserNotes() {
     let drawer = document.getElementById('user-note-drawer');
     let trigger = document.getElementById('user-note-trigger');
-    const pageKey = 'user_note_' + window.location.pathname;
+        // 改成全局唯一的钥匙，所有页面共用
+    const pageKey = 'user_global_note'; 
 
     if (!trigger) {
       trigger = document.createElement('div');
