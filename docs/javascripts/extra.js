@@ -559,4 +559,5 @@
   } else {
     document.addEventListener('DOMContentLoaded', initAll);
   }
+
 })(); // 🌟 正确的闭包

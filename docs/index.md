@@ -7,10 +7,14 @@ comments: false
 ---
 
 <div class="hero-section">
+
+  
+  <!-- 🌟 半透明遮罩层：防止背景太花哨导致文字看不清 -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(2px); z-index: -1;"></div>
+
   <div class="hero-content">
     <h1 class="hero-title">欢迎来到 <br/><span class="title-gradient">喵喵基础算法</span></h1>
    
-    <!-- <p >专注于算法基础，记录个人的学习成长之路。<br>所有学习资源完全免费开放，快来加入吧！</p> -->
     <div class="hero-code">
       <code>
       print("Hello World!");<br>
@@ -37,8 +41,7 @@ comments: false
     <div class="kb-profile">
       <img src="assets/gif/valesa.jpg" alt="头像" class="kb-avatar">
       <h3>喵喵知识库</h3>
-      <p>欢迎来到喵喵基础算法，所有资源完全免费开放，开启全新阅读体验！
-      其中重要的部分大部分位于基础算法系列笔记中。</p>
+      <p>欢迎来到喵喵基础算法，所有资源完全免费开放，开启全新阅读体验！<br>其中重要的部分大部分位于基础算法系列笔记中。</p>
       <a href="home/" class="kb-btn">🎯 查看指引</a>
     </div>
     
@@ -58,6 +61,7 @@ comments: false
     <h2>基础算法系列笔记</h2>
     <p class="kb-desc">涵盖基础算法、数据结构等核心知识，打下坚实基础。</p>
     
+    <!-- 🌟 所有卡片都在这个 kb-cards 容器内，网格排版才好看 -->
     <div class="kb-cards">
       <div class="kb-card">
         <span class="kb-tag tag-green">喵喵1</span>
@@ -78,9 +82,8 @@ comments: false
           <li><a href="cpp/">C++ 笔记（二）STL容器</a></li>
         </ul>
       </div>
-    </div>
 
-    <div class="kb-card">
+      <div class="kb-card">
         <span class="kb-tag tag-blue">实用工具</span>
         <h3>大学作业神器</h3>
         <p>提供大学作业的辅助工具，帮助学生更高效学习和完成作业。</p>
@@ -88,7 +91,7 @@ comments: false
           <li><a href="learning-tools/">学习通强制粘贴</a></li>
           <li><a href="learning-tools/">词达人速刷</a></li>
           <li><a href="learning-tools/">welearn速刷</a></li>
-          <li><a href="learning/">其他工具</a></li>
+          <li><a href="learning-tools/">其他工具</a></li> <!-- 帮你把多余的 learning/ 改对了 -->
         </ul>
       </div>
     </div>

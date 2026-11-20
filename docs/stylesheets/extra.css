@@ -646,84 +646,83 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
 
 
 /* ================= 终极版：透明转实色导航栏（自研 JS 驱动） ================= */
+/* ================= 悬浮胶囊导航栏（白色版） ================= */
 
-/* 1. 初始状态：彻底透明 */
+/* 1. 主体容器：悬浮、居中、圆角、白底、阴影 */
 .md-header {
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out !important;
-}
-.md-tabs {
-  background: transparent !important;
-  background-color: transparent !important;
+  position: fixed !important;
+  top: 20px !important; /* 距离顶部的距离 */
+  left: 50% !important;
+  transform: translateX(-50%) !important; /* 水平居中 */
+  width: 92% !important; /* 宽度，留出两边空隙 */
+  max-width: 1300px !important; /* 限制最大宽度，大屏也好看 */
+  border-radius: 50px !important; /* 大圆角 */
+  background: rgba(255, 255, 255, 0.85) !important; /* 半透明白 */
+  backdrop-filter: blur(15px) !important; /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(15px) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+  padding: 0 20px !important; /* 内部左右留点空 */
 }
 
-/* 2. 滚动时，触发我们自定义的 header-scrolled 类名 */
+/* 2. 滚动时：阴影加深，白色更实一点 */
 .md-header.header-scrolled {
-  background-color: rgba(13, 148, 136, 0.95) !important; 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  top: 10px !important; /* 滚动时稍微往上靠一点 */
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* 3. 暗黑模式适配 */
+/* 3. 文字颜色修正：因为底色变白了，文字和图标必须变深！ */
+.md-header__title,
+.md-header__button,
+.md-header__topic {
+  color: #1f2937 !important; /* 深灰色文字 */
+}
+.md-header__title {
+  font-weight: 800 !important;
+}
+
+/* 4. 搜索框适配白底 */
+.md-search__input {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #1f2937 !important;
+  border-radius: 20px !important;
+}
+.md-search__input::placeholder {
+  color: #6b7280 !important;
+}
+.md-search__icon {
+  color: #6b7280 !important;
+}
+
+/* 5. 隐藏下方的 Tabs 栏（如果你有的话，为了保持纯胶囊的极简感） */
+.md-tabs {
+  display: none !important; 
+}
+
+/* 6. 关键：因为导航栏悬浮了，主内容区必须往下移，不然会被挡住 */
+.md-container {
+  padding-top: 90px !important; /* 留出悬浮导航栏的空间 */
+}
+
+/* 7. 暗黑模式适配 */
 [data-md-color-scheme="slate"] .md-header {
-  background: transparent !important;
+  background: rgba(30, 30, 40, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 [data-md-color-scheme="slate"] .md-header.header-scrolled {
-  background-color: rgba(30, 30, 40, 0.95) !important;
+  background: rgba(30, 30, 40, 0.95) !important;
 }
-/* ================= 让折叠代码块变绿 ================= */
-.md-typeset details {
-  border: 1px solid #52c41a !important;
-  border-radius: 8px !important;
-  overflow: hidden;
-  margin: 1.5rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+[data-md-color-scheme="slate"] .md-header__title,
+[data-md-color-scheme="slate"] .md-header__button,
+[data-md-color-scheme="slate"] .md-header__topic {
+  color: #f3f4f6 !important;
 }
-
-/* 标题栏样式 */
-.md-typeset details > summary {
-  background-color: rgba(82, 196, 26, 0.08) !important;
-  color: #52c41a !important;
-  font-weight: 600 !important;
-  padding: 12px 16px !important;
-  cursor: pointer;
-  list-style: none;
-  position: relative;
-  padding-left: 44px !important; /* 留出绿色对勾的位置 */
+[data-md-color-scheme="slate"] .md-search__input {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f3f4f6 !important;
 }
-
-/* 用伪元素画一个绿色对勾圆 */
-.md-typeset details > summary::before {
-  content: '✓';
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background: #52c41a;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-/* 去掉默认的三角形箭头 */
-.md-typeset details > summary::marker,
-.md-typeset details > summary::-webkit-details-marker {
-  display: none;
-}
-
-/* 展开后的内容区背景 */
-.md-typeset details[open] > summary {
-  border-bottom: 1px solid #52c41a;
-}
-
-
 /* ================= 代码块专属深色主题 ================= */
 
 /* 1. 代码块整体变深色 */
@@ -1194,4 +1193,32 @@ body.article-page .md-content { max-width: 900px !important; margin: 0 auto !imp
   font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
   border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+/* ================= 极光流动背景（不卡顿，高级感） ================= */
+body:has(.hero-section) {
+  /* 4 种颜色的极光渐变 */
+  background: linear-gradient(-45deg, #fdfbfb, #ffb6c1, #add8e6, #f2fbf5) !important;
+  background-size: 400% 400% !important;
+  animation: gradientBG 15s ease infinite !important;
+  background-attachment: fixed !important;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 让首页的渐变板透明，露出底下的流动极光 */
+.hero-section {
+  background: transparent !important;
+}
+
+/* 确保白框彻底消失 */
+body:has(.hero-section) .md-main,
+body:has(.hero-section) .md-main__inner,
+body:has(.hero-section) .md-content,
+body:has(.hero-section) .md-content__inner {
+  background: transparent !important;
+  box-shadow: none !important;
 }
