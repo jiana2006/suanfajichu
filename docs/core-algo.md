@@ -120,7 +120,7 @@ hide:
 
 <a href="../union-find/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
   <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
-    <img src="../assets/gif/大肥鱼.jpg" alt="并查集" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+    <img src="../assets/gif/大肥鱼4.jpg" alt="并查集" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
   </div>
   <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">并查集</h3>
 </a>
@@ -160,6 +160,14 @@ hide:
       <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🕸️</div>
       <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">图的基本应用</h3>
     </a>
+
+    <a href="../game/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼3.jpg" alt="并查集" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">博弈论</h3>
+</a>
+
 
   </div>
 </div>
