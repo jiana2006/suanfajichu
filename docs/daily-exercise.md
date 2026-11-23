@@ -1038,7 +1038,66 @@ int main(){
 </body>
 </html>
 
+```cpp title="1528A - Parsa 的巨大树"
 
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+typedef long long ll;
+
+const int N = 2e5 + 10;
+const int M = 2 * N;
+
+int h[N], e[M], ne[M], idx;     
+int T;                           
+int l[N], r[N];
+ll dp[N][2];                 
+
+void add(int a, int b) {
+    e[idx] = b;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+void dfs(int u, int fa) {
+    dp[u][0] = dp[u][1] = 0;
+    for (int i = h[u]; i != -1; i = ne[i]) {
+        int v = e[i];
+        if (v == fa) continue;            
+        dfs(v, u);
+        dp[u][0] += max(dp[v][0] + abs((ll)l[u] - l[v]),
+                        dp[v][1] + abs((ll)l[u] - r[v]));
+        dp[u][1] += max(dp[v][0] + abs((ll)r[u] - l[v]),
+                        dp[v][1] + abs((ll)r[u] - r[v]));
+    }
+}
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> T;
+    while (T--) {
+        int n;
+        cin >> n;
+        idx = 0;
+        memset(h, -1, sizeof(h));
+
+        for (int i = 1; i <= n; i++) {
+            cin >> l[i] >> r[i];
+        }
+
+        for (int i = 1; i < n; i++) {
+            int u, v;
+            cin >> u >> v;
+            add(u, v);
+            add(v, u);                    
+        }
+
+        dfs(1, 0);                      
+        cout << max(dp[1][0], dp[1][1]) << endl;
+    }
+    return 0;
+}
+
+```
 
 
 <!DOCTYPE html>
