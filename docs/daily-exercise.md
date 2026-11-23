@@ -1148,7 +1148,74 @@ int main() {
 </body>
 </html>
 
+```cpp title="274B - 零树"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+typedef long long ll;
 
+const int N = 2e5 + 10;
+const int M = 2 * N;
+
+int h[N], nxt[M], to[M], cnt;
+int n;
+ll a[N];          // 每个顶点的初始值 v[i]
+ll pos[N], neg[N]; // pos[u]: 需要向上+1的次数; neg[u]: 需要向上-1的次数
+
+void add(int x, int y) {
+    to[cnt] = y;
+    nxt[cnt] = h[x];
+    h[x] = cnt++;
+}
+
+void dfs(int u, int fa) {
+    pos[u] = neg[u] = 0;
+    for (int i = h[u]; i != -1; i = nxt[i]) {
+        int v = to[i];
+        if (v == fa) continue;
+        dfs(v, u);
+        pos[u] = max(pos[u], pos[v]);  // 向上+1的次数，取孩子里最大的
+        neg[u] = max(neg[u], neg[v]);  // 向上-1的次数，取孩子里最大的
+    }
+    // 加上 u 自身的值，算出 u 这个点的净需求
+    ll cur = a[u] + pos[u] - neg[u];
+    if (cur > 0) {
+        neg[u] += cur;   // 净值为正，需要额外 -cur 次减操作
+    } else {
+        pos[u] += -cur;  // 净值为负，需要额外 (-cur) 次加操作（注意 +=）
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> n;
+
+    // 初始化前向星
+    cnt = 0;
+    for (int i = 1; i <= n; i++) h[i] = -1;
+
+    // 读 n-1 条边
+    for (int i = 1; i < n; i++) {
+        int x, y;
+        cin >> x >> y;
+        add(x, y);
+        add(y, x);
+    }
+
+    // 读 n 个顶点的初始值
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+
+    dfs(1, 0);
+    cout << pos[1] + neg[1] << endl;
+
+    return 0;
+}
+
+```
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
