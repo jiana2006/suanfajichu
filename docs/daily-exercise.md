@@ -1151,68 +1151,58 @@ int main() {
 ```cpp title="274B - 零树"
 #include<bits/stdc++.h>
 using namespace std;
-#define endl "\n"
-typedef long long ll;
 
+#define endl "\n"
+
+typedef long long ll;
 const int N = 2e5 + 10;
 const int M = 2 * N;
-
-int h[N], nxt[M], to[M], cnt;
 int n;
-ll a[N];          // 每个顶点的初始值 v[i]
-ll pos[N], neg[N]; // pos[u]: 需要向上+1的次数; neg[u]: 需要向上-1的次数
+ll nums[N];
+ll pos[N], neg[N];
+int h[N], nxt[M], to[M], cnt;
+void add(int a, int b){
+	to[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt++;
 
-void add(int x, int y) {
-    to[cnt] = y;
-    nxt[cnt] = h[x];
-    h[x] = cnt++;
 }
-
-void dfs(int u, int fa) {
-    pos[u] = neg[u] = 0;
-    for (int i = h[u]; i != -1; i = nxt[i]) {
-        int v = to[i];
-        if (v == fa) continue;
-        dfs(v, u);
-        pos[u] = max(pos[u], pos[v]);  // 向上+1的次数，取孩子里最大的
-        neg[u] = max(neg[u], neg[v]);  // 向上-1的次数，取孩子里最大的
-    }
-    // 加上 u 自身的值，算出 u 这个点的净需求
-    ll cur = a[u] + pos[u] - neg[u];
-    if (cur > 0) {
-        neg[u] += cur;   // 净值为正，需要额外 -cur 次减操作
-    } else {
-        pos[u] += -cur;  // 净值为负，需要额外 (-cur) 次加操作（注意 +=）
-    }
+void dfs(int u, int fa){
+	pos[u] = neg[u] = 0;
+	for (int i = h[u]; i != -1; i = nxt[i]){
+		int v = to[i];
+		if (v == fa)continue;
+		dfs(v, u);
+		pos[u] = max(pos[u], pos[v]);
+		neg[u] = max(neg[u], neg[v]);
+		}
+		ll cur = nums[u] + pos[u] - neg[u];
+		if (cur > 0){
+			neg[u] += cur;
+		}else{
+			pos[u] += -cur; 
+		}
 }
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	
+	cin >> n;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-
-    cin >> n;
-
-    // 初始化前向星
-    cnt = 0;
-    for (int i = 1; i <= n; i++) h[i] = -1;
-
-    // 读 n-1 条边
-    for (int i = 1; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        add(x, y);
-        add(y, x);
-    }
-
-    // 读 n 个顶点的初始值
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
-    }
-
-    dfs(1, 0);
-    cout << pos[1] + neg[1] << endl;
-
-    return 0;
+	for (int i = 1; i < n; i++){
+		int a, b;
+		cin >> a >> b;
+		add(a, b);
+		add(b, a);
+	}	
+	for (int i = 1; i <= n; i++){
+		cin >> nums[i];
+	}
+	dfs(1, 0);
+	cout << pos[1] + neg[1] << endl;
+	return 0;
 }
 
 ```
@@ -1273,6 +1263,60 @@ int main() {
 
 </body>
 </html>
+
+```cpp title="161D - 树上距离"
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define endl "\n"
+
+const int N = 5e4 + 10;
+const int M = 2 * N;
+const int K = 510;
+int h[N], nxt[M], to[M], cnt;
+void add(int a, int b){
+	to[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt ++;
+}
+int n, k;
+int dp[N][K];
+ll re = 0;
+void dfs(int u, int fa){
+	dp[u][0] = 1;
+	for(int i = h[u]; i != -1; i = nxt[i]){
+		int v = to[i];
+		if (v == fa)continue;
+		dfs(v, u);
+		for (int d1 = 0; d1 <= k - 1; d1 ++){
+			int d2 = k - 1 -d1;
+			re += dp[u][d1] * dp[v][d2];
+		}
+		for (int d = 0; d <= k; d++)
+		{
+			dp[u][d + 1] += dp[v][d];
+		}
+	}
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n >> k;
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	for (int i = 1; i < n; i++){
+		int a, b;
+		cin >> a >> b;
+		add(a, b);
+		add(b, a);
+	}
+	dfs(1, 0);
+	cout << re << endl;
+	return 0;
+}
+
+```
 
 
 <!DOCTYPE html>
@@ -1360,7 +1404,54 @@ x<sub>N−1</sub> y<sub>N−1</sub></code></pre>
 </body>
 </html>
 
+```cpp title="独立集.cpp"
+#include<bits/stdc++.h>
+using namespace std;
 
+typedef long long ll;
+#define endl "\n"
+
+const int N = 5e4 + 10;
+const int M = 2 * N;
+const int mod = 1e9 + 7;
+int h[N], nxt[M], to[M], cnt;
+void add(int a, int b){
+	to[cnt] = b;
+	nxt[cnt] = h[a];
+	h[a] = cnt ++;
+}
+int n, k;
+int col[N][2];
+ll re = 0;
+void dfs(int u, int fa){
+	col[u][0] = col[u][1] = 1;
+	for(int i = h[u]; i != -1; i = nxt[i]){
+		int v = to[i];
+		if (v == fa)continue;
+		dfs(v, u);
+		(col[u][1] *= col[v][0]) %= mod;
+		(col[u][0] *= (col[v][1] + col[v][0])) %= mod;	
+	}
+}
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n;
+	cnt = 0;
+	memset(h, -1, sizeof(h));
+	for (int i = 1; i < n; i++){
+		int a, b;
+		cin >> a >> b;
+		add(a, b);
+		add(b, a);
+	}
+	dfs(1, 0);
+	cout << (col[1][1] + col[1][0]) % mod;
+	return 0;
+}
+
+
+```
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -1463,6 +1554,309 @@ int main(){
 	return 0;
 }
 ```
+
+
+
+<h1>D. Serval 与有根树</h1>
+
+<p><strong>时间限制：</strong>每个测试 2 秒</p>
+<p><strong>内存限制：</strong>每个测试 256 MB</p>
+
+<p>现在 Serval 是 Japari 中学的一名初中生，他仍然和以前一样痴迷于数学。</p>
+
+<p>作为一个在数学上有天赋的男孩，他喜欢摆弄数字。这一次，他想在一棵有根树上摆弄数字。</p>
+
+<p>一棵树是一个没有环的连通图。一棵有根树有一个被称为根的特别顶点。节点 v 的父节点是从根到顶点 v 的路径上最后一个不同于 v 的顶点。顶点 v 的子节点是所有以 v 为父节点的节点。如果一个顶点没有子节点，那么它就是一个叶子节点。</p>
+
+<p>Serval 拥有的这棵有根树有 n 个节点，节点 1 是根。Serval 将在树的所有节点中写入一些数字。然而，有一些限制。除了叶子节点之外，每个节点中都写有一个运算 max 或 min，表示该节点中的数字应分别等于其所有儿子节点中数字的最大值或最小值。</p>
+
+<p>假设树中有 k 个叶子节点。Serval 想把整数 1, 2, …, k 放到这 k 个叶子节点上（每个数字必须恰好使用一次）。他喜欢大的数字，所以他希望最大化根节点中的数字。作为他最好的朋友，你能帮帮他吗？</p>
+
+<h2>输入</h2>
+
+<p>第一行包含一个整数 n（2 ≤ n ≤ 3·10<sup>5</sup>），表示树的大小。</p>
+
+<p>第二行包含 n 个整数，其中第 i 个表示节点 i 中的运算。0 表示 min，1 表示 max。如果该节点是叶子节点，仍然会有一个 0 或 1 的数字，但你可以忽略它。</p>
+
+<p>第三行包含 n−1 个整数 f<sub>2</sub>, f<sub>3</sub>, …, f<sub>n</sub>（1 ≤ f<sub>i</sub> ≤ i−1），其中 f<sub>i</sub> 表示节点 i 的父节点。</p>
+
+<h2>输出</h2>
+
+<p>输出一个整数——根节点中可能的最大数字。</p>
+
+<h2>样例</h2>
+
+<h3>样例输入 1</h3>
+<pre>6
+1 0 1 1 0 1
+1 2 2 2 2</pre>
+
+<h3>样例输出 1</h3>
+<pre>1</pre>
+
+<h3>样例输入 2</h3>
+<pre>5
+1 0 1 0 1
+1 1 1 1</pre>
+
+<h3>样例输出 2</h3>
+<pre>4</pre>
+
+<h3>样例输入 3</h3>
+<pre>8
+1 0 0 1 0 1 1 0
+1 1 2 2 3 3 3</pre>
+
+<h3>样例输出 3</h3>
+<pre>4</pre>
+
+<h3>样例输入 4</h3>
+<pre>9
+1 1 0 0 1 0 1 0 1
+1 1 2 2 3 3 4 4</pre>
+
+<h3>样例输出 4</h3>
+<pre>5</pre>
+
+<h2>说明</h2>
+
+<p>下面的图解释了这些样例。写在节点中间的数字是它们的编号，写在顶部的数字是写入节点中的数字。</p>
+
+<p>在第一个样例中，无论你如何排列数字，答案都是 1。</p>
+
+
+
+<h1>V - Subtree（子树）</h1>
+
+<p><strong>时间限制：</strong>2 秒 / <strong>内存限制：</strong>1024 MiB</p>
+
+<p><strong>分值：</strong>100 分</p>
+
+<h2>问题描述</h2>
+
+<p>有一棵 N 个顶点的树。顶点被编号为 1, 2, …, N。对于每个 i（1 ≤ i ≤ N−1），第 i 条边连接顶点 x<sub>i</sub> 和 y<sub>i</sub>。</p>
+
+<p>太郎君决定把每个顶点涂成白色或黑色。此时，要求满足：从任意黑色顶点到任意其他黑色顶点，都能只经过黑色顶点到达。</p>
+
+<p>给定一个正整数 M。对于每个 v（1 ≤ v ≤ N），请回答下面的问题：</p>
+
+<p>「顶点 v 为黑色」这样的顶点着色方案共有多少种？请求出答案除以 M 后的余数。</p>
+
+<h2>约束条件</h2>
+
+<ul>
+  <li>输入全部是整数。</li>
+  <li>1 ≤ N ≤ 10<sup>5</sup></li>
+  <li>2 ≤ M ≤ 10<sup>9</sup></li>
+  <li>1 ≤ x<sub>i</sub>, y<sub>i</sub> ≤ N</li>
+  <li>给定的图是一棵树。</li>
+</ul>
+
+<h2>输入</h2>
+
+<p>输入从标准输入以如下格式给出：</p>
+
+<pre>N M
+x<sub>1</sub> y<sub>1</sub>
+x<sub>2</sub> y<sub>2</sub>
+:
+x<sub>N−1</sub> y<sub>N−1</sub></pre>
+
+<h2>输出</h2>
+
+<p>输出 N 行。</p>
+
+<p>第 v（1 ≤ v ≤ N）行输出下面问题的答案：</p>
+
+<p>「顶点 v 为黑色」这样的顶点着色方案共有多少种？输出答案除以 M 后的余数。</p>
+
+<h2>样例</h2>
+
+<h3>输入例 1</h3>
+<pre>3 100
+1 2
+2 3</pre>
+
+<h3>输出例 1</h3>
+<pre>3
+4
+3</pre>
+
+<p>顶点的着色方案共有下图所示的 7 种。其中，顶点 1 为黑色的有 3 种，顶点 2 为黑色的有 4 种，顶点 3 为黑色的有 3 种。</p>
+
+<h3>输入例 2</h3>
+<pre>4 100
+1 2
+1 3
+1 4</pre>
+
+<h3>输出例 2</h3>
+<pre>8
+5
+5
+5</pre>
+
+<h3>输入例 3</h3>
+<pre>1 100</pre>
+
+<h3>输出例 3</h3>
+<pre>1</pre>
+
+<h3>输入例 4</h3>
+<pre>10 2
+8 5
+10 8
+6 5
+1 5
+4 8
+2 10
+3 6
+9 2
+1 7</pre>
+
+<h3>输出例 4</h3>
+<pre>0
+0
+1
+1
+1
+0
+1
+0
+1
+1</pre>
+
+<p>注意：不要忘记输出答案除以 M 后的余数。</p>
+
+<p><em>（原题语言：C++23 (GCC 15.2.0)）</em></p>
+
+
+
+
+<h1>1074. 二叉苹果树</h1>
+
+<h2>题目描述</h2>
+
+<p>有一棵二叉苹果树，如果树枝有分叉，一定分成两叉，即不存在只有一个孩子的节点。</p>
+
+<p>这棵树共有 N 个节点，编号为 1 到 N，树根的编号为 1。</p>
+
+<p>我们用一根树枝两端连接的节点编号，描述这根树枝的位置。</p>
+
+<p>由于苹果树的树枝太多，需要进行剪枝。但是一些树枝上长有苹果。</p>
+
+<p>给定需要保留的树枝数量，请计算最多能够保留多少个苹果。</p>
+
+<p>注意：保留下来的所有树枝都必须与根节点 1 连通。</p>
+
+<h2>输入格式</h2>
+
+<p>第一行包含两个整数 N 和 Q，分别表示树的节点数量和需要保留的树枝数量。</p>
+
+<p>接下来的 N−1 行描述树枝信息，每行包含三个整数：</p>
+
+<pre>a b c</pre>
+
+<p>其中：</p>
+
+<ul>
+  <li>a 和 b 表示这根树枝连接的两个节点；</li>
+  <li>c 表示这根树枝上的苹果数量。</li>
+</ul>
+
+<h2>输出格式</h2>
+
+<p>输出一个整数，表示最多能够保留的苹果数量。</p>
+
+<h2>数据范围</h2>
+
+<ul>
+  <li>1 ≤ Q &lt; N ≤ 100；</li>
+  <li>每根树枝上的苹果数量不超过 30000。</li>
+</ul>
+
+<h2>样例</h2>
+
+<h3>输入</h3>
+<pre>5 2
+1 3 1
+1 4 10
+2 3 20
+3 5 20</pre>
+
+<h3>输出</h3>
+<pre>21</pre>
+
+
+<h1>323. 战略游戏</h1>
+
+<h2>题目描述</h2>
+
+<p>鲍勃喜欢玩电脑游戏，特别是战略游戏，但有时他找不到解决问题的方法，这让他很伤心。</p>
+
+<p>现在，他遇到了下面的问题。</p>
+
+<p>他必须保护一座中世纪城市，城市的道路构成了一棵树。</p>
+
+<p>放置在某个节点上的士兵，可以观察到所有与这个节点直接相连的边。</p>
+
+<p>他希望在节点上放置尽可能少的士兵，使每一条边都能被至少一名士兵观察到。</p>
+
+<p>请你计算最少需要放置多少名士兵。</p>
+
+<h2>输入格式</h2>
+
+<p>输入包含多组测试数据，读入直到文件结束（EOF）。</p>
+
+<p>每组测试数据的第一行包含一个整数 N，表示树的节点数量。</p>
+
+<p>接下来的 N 行，每行按照以下格式描述一个节点：</p>
+
+<pre>节点编号:(子节点数量) 子节点1 子节点2 ...</pre>
+
+<p>例如：</p>
+
+<pre>1:(2) 2 3</pre>
+
+<p>表示节点 1 有两个子节点，分别为节点 2 和节点 3。</p>
+
+<p>其中：</p>
+
+<ul>
+  <li>节点编号为 0 到 N−1；</li>
+  <li>每个节点的子节点数量不超过 10；</li>
+  <li>每条边在输入中只出现一次。</li>
+</ul>
+
+<h2>输出格式</h2>
+
+<p>对于每组测试数据，输出一行，包含一个整数，表示最少需要放置的士兵数量。</p>
+
+<h2>数据范围</h2>
+
+<ul>
+  <li>0 &lt; N ≤ 1500；</li>
+  <li>一个测试点中，所有测试数据的 N 之和不超过 300650。</li>
+</ul>
+
+<h2>样例</h2>
+
+<h3>输入</h3>
+<pre>4
+0:(1) 1
+1:(2) 2 3
+2:(0)
+3:(0)
+5
+3:(3) 1 4 2
+1:(1) 0
+2:(0)
+0:(0)
+4:(0)</pre>
+
+<h3>输出</h3>
+<pre>1
+2</pre>
 
 
 

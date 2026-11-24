@@ -84,6 +84,7 @@ nav:
       - 哈希表: hash-table.md
       - 并查集: union-find.md
       # 下面是合并进来的数据结构
+      - 博弈论: game.md
       - 线性表: linear-list.md
       - 二叉树: binary-tree.md
       - 栈: stack.md
