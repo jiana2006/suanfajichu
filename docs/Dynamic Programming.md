@@ -546,18 +546,11 @@ int main()
 }
 ```
 
-我们再写一题和01背包问题很像的问题：
+我们再写一题和01背包问题很像的问题：<br>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>P1510 精卫填海</title>
+  <h2>P1510 精卫填海</h2>
 </head>
 <body>
-
-<h1>P1510 精卫填海</h1>
 
 <h2>题目描述</h2>
 
@@ -678,7 +671,234 @@ int main(){
 	return 0;
 }
 ```
+
 这个和01背包也就是最后加了一个判定，我感觉出的很好，能让你看看你是否学会了01背包。
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P1616 疯狂的采药</title>
+</head>
+<body>
+<h2>完全背包问题：P1616 疯狂的采药</h2>
+<h2>题目背景</h2>
+<p>此题为纪念 LiYuxiang 而生。</p>
+<h2>题目描述</h2>
+<p>LiYuxiang 是个天资聪颖的孩子，他的梦想是成为世界上最伟大的医师。为此，他想拜附近最有威望的医师为师。医师为了判断他的资质，给他出了一个难题。医师把他带到一个到处都是草药的山洞里对他说：“孩子，这个山洞里有一些不同种类的草药，采每一种都需要一些时间，每一种也有它自身的价值。我会给你一段时间，在这段时间里，你可以采到一些草药。如果你是一个聪明的孩子，你应该可以让采到的草药的总价值最大。”</p>
+<p>如果你是 LiYuxiang，你能完成这个任务吗？</p>
+<p>此题和原题的不同点：</p>
+<ol>
+<li>每种草药可以无限制地疯狂采摘。</li>
+<li>药的种类眼花缭乱，采药时间好长好长啊！师傅等得菊花都谢了！</li>
+</ol>
+<h2>输入格式</h2>
+<p>输入第一行有两个整数，分别代表总共能够用来采药的时间 t 和代表山洞里的草药的数目 m。</p>
+<p>第 2 到第 (m + 1) 行，每行两个整数，第 (i + 1) 行的整数 a_i, b_i 分别表示采摘第 i 种草药的时间和该草药的价值。</p>
+<h2>输出格式</h2>
+<p>输出一行，这一行只包含一个整数，表示在规定的时间内，可以采到的草药的最大总价值。</p>
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>
+70 3
+71 100
+69 1
+1 2
+</pre>
+<h3>输出 #1</h3>
+<pre>140</pre>
+</body>
+</html>
+
+```cpp title="疯狂的采药.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+#define int long long 
+
+signed main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int t, m;
+	cin >> t >> m;
+	
+	vector<int>time(m, 0);
+	vector<int>value(m, 0);
+	
+	for (int i = 0; i < m; i++){
+		cin >> time[i] >> value[i];	
+	}
+	
+	vector<int>dp(t + 1, 0);
+	
+	for (int i = 0; i < m; i++){
+		for (int j = time[i]; j <= t; j ++){
+			dp[j] = max(dp[j], dp[j - time[i]] + value[i]);
+		}
+	}
+	
+	cout << dp[t] << endl;
+	
+	return 0;
+}
+```
+完全背包和01背包的区别是完全背包可以重复取，而01背包不能重复取。
+二者的不同就出现在内层循环，01背包是倒序的，而完全背包是顺序的。
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P2722 [USACO3.1] 总分 Score Inflation</title>
+</head>
+<body>
+<h1>P2722 [USACO3.1] 总分 Score Inflation</h1>
+<h2>题目背景</h2>
+<p>选手在我们 USACO 的竞赛中的得分越多我们越高兴。</p>
+<p>我们试着设计我们的竞赛以便人们能尽可能的多得分，这需要你的帮助。</p>
+<h2>题目描述</h2>
+<p>我们可以从几个种类中选取竞赛的题目，这里的一个“种类”是指一个竞赛题目的集合，解决集合中的题目需要相同多的时间并且能得到相同的分数。</p>
+<p>你的任务是写一个程序来告诉 USACO 的职员，应该从每一个种类中选取多少题目，使得解决题目的总耗时在竞赛规定的时间里并且总分最大。</p>
+<h2>输入格式</h2>
+<p>输入的第一行是用空格隔开的两个整数，分别代表竞赛时间 m 和题目类 n。</p>
+<p>第 2 到第 (n + 1) 行，每行两个用空格隔开的整数，第 (i + 1) 行的整数 p_i, t_i 分别代表解决第 i 类题得到的分数和需要花费的时间。</p>
+<p>既然是某一类题目，那么这一类题目可以重复选择。</p>
+<h2>输出格式</h2>
+<p>输出一行一个整数，代表最大的总分。</p>
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>
+300 4
+100 60
+250 120
+120 100
+35 20
+</pre>
+<h3>输出 #1</h3>
+
+
+
+```cpp title="总分.cpp Inflation.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int m, n;
+	cin >> m >> n;
+	vector<int>t(n, 0);
+	vector<int>p(n, 0);
+	vector<int>dp(m + 1, 0);
+	
+	for (int i = 0; i < n; i++){
+		cin >> p[i] >> t[i] ; 
+	}
+	
+	for (int i = 0; i < n; i++){
+		for (int j = t[i]; j <= m; j++){
+			dp[j] = max(dp[j], dp[j - t[i]] + p[i]);
+		}
+	}	
+	
+	cout << dp[m] << endl;
+	return 0;
+}
+```
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P2918 [USACO08NOV] Buying Hay S</title>
+</head>
+<body>
+<h1>P2918 [USACO08NOV] Buying Hay S</h1>
+<h2>题目描述</h2>
+<p>约翰的干草库存已经告罄，他打算为奶牛们采购 H(1 ≤ H ≤ 50000) 磅干草。</p>
+<p>他知道 N(1 ≤ N≤ 100) 个干草公司，现在用 1 到 N 给它们编号。第 i 个公司卖的干草包重量为 P_i (1 ≤ P_i ≤ 5,000) 磅，需要的开销为 C_i (1 ≤ C_i ≤ 5,000) 美元。每个干草公司的货源都十分充足， 可以卖出无限多的干草包。</p>
+<p>帮助约翰找到满足需要的最小开销，即采购到至少 H 磅干草。</p>
+<h2>输入格式</h2>
+<p>第 1 行：两个整数： N 与 H ，以空格分隔。</p>
+<p>第 2 行至第 N+1 行：其中第 i+1 行包含两个整数： P_i 与 C_i ，以空格分隔。</p>
+<h2>输出格式</h2>
+<p>一个整数，表示 FJ 至少采购到 H 磅干草所需的最少花费。</p>
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>
+2 15 
+3 2 
+5 3 
+</pre>
+<h3>输出 #1</h3>
+<pre>9 </pre>
+<h2>说明/提示</h2>
+<p>FJ 可以在第二家公司买 3 包干草，共花费 9 美元。</p>
+</body>
+</html>
+
+
+```cpp title="采购干草.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int n, h;
+	cin >> n >> h;
+	vector<int>p(n, 0);
+	vector<int>c(n, 0);
+	
+	for (int i = 0; i < n; i++){
+		cin >> p[i] >> c[i];
+	}
+	vector<int>dp(h + 1, 1e8);
+	dp[0] = 0;
+	
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j <= h; j++){
+			if (dp[j] == 1e8)continue;
+			int nj = min(h, j + p[i]);
+			dp[nj] = min(dp[nj], dp[j] + c[i]);
+		}
+	}
+	
+	cout << dp[h] << endl;
+	
+	return 0;
+}
+
+
+```
+<p>这道题和前面的题还是有点差别的。很推荐写一写。</p>
+<p>这里我来解释一下：</p>
+
+<p>根据题目的意思是至少H榜的干草，所以大于等于H的重量都要考虑。这时候如果我们还用dp[j]来表示就算的是</p>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h2>最长上升子序列问题：</h2>   
 <p>给你一个整数序列，你的任务是找到最长的上升子序列。</p>
