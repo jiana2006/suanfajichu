@@ -546,6 +546,140 @@ int main()
 }
 ```
 
+我们再写一题和01背包问题很像的问题：
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P1510 精卫填海</title>
+</head>
+<body>
+
+<h1>P1510 精卫填海</h1>
+
+<h2>题目描述</h2>
+
+<p>本题为改编题。</p>
+
+<blockquote>
+  <p>
+    发鸠之山，其上多柘木。有鸟焉，其状如乌，文首，白喙，赤足，名曰精卫，其名自詨。
+    是炎帝之少女，名曰女娃。女娃游于东海，溺而不返，故为精卫。
+    常衔西山之木石，以堙于东海。——《山海经》
+  </p>
+</blockquote>
+
+<p>精卫终于快把东海填平了！只剩下了最后的一小片区域了。同时，西山上的木石也已经不多了。精卫能把东海填平吗？</p>
+
+<p>
+  事实上，东海未填平的区域还需要至少体积为 <code>v</code> 的木石才可以填平，
+  而西山上的木石还剩下 <code>n</code> 块，每块的体积和把它衔到东海需要的体力分别为
+  <code>k</code> 和 <code>m</code>。精卫已经填海填了这么长时间了，她也很累了，
+  她还剩下的体力为 <code>c</code>。
+</p>
+
+<h2>输入格式</h2>
+
+<p>输入文件的第一行是三个整数：<code>v, n, c</code>。</p>
+<p>从第二行到第 <code>n+1</code> 行分别为每块木石的体积和把它衔到东海需要的体力。</p>
+
+<h2>输出格式</h2>
+
+<p>
+  输出文件只有一行，如果精卫能把东海填平，则输出她把东海填平后剩下的最大的体力，
+  否则输出 <code>Impossible</code>。
+</p>
+
+<h2>输入输出样例 #1</h2>
+
+<h3>输入 #1</h3>
+<pre>
+100 2 10
+50 5
+50 5
+</pre>
+
+<h3>输出 #1</h3>
+<pre>
+0
+</pre>
+
+<h2>输入输出样例 #2</h2>
+
+<h3>输入 #2</h3>
+<pre>
+10 2 1
+50 5
+10 2
+</pre>
+
+<h3>输出 #2</h3>
+<pre>
+Impossible
+</pre>
+
+<h2>说明/提示</h2>
+
+<h3>数据范围及约定</h3>
+
+<ul>
+  <li>对于 <code>20%</code> 的数据，<code>0 &lt; n ≤ 50</code>；</li>
+  <li>对于 <code>50%</code> 的数据，<code>0 &lt; n ≤ 1000</code>；</li>
+  <li>
+    对于 <code>100%</code> 的数据，<code>0 &lt; n ≤ 10<sup>4</sup></code>，
+    所有读入的数均属于 <code>[0, 10<sup>4</sup>]</code>，最后答案不大于 <code>c</code>。
+  </li>
+</ul>
+
+</body>
+</html>
+
+```cpp title="精卫填海.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int v, n, c;
+	cin >> v >> n >> c;
+	vector<int>v1(n, 0);
+	vector<int> cost(n ,0);
+	
+	for (int i = 0; i < n; i++){		
+		cin >> v1[i] >> cost[i];		 
+	}
+	
+	vector<int>dp(c + 1, 0);
+	
+	for (int i = 0; i < n; i++){
+		for (int j = c; j >= cost[i]; j --){
+			dp[j] = max(dp[j], dp[j - cost[i]] + v1[i]);
+		}
+	}
+	
+	if (v >= dp[c]){			
+		 cout << "Impossible" << endl;
+		 return 0;
+	 }
+	 
+	 for (int j = 0; j <= c; j++){
+	 	if(dp[j] >= v){
+	 		cout << c - j << endl;
+	 		break;
+		 }
+	 }
+	 
+	return 0;
+}
+```
+这个和01背包也就是最后加了一个判定，我感觉出的很好，能让你看看你是否学会了01背包。
+
 <h2>最长上升子序列问题：</h2>   
 <p>给你一个整数序列，你的任务是找到最长的上升子序列。</p>
 
@@ -579,6 +713,8 @@ int main(){
 } 
 
 ```
+
+
 <p>这个就比较简单了但是时间复杂度比较高，是O(n^2)。</p><br>
 <p>这道题的最优解法是贪心+二分：</p><br>
 
