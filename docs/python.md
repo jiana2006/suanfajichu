@@ -92,5 +92,9 @@ print(a-b)
 
 好的python暂时告一段落,后续会继续更新。尽请期待。
 
+本来我是想着邀请一个人来编写这一页的，但是还是算了，为此还耽误了不少时间。想想着实好笑。
+因此我决定自己来编写这一页。后续会继续更新。尽请期待。
+
 <div style="text-align:center;">
 <img src="../assets/gif/shuijiao.jpg" style="width:280px; max-width:100%;" alt="睡觉表情包"></div>
+
