@@ -675,6 +675,90 @@ int main(){
 这个和01背包也就是最后加了一个判定，我感觉出的很好，能让你看看你是否学会了01背包。
 
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>SP181 SCUBADIV - Scuba diver</title>
+</head>
+<body>
+<h1>SP181 SCUBADIV - Scuba diver</h1>
+
+<h2>题目描述</h2>
+<p>潜水员使用特殊装备进行潜水。他有一个带有两个容器的气瓶：一个装氧气，另一个装氮气。根据潜水员计划停留的水下时间及潜水深度，他需要不同量的氧气和氮气。潜水员可携带若干气瓶，每个气瓶的重量和气体容量各不相同。为完成任务，潜水员需特定数量的氧气和氮气。问你他携带的气瓶总重量最小是多少。</p>
+
+<h2>输入格式</h2>
+<p>测试用例的数量 c 位于输入的第一行，然后 c 个测试用例以空行分隔。</p>
+<p>在测试用例的第一行中，有两个整数 t 和 a，用一个空格分隔，它们满足 1≤ t≤ 21 和 1≤ a ≤ 79。它们分别表示完成任务所需的氧气和氮气的体积。第二行包含一个整数n，1≤ n≤ 1000，这是可访问的柱面数。以下 n 行包含气缸的描述；第 i 行包含由单个空格分隔的三个整数t<sub>i</sub>、a<sub>i</sub> 和 w<sub>i</sub>（1 ≤ t<sub>i</sub> ≤ 21，1 ≤ a<sub>i</sub> ≤79，1 ≤ w<sub>i</sub> ≤ 800）。这些分别是：第 i 个气瓶中氧气和氮气的体积以及这个气瓶的重量。</p>
+
+<h2>输出格式</h2>
+<p>对于每个测试用例，你的程序应该输出一行，其中包含潜水员完成任务所需的最小气瓶总重量。</p>
+
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>```
+1
+5 60
+5
+3 36 120
+10 25 129
+5 50 250
+1 45 130
+4 20 119
+```</pre>
+<h3>输出 #1</h3>
+<pre>```
+249
+```</pre>
+</body>
+</html>
+
+```cpp title="潜水员.cpp"
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+const int INF = 1e9;
+ 
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int c;
+	cin >> c;
+	while (c --){	
+		int t, a;
+		cin >> t >> a;
+		int n;
+		cin >> n;
+		vector<vector<int>>dp(t + 1, vector<int>(a + 1, INF));
+		dp[0][0] = 0;
+		vector<int> O(n, 0);
+		vector<int> N(n, 0);
+		vector<int> W(n, 0);
+		for (int i = 0; i < n; i++){
+			cin >> O[i] >> N[i] >> W[i];
+		}
+		
+		for (int i = 0; i < n; i++){
+			for (int x = t; x >= 0; x --){
+				for (int y = a; y >= 0; y--){
+					if (dp[x][y] == INF)continue;
+					int nx = min(t, x + O[i]);
+					int ny = min(a, y + N[i]);
+					dp[nx][ny] = min(dp[nx][ny], dp[x][y] + W[i]);
+				}
+			}						
+		}
+		
+	cout << dp[t][a] << endl;
+	
+	}
+	return 0;
+}
+
+```
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -813,6 +897,7 @@ int main(){
 	return 0;
 }
 ```
+这个就是01背包的二维版了。
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -886,16 +971,275 @@ int main(){
 <p>这道题和前面的题还是有点差别的。很推荐写一写。</p>
 <p>这里我来解释一下：</p>
 
-<p>根据题目的意思是至少H榜的干草，所以大于等于H的重量都要考虑。这时候如果我们还用dp[j]来表示就算的是</p>
+<p>根据题目的意思是至少H榜的干草，所以大于等于H的重量都要考虑。这时候如果我们还用dp[j]来表示就算的是小于等于H的重量。因此我们用nj来表示大于等于H的重量。所以我们引入nj（相当于把多余的部分存入nj之中）</p>
+
+<h2>动态规划的数量问题</h2>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P1474 [USACO2.3] Money System / Cow Cash G</title>
+</head>
+<body>
+<h1>P1474 [USACO2.3] Money System / Cow Cash G</h1>
+<h2>题目描述</h2>
+<p>母牛们不但创建了它们自己的政党，而且选择了建立了自己的货币系统。由于它们特殊的思考方式，它们对货币的数值感到好奇。</p>
+<p>传统地，一个货币系统是由 1,5,10,20,25,50,100 的单位面值组成的。</p>
+<p>母牛们想知道有多少种不同的方案来用货币系统中的货币来构造一个确定的面值。</p>
+<p>举例来说，使用一个由 1,2,5,10 的单位面值组成的货币系统产生 18 面值的一些可能的方法是：18 × 1，9 × 2，8 × 2+2 × 1，3 × 5+2+1，等等。</p>
+<p>写一个程序来计算有多少种方法用给定的货币系统来构造一定数量的面值。保证总数在 64 位带符号整数的范围内。</p>
+<h2>输入格式</h2>
+<p>第一行两个整数，代表货币系统中货币的种类数目 V（1 ≤ V ≤ 25）和要构造的面值 N（1 ≤ N ≤ 10,000）。</p>
+<p>第二行 V 个整数，代表所有货币的单位面值。</p>
+<h2>输出格式</h2>
+<p>仅一行一个整数，代表方案数。</p>
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>
+```
+3 10
+1 2 5
+```
+</pre>
+<h3>输出 #1</h3>
+<pre>
+```
+10
+```
+</pre>
+<h2>说明/提示</h2>
+<p>翻译来自 NOCOW。</p>
+<p>USACO Training Section 2.3</p>
+</body>
+</html>
+
+
+```cpp title="货币系统.cpp"
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+#define int long long 
+
+signed main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int v, n;
+	cin >> v >> n;
+	vector<int>nums(v, 0);
+	vector<int>dp(n + 1, 0);
+	dp[0] = 1;
+	for (int i = 0; i < v; i++){
+		cin >> nums[i];
+	}
+	for (int x : nums){
+		for (int j = x; j <= n; j++){
+			dp[j] += dp[j - x];
+		}
+	}
+	cout << dp[n] << endl;
+	return 0;
+}
+```
+<p>
+这个就是动态规划里求数量的题了。
+我来解释一下为啥这样写：<br>
+关键的还是状态转移方程：dp[j] += dp[j - x];
+其实还是和之前一样dp[j]由两部分组成：<br>
+1.不使用当前的货币（x）也就是dp[j]。<br>
+2.使用当前的货币(x)也就是dp[j - x]。<br>
 
 
 
+下面我们来多重背包问题：
+
+<h2>多重背包问题：</h2>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P1776 宝物筛选</title>
+</head>
+<body>
+<h1>P1776 宝物筛选</h1>
+
+<h2>题目描述</h2>
+<p>终于，破解了千年的难题。小 FF 找到了王室的宝物室，里面堆满了无数价值连城的宝物。</p>
+<p>这下小 FF 可发财了，嘎嘎。但是这里的宝物实在是太多了，小 FF 的采集车似乎装不下那么多宝物。看来小 FF 只能含泪舍弃其中的一部分宝物了。</p>
+<p>小 FF 对洞穴里的宝物进行了整理，他发现每样宝物都有一件或者多件。他粗略估算了下每样宝物的价值，之后开始了宝物筛选工作：小 FF 有一个最大载重为 $W$ 的采集车，洞穴里总共有 $n$ 种宝物，每种宝物的价值为 $v_i$，重量为 $w_i$，每种宝物有 $m_i$ 件。小 FF 希望在采集车不超载的前提下，选择一些宝物装进采集车，使得它们的价值和最大。</p>
+
+<h2>输入格式</h2>
+<p>第一行为两个整数 $n$ 和 $W$，分别表示宝物种数和采集车的最大载重。</p>
+<p>接下来 $n$ 行每行三个整数 $v_i,w_i,m_i$。</p>
+
+<h2>输出格式</h2>
+<p>输出仅一个整数，表示在采集车不超载的情况下收集的宝物的最大价值。</p>
+
+<h2>输入输出样例 #1</h2>
+<h3>输入 #1</h3>
+<pre>```
+4 20
+3 9 3
+5 9 1
+9 4 2
+8 1 3
+```</pre>
+<h3>输出 #1</h3>
+<pre>```
+47
+```</pre>
+
+<h2>说明/提示</h2>
+<p>对于 $30\%$ 的数据，$1 \le m_i$，$\sum m_i\leq 10^4$，$0\le W\leq 10^3$，$1 \le w_i$，$v_i\leq 100$。</p>
+<p>对于 $100\%$ 的数据，$1 \le m_i$，$\sum m_i \leq 10^5$，$0\le W\leq 4\times 10^4$，$1\leq n\le 100$，$1 \le w_i$，$v_i\leq 1000$。</p>
+</body>
+</html>
+
+```cpp title="宝物筛选.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+const int M = 40005;
+int dp[M];
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	int n, W;
+	
+	cin >> n >>W;
+	for (int i = 1; i <= n; i++){
+		int v, w, m;
+		cin >> v >> w >> m;
+		for (int k = 0; k < m; k++){
+			for (int j = W; j >= w; j--){
+				dp[j] = max(dp[j], dp[j - w] + v);
+			}
+		}
+	}
+	cout << dp[W] << endl;
+	return 0;
+} 
+```
+上面的就是将每个宝物分开每个都看为一个01背包问题。但是时间复杂度太高了，一般我们都是用二进制拆分去写多重背包问题。
+
+```cpp title="宝物筛选优化版.cpp"
+
+//#include<bits/stdc++.h>
+//using namespace std;
+//
+//#define endl "\n"
+//typedef long long ll;
+//const int M = 40005;
+//int dp[M];
+//
+//int main(){
+//	ios::sync_with_stdio(0);
+//	cin.tie(0);
+//
+//	int n, W;
+//	
+//	cin >> n >>W;
+//	for (int i = 0; i < n; i++){
+//		int v, w, m;
+//		cin >> v >> w >> m;
+//		for (int j = 0; j < m; j++){
+//			for (int k = W; k >= w; k--){
+//				dp[k] = max(dp[k], dp[k - w] + v);	
+//			}
+//		}
+//	}
+//	cout << dp[W] << endl;
+//	return 0;
+//}
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"
+const int M = 40005;
+int dp[M];
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n, W;
+	cin >> n >> W;
+	
+	for (int i = 0; i < n; i++){
+		int v, w, m;
+		cin >> v >> w >>m;
+		int k = 1;	
+		
+		while (m > 0){
+			int t = min(k, m);
+			int nv = t * v;
+			int nw = t * w;
+		
+			for (int j = W; j >= nw; j--){
+				dp[j] = max(dp[j], dp[j - nw] + nv);
+			}
+			m -= t;
+			k *= 2;
+		}
+	}
+	
+	cout << dp[W] << endl;		
+	return 0;
+} 
+```
 
 
 
+最优的是队列版
 
+```cpp title="宝物筛选队列版.cpp"
+#include<bits/stdc++.h>
+using namespace std;
 
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int n, W;
+    cin >> n >> W;
+    vector<int> dp(W + 1, 0);
 
+    for(int i = 1; i <= n; i++)
+    {
+        int v, w, m;
+        cin >> v >> w >> m;
+        for(int r = 0; r < w; r++)
+        {
+            deque<int> q;
+            for(int k = 0; r + k * w <= W; k++)
+            {
+                int j = r + k * w;
+                // 超出数量上限，弹出队头
+                while(!q.empty() && q.front() < k - m)
+                    q.pop_front();
+                if(!q.empty())
+                {
+                    dp[j] = max(dp[j], dp[r + q.front() * w] + (k - q.front()) * v);
+                }
+                int val = dp[j] - k * v;
+                // 维护单调递减
+                while(!q.empty() && dp[r + q.back() * w] - q.back() * v <= val)
+                    q.pop_back();
+                q.push_back(k);
+            }
+        }
+    }
+    cout << dp[W] << endl;
+    return 0;
+}
+```
 
 
 
