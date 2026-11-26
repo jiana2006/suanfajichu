@@ -134,28 +134,38 @@ hide:
   <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">字典树</h3>
 </a>
 
-    <a href="../segment-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📏</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">线段树</h3>
-    </a>
+   <a href="../segment-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼17.jpg" alt="线段树" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">字典树</h3>
+</a>
 
-    <a href="../sliding-window/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🪟</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">滑动窗口</h3>
-    </a>
+  <a href="../sliding-window/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼18.jpg" alt="滑动窗口" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">滑动窗口</h3>
+</a>
 
-    <a href="../hash-lookup/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔎</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希查找</h3>
-    </a>
+  <a href="../hash-lookup/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼19.jpg" alt="哈希查找" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希查找</h3>
+</a>
 
-    <a href="../hash-table/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🗂️</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希表</h3>
-    </a>
+   <a href="../hash-table/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼20.jpg" alt="哈希表" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">哈希表</h3>
+</a>
 
-  <a href="../common-functions/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">🛠️</div>
+<a href="../common-functions/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼21.jpg" alt="常用函数" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
   <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">常用函数</h3>
 </a>
 
@@ -167,42 +177,57 @@ hide:
 </a>
 
     <!-- ====== 数据结构部分 ====== -->
-    <a href="../linear-list/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📏</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">线性表</h3>
+  <a href="../linear-list/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼22.jpg" alt="线性表" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">线性表</h3>
+</a>
+
+  <a href="../binary-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼23.jpg" alt="二叉树" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">二叉树</h3>
+</a>
+
+
+   <a href="../stack/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼24.jpg" alt="栈" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">栈</h3>
+</a>
+
+   <a href="../queue/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼25.jpg" alt="队列" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">队列</h3>
+</a>
+
+  <a href="../heap/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼26.jpg" alt="堆" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">堆</h3>
     </a>
 
-    <a href="../binary-tree/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌳</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">二叉树</h3>
+  <a href="../set/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼27.jpg" alt="集合" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">集合</h3>
     </a>
 
-    <a href="../stack/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">栈</h3>
+  <a href="../graph/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+      <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
+    <img src="../assets/gif/大肥鱼28.jpg" alt="图的基本应用" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
+  </div>
+  <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">图的基本应用</h3>
     </a>
 
-    <a href="../queue/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🚶</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">队列</h3>
-    </a>
-
-    <a href="../heap/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⛰️</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">堆</h3>
-    </a>
-
-    <a href="../set/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">集合</h3>
-    </a>
-
-    <a href="../graph/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🕸️</div>
-      <h3 style="margin: 0; color: var(--md-primary-fg-color); font-size: 1.1rem;">图的基本应用</h3>
-    </a>
-
-    <a href="../game/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
+  <a href="../game/" class="kb-card" style="text-decoration: none !important; text-align: center; display: flex; flex-direction: column; justify-content: center; cursor: pointer; min-height: 160px;">
   <div style="font-size: 2.5rem; line-height: 1; height: 2.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center;">
     <img src="../assets/gif/大肥鱼3.jpg" alt="并查集" style="width: 2.5rem; height: 2.5rem; object-fit: cover; display: block;">
   </div>
