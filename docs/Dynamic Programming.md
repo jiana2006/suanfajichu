@@ -1081,21 +1081,22 @@ signed main(){
 
 <h2>输入输出样例 #1</h2>
 <h3>输入 #1</h3>
-<pre>```
+<pre>
+```
 4 20
 3 9 3
 5 9 1
 9 4 2
 8 1 3
-```</pre>
+```
+</pre>
 <h3>输出 #1</h3>
-<pre>```
+<pre>
+```
 47
-```</pre>
+```
+</pre>
 
-<h2>说明/提示</h2>
-<p>对于 $30\%$ 的数据，$1 \le m_i$，$\sum m_i\leq 10^4$，$0\le W\leq 10^3$，$1 \le w_i$，$v_i\leq 100$。</p>
-<p>对于 $100\%$ 的数据，$1 \le m_i$，$\sum m_i \leq 10^5$，$0\le W\leq 4\times 10^4$，$1\leq n\le 100$，$1 \le w_i$，$v_i\leq 1000$。</p>
 </body>
 </html>
 
@@ -1241,7 +1242,127 @@ int main()
 }
 ```
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>P1833 樱花</title>
+</head>
+<body>
 
+<h1>P1833 樱花</h1>
+
+<h2>题目背景</h2>
+<p>《爱与愁的故事第四弹·plant》第一章。</p>
+
+<h2>题目描述</h2>
+<p>
+    爱与愁大神后院里种了 <code>n</code> 棵樱花树，每棵都有美学值
+    <code>C_i (0 &lt; C_i ≤ 200)</code>。
+    爱与愁大神在每天上学前都会来赏花。
+    爱与愁大神可是生物学霸，他懂得如何欣赏樱花：
+    一种樱花树看一遍过，一种樱花树最多看 <code>P_i (0 ≤ P_i ≤ 100)</code> 遍，
+    一种樱花树可以看无数遍。
+    但是看每棵樱花树都有一定的时间 <code>T_i (0 &lt; T_i ≤ 150)</code>。
+    爱与愁大神离去上学的时间只剩下一小会儿了。
+    求解看哪几棵樱花树能使美学值最高且爱与愁大神能准时（或提早）去上学。
+</p>
+
+<h2>输入格式</h2>
+<p>共 <code>n+1</code> 行：</p>
+<p>
+    第 1 行：现在时间 <code>T_s</code>（几时：几分），去上学的时间 <code>T_e</code>（几时：几分），
+    爱与愁大神院子里有几棵樱花树 <code>n</code>。
+    这里的 <code>T_s</code>，<code>T_e</code> 格式为：<code>hh:mm</code>，
+    其中 <code>0 ≤ hh ≤ 23</code>，<code>0 ≤ mm ≤ 59</code>，
+    且 <code>hh, mm, n</code> 均为非负整数。
+</p>
+<p>
+    第 2 行到第 <code>n+1</code> 行，每行三个非负整数：
+    看完第 <code>i</code> 棵树的耗费时间 <code>T_i</code>，
+    第 <code>i</code> 棵树的美学值 <code>C_i</code>，
+    看第 <code>i</code> 棵树的次数 <code>P_i</code>
+    （<code>P_i=0</code> 表示无数次，<code>P_i</code> 是其他数字表示最多可看的次数 <code>P_i</code>）。
+</p>
+
+<h2>输出格式</h2>
+<p>只有一个整数，表示最大美学值。</p>
+
+<h2>输入输出样例</h2>
+
+<h3>输入 #1</h3>
+<pre><code>6:50 7:00 3
+2 1 0
+3 3 1
+4 5 4</code></pre>
+
+<h3>输出 #1</h3>
+<pre><code>11</code></pre>
+
+<h2>说明/提示</h2>
+<p>
+    <code>100%</code> 数据：<code>T_e - T_s ≤ 1000</code>
+    （即开始时间距离结束时间不超过 1000 分钟），
+    <code>n ≤ 10000</code>。
+    保证 <code>T_e, T_s</code> 为同一天内的时间。
+</p>
+<p>
+    样例解释：赏第一棵樱花树一次，赏第三棵樱花树 <code>2</code> 次。
+</p>
+
+</body>
+</html>
+
+```cpp title="樱花.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 10;
+int dp[N];
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int h1, m1, h2, m2, n;
+    char c;
+
+    cin >> h1 >> c >> m1 >> h2 >> c >> m2 >> n;
+
+    int start = h1 * 60 + m1;
+    int end   = h2 * 60 + m2;
+    int time  = end - start;
+
+    while (n--){
+        int ct, val, p;
+        cin >> ct >> val >> p;
+
+        if (p == 0){
+            for (int j = ct; j <= time; j++){
+                dp[j] = max(dp[j], dp[j - ct] + val);
+            }
+        }
+        else{
+            int k = 1;
+            while (p > 0){
+                int take = min(k, p);
+                int nct = take * ct;
+                int nval = take * val;
+
+                for (int j = time; j >= nct; j--){
+                    dp[j] = max(dp[j], dp[j - nct] + nval);
+                }
+
+                p -= take;
+                k *= 2;
+            }
+        }
+    }
+
+    cout << dp[time] << endl;
+    return 0;
+}
+```
 
 
 <h2>最长上升子序列问题：</h2>   
