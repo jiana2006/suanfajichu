@@ -1133,33 +1133,6 @@ int main(){
 
 ```cpp title="宝物筛选优化版.cpp"
 
-//#include<bits/stdc++.h>
-//using namespace std;
-//
-//#define endl "\n"
-//typedef long long ll;
-//const int M = 40005;
-//int dp[M];
-//
-//int main(){
-//	ios::sync_with_stdio(0);
-//	cin.tie(0);
-//
-//	int n, W;
-//	
-//	cin >> n >>W;
-//	for (int i = 0; i < n; i++){
-//		int v, w, m;
-//		cin >> v >> w >> m;
-//		for (int j = 0; j < m; j++){
-//			for (int k = W; k >= w; k--){
-//				dp[k] = max(dp[k], dp[k - w] + v);	
-//			}
-//		}
-//	}
-//	cout << dp[W] << endl;
-//	return 0;
-//}
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -1363,6 +1336,1321 @@ int main(){
     return 0;
 }
 ```
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1077 [NOIP 2012 普及组] 摆花</title>
+</head>
+<body>
+
+  <h1>P1077 [NOIP 2012 普及组] 摆花</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1077">洛谷 P1077</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1077">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共 <var>m</var> 盆。
+    通过调查顾客的喜好，小明列出了顾客最喜欢的 <var>n</var> 种花，从 1 到 <var>n</var> 标号。
+    为了在门口展出更多种花，规定第 <var>i</var> 种花不能超过 <var>a</var><sub>i</sub> 盆，
+    摆花时同一种花放在一起，且不同种类的花需按标号的从小到大的顺序依次摆列。
+  </p>
+  <p>
+    试编程计算，一共有多少种不同的摆花方案。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行包含两个正整数 <var>n</var> 和 <var>m</var>，中间用一个空格隔开。
+  </p>
+  <p>
+    第二行有 <var>n</var> 个整数，每两个整数之间用一个空格隔开，依次表示
+    <var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, …, <var>a</var><sub>n</sub>。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出一个整数，表示有多少种方案。
+  </p>
+  <p>
+    注意：因为方案数可能很多，请输出方案数对 10<sup>6</sup>+7 取模的结果。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>2 4
+3 2</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>数据范围</h3>
+  <ul>
+    <li>对于 20% 数据，有 0 &lt; <var>n</var> ≤ 8，0 &lt; <var>m</var> ≤ 8，0 ≤ <var>a</var><sub>i</sub> ≤ 8。</li>
+    <li>对于 50% 数据，有 0 &lt; <var>n</var> ≤ 20，0 &lt; <var>m</var> ≤ 20，0 ≤ <var>a</var><sub>i</sub> ≤ 20。</li>
+    <li>对于 100% 数据，有 0 &lt; <var>n</var> ≤ 100，0 &lt; <var>m</var> ≤ 100，0 ≤ <var>a</var><sub>i</sub> ≤ 100。</li>
+  </ul>
+
+  <p>NOIP 2012 普及组 第三题</p>
+
+</body>
+</html>
+
+```cpp title="摆花.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl "\n"
+typedef long long ll;
+const int N = 105;
+const int mod = 1e6 + 7;
+int a[N];
+int dp[N];
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int n, m;
+	cin >> n >> m;
+	for (int i = 1; i <= n; i++){
+		cin >> a[i];
+	}
+	dp[0] = 1;
+	for (int i = 1; i <= n; i++){
+		for (int j = m; j >= 0; j--){
+			int sum = 0;
+			for (int k = 0; k <= a[i] && k <= j; k++){
+				sum = (sum + dp[j - k]) % mod;
+			}
+			dp[j] = sum;
+		}
+	}
+	cout << dp[m] % mod << endl;
+	return 0;
+}
+
+```
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P2347 [NOIP 1996 提高组] 砝码称重</title>
+</head>
+<body>
+
+  <h1>P2347 [NOIP 1996 提高组] 砝码称重</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P2347">洛谷 P2347</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P2347">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    设有 1 g、2 g、3 g、5 g、10 g、20 g 的砝码各若干枚（其总重 ≤ 1000），可以表示成多少种重量？
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    输入方式：<var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, <var>a</var><sub>3</sub>,
+    <var>a</var><sub>4</sub>, <var>a</var><sub>5</sub>, <var>a</var><sub>6</sub>
+  </p>
+  <p>
+    （表示 1 g 砝码有 <var>a</var><sub>1</sub> 个，2 g 砝码有 <var>a</var><sub>2</sub> 个，…，
+    20 g 砝码有 <var>a</var><sub>6</sub> 个）
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出方式：<code>Total=N</code>
+  </p>
+  <p>
+    （<var>N</var> 表示用这些砝码能称出的不同重量的个数，但不包括一个砝码也不用的情况）
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>1 1 0 0 0 0</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>Total=3</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>题目来源</h3>
+  <p>NOIP 1996 提高组第四题</p>
+
+</body>
+</html>
+
+```cpp title="砝码称重.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"
+
+const int N = 1005;
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	int w[6] = {1, 2, 3, 5, 10, 20};
+	int cnt[6];
+	
+	int sum = 0;
+	
+	for (int i = 0; i < 6; i++){
+		cin >> cnt[i];
+		sum += w[i] * cnt[i];
+	}
+	
+	bool dp[N] = {false};
+	dp[0] = true;
+	
+	for (int i = 0; i < 6; i++){
+		for (int k = 1; k <= cnt[i]; k++){
+			for (int j = sum; j >= w[i]; j--){
+				if (dp[j - w[i]]){
+					dp[j] = true;
+				}
+			}
+		}
+	}
+	
+	int ans = 0;
+	for (int i = 1; i <= sum; i++){
+		if (dp[i]) ans++;
+	}
+	
+	cout << "Total=" << ans << endl;
+	return 0;
+}
+```
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1450 [HAOI2008] 硬币购物</title>
+</head>
+<body>
+
+  <h1>P1450 [HAOI2008] 硬币购物</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1450">洛谷 P1450</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1450">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    共有 4 种硬币。面值分别为 <var>c</var><sub>1</sub>, <var>c</var><sub>2</sub>,
+    <var>c</var><sub>3</sub>, <var>c</var><sub>4</sub>。
+  </p>
+  <p>
+    某人去商店买东西，去了 <var>n</var> 次。对于每次购买，他带了
+    <var>d</var><sub>i</sub> 枚第 <var>i</var> 种硬币，想购买价值为 <var>s</var> 的东西。
+    请问每次有多少种付款方法。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    输入的第一行是五个整数，分别代表
+    <var>c</var><sub>1</sub>, <var>c</var><sub>2</sub>,
+    <var>c</var><sub>3</sub>, <var>c</var><sub>4</sub>, <var>n</var>。
+  </p>
+  <p>
+    接下来 <var>n</var> 行，每行有五个整数，描述一次购买，分别代表
+    <var>d</var><sub>1</sub>, <var>d</var><sub>2</sub>,
+    <var>d</var><sub>3</sub>, <var>d</var><sub>4</sub>, <var>s</var>。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    对于每次购买，输出一行一个整数代表答案。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>1 2 5 10 2
+3 2 3 1 10
+1000 2 2 2 900</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>4
+27</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>数据规模与约定</h3>
+  <ul>
+    <li>
+      对于 100% 的数据，保证
+      1 ≤ <var>c</var><sub>i</sub>, <var>d</var><sub>i</sub>, <var>s</var> ≤ 10<sup>5</sup>，
+      1 ≤ <var>n</var> ≤ 1000。
+    </li>
+  </ul>
+
+</body>
+</html>
+
+
+<h2>分组背包问题</h2>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1757 通天之分组背包</title>
+</head>
+<body>
+
+  <h1>P1757 通天之分组背包</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1757">洛谷 P1757</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1757">前往洛谷提交</a>
+  </p>
+
+  <h2>题目背景</h2>
+
+  <blockquote>
+    <p>
+      <strong>管理员备注：</strong>
+      本题数据实际满足 <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub> 为非负整数，
+      且 0 ≤ <var>c</var><sub>i</sub> ≤ 10<sup>4</sup>。
+      鉴于此题为分组背包经典例题，不会加入 <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub>,
+      <var>c</var><sub>i</sub> 为负数之类的无意义的 hack 数据。
+    </p>
+  </blockquote>
+
+  <p>
+    直达通天路·小 A 历险记第二篇
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    自 01 背包问世之后，小 A 对此深感兴趣。一天，小 A 去远游，却发现他的背包不同于 01 背包，
+    他的物品大致可分为 <var>k</var> 组，每组中的物品相互冲突，
+    现在，他想知道最大的利用价值是多少。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    两个数 <var>m</var>, <var>n</var>，表示一共有 <var>n</var> 件物品，
+    背包能承受的最大重量为 <var>m</var>。
+  </p>
+  <p>
+    接下来 <var>n</var> 行，每行 3 个数 <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub>,
+    <var>c</var><sub>i</sub>，分别表示物品的重量、利用价值和所属组数。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    一个数，最大的利用价值。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>45 3
+10 10 1
+10 5 1
+50 400 2</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>10</code></pre>
+
+  <h2>说明与提示</h2>
+  <p>
+    0 ≤ <var>m</var> ≤ 1000，1 ≤ <var>n</var> ≤ 1000，1 ≤ <var>k</var> ≤ 100，
+    <var>a</var><sub>i</sub>, <var>b</var><sub>i</sub>, <var>c</var><sub>i</sub> 在 <code>int</code> 范围内。
+  </p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1064 [NOIP 2006 提高组] 金明的预算方案</title>
+</head>
+<body>
+
+  <h1>P1064 [NOIP 2006 提高组] 金明的预算方案</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1064">洛谷 P1064</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1064">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    金明今天很开心，家里购置的新房就要领钥匙了，新房里有一间金明自己专用的很宽敞的房间。
+    更让他高兴的是，妈妈昨天对他说：“你的房间需要购买哪些物品，怎么布置，你说了算，
+    只要不超过 <var>n</var> 元钱就行”。今天一早，金明就开始做预算了。
+    他把想买的物品分为两类：主件与附件，附件是从属于某个主件的，下表就是一些主件与附件的例子：
+  </p>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>主件</th>
+        <th>附件</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>电脑</td>
+        <td>打印机，扫描仪</td>
+      </tr>
+      <tr>
+        <td>书柜</td>
+        <td>图书</td>
+      </tr>
+      <tr>
+        <td>书桌</td>
+        <td>台灯，文具</td>
+      </tr>
+      <tr>
+        <td>工作椅</td>
+        <td>无</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    如果要买归类为附件的物品，必须先买该附件所属的主件。每个主件可以有 0 个、1 个或 2 个附件。
+    每个附件对应一个主件，附件不再有从属于自己的附件。
+    金明想买的东西很多，肯定会超过妈妈限定的 <var>n</var> 元。
+    于是，他把每件物品规定了一个重要度，分为 5 等：用整数 1 ~ 5 表示，第 5 等最重要。
+    他还从因特网上查到了每件物品的价格（都是 10 元的整数倍）。
+    他希望在不超过 <var>n</var> 元的前提下，使每件物品的价格与重要度的乘积的总和最大。
+  </p>
+
+  <p>
+    设第 <var>j</var> 件物品的价格为 <var>v</var><sub>j</sub>，重要度为 <var>w</var><sub>j</sub>，
+    共选中了 <var>k</var> 件物品，编号依次为
+    <var>j</var><sub>1</sub>, <var>j</var><sub>2</sub>, …,
+    <var>j</var><sub>k</sub>，则所求的总和为：
+  </p>
+  <p>
+    <var>v</var><sub>j<sub>1</sub></sub> × <var>w</var><sub>j<sub>1</sub></sub>
+    + <var>v</var><sub>j<sub>2</sub></sub> × <var>w</var><sub>j<sub>2</sub></sub>
+    + … +
+    <var>v</var><sub>j<sub>k</sub></sub> × <var>w</var><sub>j<sub>k</sub></sub>
+  </p>
+  <p>
+    请你帮助金明设计一个满足要求的购物单。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行有两个整数，分别表示总钱数 <var>n</var> 和希望购买的物品个数 <var>m</var>。
+  </p>
+  <p>
+    第 2 到第 (<var>m</var> + 1) 行，每行三个整数。第 (<var>i</var> + 1) 行的整数
+    <var>v</var><sub>i</sub>, <var>w</var><sub>i</sub>, <var>q</var><sub>i</sub>
+    分别表示第 <var>i</var> 件物品的价格、重要度以及它对应的主件。
+    如果 <var>q</var><sub>i</sub> = 0，表示该物品本身是主件。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出一行一个整数表示答案。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>1000 5
+800 2 0
+400 5 1
+300 5 1
+400 3 0
+500 2 0</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2200</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>数据规模与约定</h3>
+  <ul>
+    <li>
+      对于全部的测试点，保证
+      1 ≤ <var>n</var> ≤ 3.2 × 10<sup>4</sup>，
+      1 ≤ <var>m</var> ≤ 60，
+      0 ≤ <var>v</var><sub>i</sub> ≤ 10<sup>4</sup>，
+      1 ≤ <var>w</var><sub>i</sub> ≤ 5，
+      0 ≤ <var>q</var><sub>i</sub> ≤ <var>m</var>，
+      答案不超过 2 × 10<sup>5</sup>。
+    </li>
+  </ul>
+
+  <p>NOIP 2006 提高组 第二题</p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P5322 [BJOI2019] 排兵布阵</title>
+</head>
+<body>
+
+  <h1>P5322 [BJOI2019] 排兵布阵</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P5322">洛谷 P5322</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P5322">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    小 C 正在玩一款排兵布阵的游戏。在游戏中有 <var>n</var> 座城堡，
+    每局对战由两名玩家来争夺这些城堡。每名玩家有 <var>m</var> 名士兵，
+    可以向第 <var>i</var> 座城堡派遣 <var>a</var><sub>i</sub> 名士兵去争夺这个城堡，
+    使得总士兵数不超过 <var>m</var>。
+  </p>
+  <p>
+    如果一名玩家向第 <var>i</var> 座城堡派遣的士兵数<strong>严格</strong>大于对手派遣士兵数的两倍，
+    那么这名玩家就占领了这座城堡，获得 <var>i</var> 分。
+  </p>
+  <p>
+    现在小 C 即将和其他 <var>s</var> 名玩家两两对战，这 <var>s</var> 场对决的派遣士兵方案必须相同。
+    小 C 通过某些途径得知了其他 <var>s</var> 名玩家即将使用的策略，
+    他想知道他应该使用什么策略来最大化自己的总分。
+  </p>
+  <p>
+    由于答案可能不唯一，你只需要输出小 C 总分的最大值。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    输入第一行包含三个正整数 <var>s</var>, <var>n</var>, <var>m</var>，
+    分别表示除了小 C 以外的玩家人数、城堡数和每名玩家拥有的士兵数。
+  </p>
+  <p>
+    接下来 <var>s</var> 行，每行 <var>n</var> 个非负整数，表示一名玩家的策略。
+    其中第 <var>i</var> 个数 <var>a</var><sub>i</sub> 表示这名玩家向第 <var>i</var> 座城堡派遣的士兵数。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出一行一个非负整数，表示小 C 获得的最大得分。
+  </p>
+
+  <h2>输入输出样例 1</h2>
+
+  <h3>输入</h3>
+  <pre><code>1 3 10
+2 2 6</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>3</code></pre>
+
+  <h2>输入输出样例 2</h2>
+
+  <h3>输入</h3>
+  <pre><code>2 3 10
+2 2 6
+0 0 0</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>8</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>样例 1 解释</h3>
+  <p>
+    小 C 的最佳策略为向第 1 座城堡和第 2 座城堡各派遣 5 名士兵。
+  </p>
+
+  <h3>样例 2 解释</h3>
+  <p>
+    小 C 的最佳策略之一为向第 1 座城堡派遣 2 名士兵，
+    向第 2 座城堡派遣 5 名士兵，向第 3 座城堡派遣 1 名士兵。
+  </p>
+
+  <h3>数据范围</h3>
+  <ul>
+    <li>对于 10% 的数据：<var>s</var> = 1，<var>n</var> ≤ 3，<var>m</var> ≤ 10；</li>
+    <li>对于 20% 的数据：<var>s</var> = 1，<var>n</var> ≤ 10，<var>m</var> ≤ 100；</li>
+    <li>对于 40% 的数据：<var>n</var> ≤ 10，<var>m</var> ≤ 100；</li>
+    <li>对于另外 20% 的数据：<var>s</var> = 1；</li>
+    <li>
+      对于 100% 的数据：1 ≤ <var>s</var> ≤ 100，1 ≤ <var>n</var> ≤ 100，
+      1 ≤ <var>m</var> ≤ 2 × 10<sup>4</sup>。
+      对于每名玩家，保证 <var>a</var><sub>i</sub> ≥ 0，
+      <var>∑</var><sub>i=1</sub><sup><var>n</var></sup> <var>a</var><sub>i</sub> ≤ <var>m</var>。
+    </li>
+  </ul>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1541 [NOIP 2010 提高组] 乌龟棋</title>
+</head>
+<body>
+
+  <h1>P1541 [NOIP 2010 提高组] 乌龟棋</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1541">洛谷 P1541</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1541">前往洛谷提交</a>
+  </p>
+
+  <h2>题目背景</h2>
+  <p>NOIP2010 提高组 T2</p>
+
+  <h2>题目描述</h2>
+  <p>
+    小明过生日的时候，爸爸送给他一副乌龟棋当作礼物。
+  </p>
+  <p>
+    乌龟棋的棋盘是一行 <var>N</var> 个格子，每个格子上一个分数（非负整数）。
+    棋盘第 1 格是唯一的起点，第 <var>N</var> 格是终点，游戏要求玩家控制一个乌龟棋子从起点出发走到终点。
+  </p>
+  <p>
+    乌龟棋中 <var>M</var> 张爬行卡片，分成 4 种不同的类型
+    （<var>M</var> 张卡片中不一定包含所有 4 种类型的卡片，见样例），
+    每种类型的卡片上分别标有 1、2、3、4 四个数字之一，
+    表示使用这种卡片后，乌龟棋子将向前爬行相应的格子数。
+    游戏中，玩家每次需要从所有的爬行卡片中选择一张之前没有使用过的爬行卡片，
+    控制乌龟棋子前进相应的格子数，每张卡片只能使用一次。
+  </p>
+  <p>
+    游戏中，乌龟棋子自动获得起点格子的分数，并且在后续的爬行中每到达一个格子，
+    就得到该格子相应的分数。玩家最终游戏得分就是乌龟棋子从起点到终点过程中到过的所有格子的分数总和。
+  </p>
+  <p>
+    很明显，用不同的爬行卡片使用顺序会使得最终游戏的得分不同，
+    小明想要找到一种卡片使用顺序使得最终游戏得分最多。
+  </p>
+  <p>
+    现在，告诉你棋盘上每个格子的分数和所有的爬行卡片，你能告诉小明，他最多能得到多少分吗？
+  </p>
+
+  <h2>输入格式</h2>
+  <p>每行中两个数之间用一个空格隔开。</p>
+  <p>
+    第 1 行 2 个正整数 <var>N</var>, <var>M</var>，分别表示棋盘格子数和爬行卡片数。
+  </p>
+  <p>
+    第 2 行 <var>N</var> 个非负整数
+    <var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, …,
+    <var>a</var><sub>N</sub>，其中 <var>a</var><sub>i</sub> 表示棋盘第 <var>i</var> 个格子上的分数。
+  </p>
+  <p>
+    第 3 行 <var>M</var> 个整数
+    <var>b</var><sub>1</sub>, <var>b</var><sub>2</sub>, …,
+    <var>b</var><sub>M</sub>，表示 <var>M</var> 张爬行卡片上的数字。
+  </p>
+  <p>
+    输入数据保证到达终点时刚好用光 <var>M</var> 张爬行卡片。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    一个整数，表示小明最多能得到的分数。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>9 5
+6 10 14 2 8 8 18 5 17
+1 3 1 2 1</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>73</code></pre>
+
+  <h2>说明与提示</h2>
+  <p>每个测试点 1s。</p>
+  <p>
+    小明使用爬行卡片顺序为 1, 1, 3, 1, 2，得到的分数为
+    6 + 10 + 14 + 8 + 18 + 17 = 73。
+    注意，由于起点是 1，所以自动获得第 1 格的分数 6。
+  </p>
+
+  <h3>数据范围</h3>
+  <ul>
+    <li>
+      对于 30% 的数据有
+      1 ≤ <var>N</var> ≤ 30，1 ≤ <var>M</var> ≤ 12。
+    </li>
+    <li>
+      对于 50% 的数据有
+      1 ≤ <var>N</var> ≤ 120，1 ≤ <var>M</var> ≤ 50，
+      且 4 种爬行卡片，每种卡片的张数不会超过 20。
+    </li>
+    <li>
+      对于 100% 的数据有
+      1 ≤ <var>N</var> ≤ 350，1 ≤ <var>M</var> ≤ 120，
+      且 4 种爬行卡片，每种卡片的张数不会超过 40；
+      0 ≤ <var>a</var><sub>i</sub> ≤ 100（1 ≤ <var>i</var> ≤ <var>N</var>），
+      1 ≤ <var>b</var><sub>i</sub> ≤ 4（1 ≤ <var>i</var> ≤ <var>M</var>）。
+    </li>
+  </ul>
+
+</body>
+</html>
+
+<h2>二维费用背包问题</h2>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1855 榨取kkksc03</title>
+</head>
+<body>
+
+  <h1>P1855 榨取kkksc03</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1855">洛谷 P1855</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1855">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    洛谷 2 的团队功能是其他任何 OJ 和工具难以达到的。借助洛谷强大的服务器资源，
+    任何学校都可以在洛谷上零成本地搭建 OJ 并高效率地完成训练计划。
+  </p>
+  <p>
+    为什么说是搭建 OJ 呢？为什么高效呢？
+  </p>
+  <p>
+    因为，你可以上传私有题目，团队外别人是无法看到的。我们还能帮你们评测！
+  </p>
+  <p>
+    你可以创建作业，给组员布置任务，查看组员的完成情况，还可以点评任意一份代码！
+  </p>
+  <p>
+    你可以创建比赛！既可以是 OI 赛制还可以是 ICPC 赛制！既可以是团队内部的私有比赛，
+    也可以公开赛，甚至可以指定谁可以参加比赛。这样，搞“x 校联赛”最合适不过了。
+    洛谷凭借这个功能，希望能够提供公开及私有比赛的另外一个平台。
+  </p>
+  <p>
+    值得说明的是，本次比赛就是采用团队私有题目 + 邀请比赛的机制。
+  </p>
+  <p>
+    洛谷的运营组决定，如果一名 OIer 向他的教练推荐洛谷，并能够成功使用
+    （成功使用的定义是：该团队有 20 个或以上的成员，上传 10 道以上的私有题目，
+    布置过一次作业并成功举办过一次公开比赛），
+    那么他可以浪费掉 kkksc03 的一些时间的同时消耗掉 kkksc03 的一些金钱，
+    以满足自己的一个愿望。
+  </p>
+  <p>
+    kkksc03 的时间和金钱是有限的，所以他很难满足所有同学的愿望。
+    所以他想知道在自己的能力范围内，最多可以完成多少同学的愿望？
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行三个整数 <var>n</var>, <var>M</var>, <var>T</var>，
+    表示一共有 <var>n</var>（1 ≤ <var>n</var> ≤ 100）个愿望，
+    kkksc03 的手上还剩 <var>M</var>（0 ≤ <var>M</var> ≤ 200）元，
+    他的暑假有 <var>T</var>（0 ≤ <var>T</var> ≤ 200）分钟时间。
+  </p>
+  <p>
+    第 2 ~ <var>n</var> + 1 行，每行两个整数 <var>m</var><sub>i</sub>, <var>t</var><sub>i</sub>，
+    表示第 <var>i</var> 个愿望所需要的金钱和时间。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    一行，一个数，表示 kkksc03 最多可以实现愿望的个数。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>6 10 10
+1 1
+2 3
+3 2
+2 5
+5 2
+4 3</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>4</code></pre>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1507 NASA的食物计划</title>
+</head>
+<body>
+
+  <h1>P1507 NASA的食物计划</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1507">洛谷 P1507</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1507">前往洛谷提交</a>
+  </p>
+
+  <h2>题目背景</h2>
+  <p>
+    NASA（美国航空航天局）因为航天飞机的隔热瓦等其他安全技术问题一直大伤脑筋，
+    因此在各方压力下终止了航天飞机的历史。但是此类事情会不会在以后发生，谁也无法保证。
+    所以，在遇到这类航天问题时，也许只能让航天员出仓维修。
+    但是过多的维修会消耗航天员大量的能量，
+    因此 NASA 便想设计一种食品方案，使体积和承重有限的条件下多装载一些高卡路里的食物。
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    航天飞机的体积有限，当然如果载过重的物品，燃料会浪费很多钱。
+    每件食品都有各自的体积、质量以及所含卡路里。
+    在告诉你体积和质量的最大值的情况下，请输出能达到的食品方案所含卡路里的最大值。
+    当然，每个食品只能使用一次。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行 2 个整数，分别代表体积最大值 <var>H</var> 和质量最大值 <var>T</var>。
+  </p>
+  <p>
+    第二行 1 个整数，代表食品总数 <var>n</var>。
+  </p>
+  <p>
+    接下来 <var>n</var> 行，每行 3 个数：体积 <var>h</var><sub>i</sub>，
+    质量 <var>t</var><sub>i</sub>，所含卡路里 <var>k</var><sub>i</sub>。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    一个数，表示所能达到的最大卡路里（<code>int</code> 范围内）。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>320 350
+4
+160 40 120
+80 110 240
+220 70 310
+40 400 220</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>550</code></pre>
+
+  <h2>说明与提示</h2>
+  <p>
+    对于 100% 的数据，
+    <var>H</var>, <var>T</var>, <var>h</var><sub>i</sub>, <var>t</var><sub>i</sub> ≤ 400，
+    <var>n</var> ≤ 50，<var>k</var><sub>i</sub> ≤ 500。
+  </p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1794 装备运输</title>
+</head>
+<body>
+
+  <h1>P1794 装备运输</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1794">洛谷 P1794</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1794">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    德国放松对英国的进攻后，把矛头指向了东边——苏联。1943 年初，东线的战斗进行到白热化阶段。
+    据可靠情报，90 余万德国军队在库尔斯克准备发动浩大攻势。
+    因此，朱可夫元帅要求你立即从远东的军工厂运输大量装备支援库尔斯克前线。
+    列车司机告诉你，一趟列车最多可以容纳 <var>V</var> 体积的武器装备，
+    但是你可能不能装满，因为列车承受不了那么大的重量，一趟列车最多可以承载 <var>G</var> 单位的重量。
+    同时，军工厂仓库提供给你一份装备清单，详细记录了每件装备的体积、重量和火力。
+    为了有效支援朱可夫元帅，你要找到一种方案，使得总火力值最大。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行两个整数 <var>V</var> 和 <var>G</var>，表示最大体积和重量。
+  </p>
+  <p>
+    第二行一个整数 <var>N</var>，表示仓库有 <var>N</var> 件装备。
+  </p>
+  <p>
+    第 3 到 <var>N</var> + 2 行，每行 3 个数
+    <var>T</var><sub>i</sub>, <var>V</var><sub>i</sub>, <var>G</var><sub>i</sub>，
+    表示各装备的火力值、体积和重量。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出一个数，表示可能获得的最大火力值。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>6 5
+4
+10 2 2
+20 3 2
+40 4 3
+30 3 3</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>50</code></pre>
+
+  <h2>说明与提示</h2>
+  <p>
+    对于 100% 的数据，1 ≤ <var>V</var>, <var>G</var>, <var>N</var> ≤ 500，
+    1 ≤ <var>T</var><sub>i</sub>, <var>V</var><sub>i</sub>, <var>G</var><sub>i</sub> ≤ 10<sup>9</sup>。
+  </p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SP181 SCUBADIV - Scuba diver</title>
+</head>
+<body>
+
+  <h1>SP181 SCUBADIV - Scuba diver（潜水员）</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/SP181">洛谷 SP181</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/SP181">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    潜水员使用特殊装备进行潜水。他有一个带有两个容器的气瓶：一个装氧气，另一个装氮气。
+    根据潜水员计划停留的水下时间及潜水深度，他需要不同量的氧气和氮气。
+    潜水员可携带若干气瓶，每个气瓶的重量和气体容量各不相同。
+    为完成任务，潜水员需特定数量的氧气和氮气。
+    问你他携带的气瓶总重量最小是多少。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    测试用例的数量 <var>c</var> 位于输入的第一行，然后 <var>c</var> 个测试用例以空行分隔。
+  </p>
+  <p>
+    在测试用例的第一行中，有两个整数 <var>t</var> 和 <var>a</var>，用一个空格分隔，
+    它们满足 1 ≤ <var>t</var> ≤ 21 和 1 ≤ <var>a</var> ≤ 79。
+    它们分别表示完成任务所需的氧气和氮气的体积。
+    第二行包含一个整数 <var>n</var>（1 ≤ <var>n</var> ≤ 1000），这是可访问的气瓶数。
+    以下 <var>n</var> 行包含气瓶的描述；第 <var>i</var> 行包含由单个空格分隔的三个整数
+    <var>t</var><sub>i</sub>、<var>a</var><sub>i</sub> 和 <var>w</var><sub>i</sub>
+    （1 ≤ <var>t</var><sub>i</sub> ≤ 21，1 ≤ <var>a</var><sub>i</sub> ≤ 79，1 ≤ <var>w</var><sub>i</sub> ≤ 800）。
+    这些分别是：第 <var>i</var> 个气瓶中氧气和氮气的体积，以及这个气瓶的重量。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    对于每个测试用例，你的程序应该输出一行，其中包含潜水员完成任务所需的最小气瓶总重量。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>1
+5 60
+5
+3 36 120
+10 25 129
+5 50 250
+1 45 130
+4 20 119</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>249</code></pre>
+
+</body>
+</html>
+
+
+
+<h2>树形依赖背包问题</h2>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P2014 [CTSC1997] 选课</title>
+</head>
+<body>
+
+  <h1>P2014 [CTSC1997] 选课</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P2014">洛谷 P2014</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P2014">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    在大学里每个学生，为了达到一定的学分，必须从很多课程里选择一些课程来学习。
+    在课程里有些课程必须在某些课程之前学习，如高等数学总是在其它课程之前学习。
+    现在有 <var>N</var> 门功课，每门课有若干学分，分别记作
+    <var>s</var><sub>1</sub>, <var>s</var><sub>2</sub>, …,
+    <var>s</var><sub>N</sub>。每门课有一门或没有直接先修课
+    （若课程 <var>a</var> 是课程 <var>b</var> 的先修课，即只有学完了课程 <var>a</var>，
+    才能学习课程 <var>b</var>）。
+    一个学生要从这些课程里选择 <var>M</var> 门课程学习，问他能获得的最大学分是多少？
+  </p>
+  <p>
+    题目保证课程安排无冲突。（即不会有 <var>a</var> 是 <var>b</var> 的先修课，
+    <var>b</var> 也是 <var>a</var> 的先修课这类情况存在。）
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行有两个整数 <var>N</var>, <var>M</var> 用空格隔开
+    （1 ≤ <var>N</var> ≤ 300，1 ≤ <var>M</var> ≤ 300）。
+  </p>
+  <p>
+    接下来的 <var>N</var> 行，第 <var>i</var> + 1 行包含两个整数
+    <var>k</var><sub>i</sub> 和 <var>s</var><sub>i</sub>。
+    <var>k</var><sub>i</sub> 表示第 <var>i</var> 门课的直接先修课，
+    <var>s</var><sub>i</sub> 表示第 <var>i</var> 门课的学分。
+    若 <var>k</var><sub>i</sub> = 0 表示没有直接先修课
+    （0 ≤ <var>k</var><sub>i</sub> ≤ <var>N</var>，1 ≤ <var>s</var><sub>i</sub> ≤ 20）。
+  </p>
+  <p>
+    数据保证至少存在一个 <var>k</var><sub>i</sub> = 0，即至少一门课无先修课。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    只有一行，选 <var>M</var> 门课程的最大学分。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>7 4
+2 2
+0 1
+0 4
+2 1
+7 1
+7 6
+2 2</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>13</code></pre>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1273 [CHCI 2002 Final Exam #2] 有线电视网</title>
+</head>
+<body>
+
+  <h1>P1273 [CHCI 2002 Final Exam #2] 有线电视网</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1273">洛谷 P1273</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1273">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    某收费有线电视网计划转播一场重要的足球比赛。
+    他们的转播网和用户终端构成一棵树状结构，这棵树的根结点位于足球比赛的现场，
+    树叶为各个用户终端，其他中转站为该树的内部节点。
+  </p>
+  <p>
+    从转播站到转播站以及从转播站到所有用户终端的信号传输费用都是已知的，
+    一场转播的总费用等于传输信号的费用总和。
+  </p>
+  <p>
+    现在每个用户都准备了一笔费用想观看这场精彩的足球比赛，
+    有线电视网有权决定给哪些用户提供信号而不给哪些用户提供信号。
+  </p>
+  <p>
+    写一个程序找出一个方案使得有线电视网在不亏本的情况下使观看转播的用户尽可能多。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    输入文件的第一行包含两个用空格隔开的整数 <var>N</var> 和 <var>M</var>，
+    其中 2 ≤ <var>N</var> ≤ 3000，1 ≤ <var>M</var> ≤ <var>N</var> − 1，
+    <var>N</var> 为整个有线电视网的结点总数，<var>M</var> 为用户终端的数量。
+  </p>
+  <p>
+    第一个转播站即树的根结点编号为 1，其他的转播站编号为 2 到 <var>N</var> − <var>M</var>，
+    用户终端编号为 <var>N</var> − <var>M</var> + 1 到 <var>N</var>。
+  </p>
+  <p>
+    接下来的 <var>N</var> − <var>M</var> 行，每行表示一个转播站的数据，
+    第 <var>i</var> + 1 行表示第 <var>i</var> 个转播站的数据，其格式如下：
+  </p>
+  <p>
+    <var>K</var> &nbsp; <var>A</var><sub>1</sub> &nbsp; <var>C</var><sub>1</sub>
+    &nbsp; <var>A</var><sub>2</sub> &nbsp; <var>C</var><sub>2</sub>
+    &nbsp; … &nbsp; <var>A</var><sub>k</sub> &nbsp; <var>C</var><sub>k</sub>
+  </p>
+  <p>
+    <var>K</var> 表示该转播站下接 <var>K</var> 个结点（转播站或用户），
+    每个结点对应一对整数 <var>A</var> 与 <var>C</var>，
+    <var>A</var> 表示结点编号，<var>C</var> 表示从当前转播站传输信号到结点 <var>A</var> 的费用。
+  </p>
+  <p>
+    最后一行依次表示所有用户为观看比赛而准备支付的钱数。
+    单次传输成本和用户愿意交的费用均不超过 10。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    输出文件仅一行，包含一个整数，表示上述问题所要求的最大用户数。
+  </p>
+
+  <h2>输入输出样例 1</h2>
+
+  <h3>输入</h3>
+  <pre><code>5 3
+2 2 2 5 3
+2 3 2 4 3
+3 4 2</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>输入输出样例 2</h2>
+
+  <h3>输入</h3>
+  <pre><code>5 3
+2 2 2 5 3
+2 3 2 4 3
+4 4 2</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>3</code></pre>
+
+  <h2>输入输出样例 3</h2>
+
+  <h3>输入</h3>
+  <pre><code>9 6
+3 2 2 3 2 9 3
+2 4 2 5 2
+3 6 2 7 2 8 2
+4 3 3 3 1 1</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>5</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>样例解释</h3>
+  <p>
+    如图所示，共有五个结点。结点 ① 为根结点，即现场直播站，② 为一个中转站，
+    ③④⑤ 为用户端，共 <var>M</var> 个，编号从 <var>N</var> − <var>M</var> + 1 到 <var>N</var>，
+    他们为观看比赛分别准备的钱数为 3、4、2。
+  </p>
+  <p>
+    从结点 ① 可以传送信号到结点 ②，费用为 2；
+    也可以传送信号到结点 ⑤，费用为 3（第二行数据所示）；
+  </p>
+  <p>
+    从结点 ② 可以传输信号到结点 ③，费用为 2；
+    也可传输信号到结点 ④，费用为 3（第三行数据所示）。
+  </p>
+  <p>
+    如果要让所有用户（③④⑤）都能看上比赛，
+    则信号传输的总费用为：2 + 3 + 2 + 3 = 10，
+    大于用户愿意支付的总费用 3 + 4 + 2 = 9，有线电视网就亏本了，
+    而只让 ③④ 两个用户看比赛就不亏本了。
+  </p>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1272 [USACO02FEB] 重建道路</title>
+</head>
+<body>
+
+  <h1>P1272 [USACO02FEB] 重建道路</h1>
+
+  <p>
+    原题链接：
+    <a href="https://www.luogu.com.cn/problem/P1272">洛谷 P1272</a>
+  </p>
+  <p>
+    提交入口：
+    <a href="https://www.luogu.com.cn/problem/P1272">前往洛谷提交</a>
+  </p>
+
+  <h2>题目描述</h2>
+  <p>
+    一场可怕的地震后，人们用 <var>N</var> 个牲口棚（编号 1 ~ <var>N</var>）
+    重建了农夫 John 的牧场。由于人们没有时间建设多余的道路，
+    所以现在从一个牲口棚到另一个牲口棚的道路是唯一的。
+    因此，牧场运输系统可以被构建成一棵树。
+  </p>
+  <p>
+    John 想要知道另一次地震会造成多严重的破坏。
+    有些道路一旦被毁坏，就会使一棵含有 <var>P</var> 个牲口棚的子连通块和剩余的牲口棚分离，
+    John 想知道这些道路的最小数目。
+  </p>
+
+  <h2>输入格式</h2>
+  <p>
+    第一行两个整数，<var>N</var> 和 <var>P</var>。
+  </p>
+  <p>
+    第二行到第 <var>N</var> 行，每行两个整数 <var>I</var> 和 <var>J</var>，
+    表示节点 <var>I</var> 是节点 <var>J</var> 的父节点。
+    牧场运输系统可以被构建成一棵以 1 号节点为根的树。
+  </p>
+
+  <h2>输出格式</h2>
+  <p>
+    单独一行，包含一旦被破坏将分离出恰含 <var>P</var> 个节点的子连通块的道路的最小数目。
+  </p>
+
+  <h2>输入输出样例</h2>
+
+  <h3>输入</h3>
+  <pre><code>11 6
+1 2
+1 3
+1 4
+1 5
+2 6
+2 7
+2 8
+4 9
+4 10
+4 11</code></pre>
+
+  <h3>输出</h3>
+  <pre><code>2</code></pre>
+
+  <h2>说明与提示</h2>
+
+  <h3>样例解释</h3>
+  <p>
+    如果道路 1−4 和 1−5 被破坏，含有节点（1, 2, 3, 6, 7, 8）的子树将被分离出来。
+  </p>
+
+  <h3>限制与约定</h3>
+  <p>
+    1 ≤ <var>N</var> ≤ 150，1 ≤ <var>P</var> ≤ <var>N</var>，保证给出的是一棵树。
+  </p>
+
+</body>
+</html>
+
 
 
 <h2>最长上升子序列问题：</h2>   

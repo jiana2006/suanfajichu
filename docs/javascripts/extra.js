@@ -92,11 +92,11 @@
       const tips = [
         '这里空空如也，连大肥鱼都没游过来呢~',
         '哎呀，这条路上没有小行星哦，快回家吧！',
-        '瓦蕾莎在这里找不到东西，急得团团转……',
+        '大肥鱼在这里找不到东西，急得团团转……',
         '咦？代码写错了吗？还是迷路了呀？',
         '别找了，这里只有空气，快回首页吃鱼吧！',
         '糟糕！大肥鱼把页面吃掉了！( ﹁ ﹁ ) ~',
-        '这里是瓦蕾莎的秘密基地，闲人免进！',
+        '这里是大肥鱼的秘密基地，闲人免进！',
         '再点我，我就把你吃掉！(๑•̀ㅂ•́)و✧'
       ];
 
@@ -552,6 +552,7 @@
     initScrollHeader();
     initCollapsibleCodeBlocks();
     initUserNotes();
+    initThemePicker();
   }
 
   if (typeof document$ !== 'undefined') {
@@ -559,5 +560,74 @@
   } else {
     document.addEventListener('DOMContentLoaded', initAll);
   }
+
+
+
+
+
+  // ==================== 13. 背景颜色选择器 ====================
+  function initThemePicker() {
+    // 防止重复创建
+    if (document.getElementById('theme-picker-btn')) return;
+    
+    // 找到夜间/白天切换按钮的容器
+    const headerOption = document.querySelector('.md-header__option');
+    if (!headerOption) return;
+
+    // 创建调色盘按钮
+    const pickerBtn = document.createElement('div');
+    pickerBtn.id = 'theme-picker-btn';
+    pickerBtn.className = 'md-header__button md-icon';
+    pickerBtn.title = '更换背景颜色';
+    pickerBtn.style.cursor = 'pointer';
+    pickerBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.1 0 2-.9 2-2 0-.33-.08-.65-.22-.94-.14-.29-.22-.61-.22-.94 0-1.1.9-2 2-2h1.82c2.87 0 5.18-2.31 5.18-5.18C22 6.48 17.52 2 12 2zm-5.5 11c-.83 0-1.5-.67-1.5-1.5S5.67 10 6.5 10 8 10.67 8 11.5 7.33 13 6.5 13zm3-4C8.67 9 8 8.33 8 7.5S8.67 6 9.5 6s1.5.67 1.5 1.5S10.33 9 9.5 9zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 6 14.5 6s1.5.67 1.5 1.5S15.33 9 14.5 9zm3 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
+    `;
+
+    // 创建下拉菜单
+    const dropdown = document.createElement('div');
+    dropdown.id = 'theme-picker-dropdown';
+    dropdown.innerHTML = `
+      <div class="theme-option theme-default" data-theme="theme-default"></div>
+      <div class="theme-option theme-sunset" data-theme="theme-sunset"></div>
+      <div class="theme-option theme-forest" data-theme="theme-forest"></div>
+      <div class="theme-option theme-ocean" data-theme="theme-ocean"></div>
+      <div class="theme-option theme-cyber" data-theme="theme-cyber"></div>
+    `;
+
+    // 把按钮和下拉菜单插到暗黑模式按钮的左边
+    headerOption.insertBefore(dropdown, headerOption.firstChild);
+    headerOption.insertBefore(pickerBtn, headerOption.firstChild);
+
+    // 点击按钮切换下拉菜单的显示状态
+    pickerBtn.onclick = (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('show');
+    };
+
+    // 点击外部关闭下拉菜单
+    document.addEventListener('click', (e) => {
+      if (!pickerBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // 加载用户之前选的颜色
+    const savedTheme = localStorage.getItem('user-bg-theme') || 'theme-default';
+    document.body.className = document.body.className.replace(/theme-\w+/g, '') + ' ' + savedTheme;
+
+    // 绑定选项点击事件
+    dropdown.querySelectorAll('.theme-option').forEach(opt => {
+      opt.onclick = () => {
+        const selectedTheme = opt.getAttribute('data-theme');
+        document.body.className = document.body.className.replace(/theme-\w+/g, '') + ' ' + selectedTheme;
+        localStorage.setItem('user-bg-theme', selectedTheme);
+        dropdown.classList.remove('show');
+      };
+    });
+  }
+
 
 })(); // 🌟 正确的闭包

@@ -1222,3 +1222,83 @@ body:has(.hero-section) .md-content__inner {
   background: transparent !important;
   box-shadow: none !important;
 }
+/* ================= 背景颜色选择器 UI ================= */
+#theme-picker-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--md-default-fg-color); /* 适配深色模式 */
+}
+
+#theme-picker-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 120px; /* 位置微调，确保在调色盘按钮下方 */
+  background: var(--md-default-bg-color);
+  border-radius: 12px;
+  padding: 10px;
+  display: none;
+  flex-direction: row;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.05);
+  z-index: 9999;
+}
+#theme-picker-dropdown.show {
+  display: flex;
+}
+
+.theme-option {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s;
+}
+.theme-option:hover {
+  transform: scale(1.15);
+  border-color: var(--md-primary-fg-color);
+}
+
+/* ================= 5 套绝美背景配色（仅首页生效） ================= */
+
+/* 1. 默认粉蓝梦幻（你现在的） */
+body.theme-default:has(.hero-section) {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 193, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+    linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%) !important;
+}
+.theme-option.theme-default { background: linear-gradient(135deg, #ffb6c1, #add8e6); }
+
+/* 2. 橘子落日（温暖热情） */
+body.theme-sunset:has(.hero-section) {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important;
+}
+.theme-option.theme-sunset { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+
+/* 3. 森林薄雾（护眼清新） */
+body.theme-forest:has(.hero-section) {
+  background: linear-gradient(135deg, #e0f2f1 0%, #a5d6a7 100%) !important;
+}
+.theme-option.theme-forest { background: linear-gradient(135deg, #e0f2f1, #a5d6a7); }
+
+/* 4. 深海幽蓝（静谧沉浸） */
+body.theme-ocean:has(.hero-section) {
+  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%) !important;
+}
+.theme-option.theme-ocean { background: linear-gradient(135deg, #e0f7fa, #80deea); }
+
+/* 5. 赛博星夜（极客炫酷） */
+body.theme-cyber:has(.hero-section) {
+  background: linear-gradient(135deg, #2b1055 0%, #7597de 100%) !important;
+}
+.theme-option.theme-cyber { background: linear-gradient(135deg, #2b1055, #7597de); }
+
+/* 兼容深色模式：在暗黑模式下，这五套背景自动变暗 */
+[data-md-color-scheme="slate"] body.theme-default:has(.hero-section) { filter: invert(0.85) hue-rotate(180deg); }
+[data-md-color-scheme="slate"] body.theme-sunset:has(.hero-section) { filter: invert(0.85) hue-rotate(180deg); }
+[data-md-color-scheme="slate"] body.theme-forest:has(.hero-section) { filter: invert(0.85) hue-rotate(180deg); }
+[data-md-color-scheme="slate"] body.theme-ocean:has(.hero-section) { filter: invert(0.85) hue-rotate(180deg); }
+[data-md-color-scheme="slate"] body.theme-cyber:has(.hero-section) { filter: invert(0.85) hue-rotate(180deg); }
