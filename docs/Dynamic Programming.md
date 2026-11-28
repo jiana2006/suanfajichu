@@ -675,6 +675,158 @@ int main(){
 这个和01背包也就是最后加了一个判定，我感觉出的很好，能让你看看你是否学会了01背包。
 
 
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>怪物讨伐</title>
+</head>
+<body>
+
+<h1>怪物讨伐</h1>
+
+<h2>题目描述</h2>
+
+<p>有 <var>N</var> 只怪物。</p>
+<p>第 <var>i</var> 只怪物的等级为 <var>L<sub>i</sub></var>，强度为 <var>P<sub>i</sub></var>。</p>
+
+<p>最初，高桥君的等级为 <var>1</var>，并按照 <var>i = 1, 2, …, N</var> 的顺序执行以下行动。</p>
+
+<ul>
+  <li>当第 <var>i</var> 只怪物的等级高于高桥君的等级时，高桥君无法与这只怪物战斗，什么都不会发生。</li>
+  <li>否则，高桥君可以选择与这只怪物战斗，或者不战斗。
+    <ul>
+      <li>不战斗时，什么都不会发生。</li>
+      <li>战斗时，高桥君消耗体力 <var>P<sub>i</sub></var> 打倒怪物，并且高桥君的等级上升 <var>1</var>。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>请判断高桥君是否能够打倒第 <var>N</var> 只怪物。</p>
+<p>如果可以打倒，请计算为了打倒它所需消耗体力的总和的最小值。</p>
+
+<h2>约束</h2>
+
+<ul>
+  <li><var>1 ≤ N ≤ 6000</var></li>
+  <li><var>1 ≤ L<sub>i</sub> ≤ 10<sup>9</sup></var></li>
+  <li><var>1 ≤ P<sub>i</sub> ≤ 10<sup>9</sup></var></li>
+  <li>给出的所有数值均为整数。</li>
+</ul>
+
+<h2>输入</h2>
+
+<p>输入按以下格式从标准输入给出。</p>
+
+<pre>
+N
+L<sub>1</sub> P<sub>1</sub>
+L<sub>2</sub> P<sub>2</sub>
+⋮
+L<sub>N</sub> P<sub>N</sub>
+</pre>
+
+<h2>输出</h2>
+
+<p>如果无法打倒第 <var>N</var> 只怪物，输出 <code>-1</code>。</p>
+<p>如果可以打倒第 <var>N</var> 只怪物，输出所需消耗体力的总和的最小值。</p>
+
+<h2>输入样例 1</h2>
+
+<pre>
+5
+1 1000
+9 100
+2 10
+1 1
+3 10000
+</pre>
+
+<h2>输出样例 1</h2>
+
+<pre>
+11001
+</pre>
+
+<p>按以下方式行动时，消耗体力的总和为 <var>11001</var>，可以打倒第 <var>5</var> 只怪物。</p>
+
+<ul>
+  <li>与第 <var>1</var> 只怪物战斗。消耗体力 <var>1000</var>，等级变为 <var>2</var>。</li>
+  <li>无法与第 <var>2</var> 只怪物战斗。</li>
+  <li>不与第 <var>3</var> 只怪物战斗。</li>
+  <li>与第 <var>4</var> 只怪物战斗。消耗体力 <var>1</var>，等级变为 <var>3</var>。</li>
+  <li>与第 <var>5</var> 只怪物战斗。消耗体力 <var>10000</var>，等级变为 <var>4</var>。</li>
+</ul>
+
+<p>消耗体力的总和不可能小于 <var>11001</var>，因此这是答案。</p>
+
+<h2>输入样例 2</h2>
+
+<pre>
+3
+10 1
+10 1
+2 1
+</pre>
+
+<h2>输出样例 2</h2>
+
+<pre>
+-1
+</pre>
+
+<p>如果无法打倒第 <var>N</var> 只怪物，请输出 <code>-1</code>。</p>
+
+</body>
+</html>
+
+这个题比较难
+```cpp title="怪物讨伐.cpp"
+#include<bits/stdc++.h>
+using namespace std;
+
+#define endl "\n"
+typedef long long ll;
+const int N = 6005;
+const ll INF = (ll)4e18;  
+
+ll dp[N];                 
+int l[N], p[N];
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++){
+		cin >> l[i] >> p[i];   
+	}
+
+	for (int k = 0; k <= n; k++) dp[k] = INF;
+	dp[0] = 0;
+
+	for (int j = 0; j < n; j++){
+		for (int k = j; k >= 0; k--){      
+			if (dp[k] == INF) continue;
+			ll o = dp[k];
+			if (j == n - 1) dp[k] = INF;
+			if (1 + k >= l[j]){
+				dp[k + 1] = min(dp[k + 1], o + p[j]);
+			}
+		}
+	}
+
+	ll ans = INF;
+	for (int k = 0; k <= n; k++) ans = min(ans, dp[k]);
+	
+	if (ans == INF) cout << -1 << endl;  
+	else cout << ans << endl;
+	
+	return 0;
+}
+```
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
